@@ -26,7 +26,7 @@ jobs:
     - name: build /dist folder
       run: |
         npm install
-        npm run build
+        npm run generate
 
     # publish to github pages
     - name: GitHub Pages
