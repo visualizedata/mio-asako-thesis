@@ -13,7 +13,7 @@
 <script>
 import asmd from '~/components/asmd.vue'
 
-import loadedAsmdData from "~/assets/asmd_incidents.json";
+import loadedAsmdData from "~/static/asmd_incidents.json";
 
 export default {
   data() {
