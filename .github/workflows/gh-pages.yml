@@ -37,4 +37,4 @@ jobs:
         build_dir: dist/
       env:
           GITHUB_TOKEN: ${{ secrets.ghtoken }}
-
+          BASE_URL: https://miopio.github.io/thesis-play/
