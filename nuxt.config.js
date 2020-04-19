@@ -18,6 +18,9 @@ export default {
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
+  router: {
+    base: (process.env.NODE_ENV === 'production' ? '/thesis-play/' : '/')
+  },
   /*
   ** Customize the progress-bar color
   */
