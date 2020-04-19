@@ -38,3 +38,4 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.ghtoken }}
           BASE_URL: https://miopio.github.io/thesis-play/
+          NODE_ENV: production
