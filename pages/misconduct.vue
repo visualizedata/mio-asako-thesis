@@ -1,11 +1,11 @@
 <template>
   <el-row>
-    <el-col :span="4"><p>Misconduct component</p></el-col>
-    <el-col :span="16">
+    <el-col :span="0"><p>Misconduct component</p></el-col>
+    <el-col :span="24">
       <p>Misconduct</p>
       <asmd :asmdData=loadedAsmdData />
     </el-col>
-    <el-col :span="4"><h1>Misconduct again</h1></el-col>
+    <el-col :span="0"><h1>Misconduct again</h1></el-col>
   </el-row>
 
 </template>
