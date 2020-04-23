@@ -85,15 +85,13 @@ export default {
     }));
     console.log("startYear: " + startYear);
 
-    var endYear = 2019;   // TODO: compute from actual data set
-
     var endYear = Math.max(...myStems.map(function(a){
       return a['Outcome Year'];
     }));
     console.log("endYear: " + endYear);
     var nBins = endYear - startYear;
 
-    var circleRadius = 7;
+    var circleRadius = 7; // FIXME: why does this circleRadius fix the y-axis?
     
     // Set the ranges of x and y
     var x = d3.scaleTime()
