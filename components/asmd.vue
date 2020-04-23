@@ -2,16 +2,12 @@
   <div>
     <h2>ASMD test</h2>
     <svg ref="asmdCircleGraphSVG" v-bind:width= "width" :height = "height">
-      <!--<text v-for="(d,i) in asmdData">{{d["Person"]}}</text>-->
     </svg>
-    <div class = "cases">
-        <!--<h2 v-for="(d,i) in asmdData">Name: {{d["Person"]}}</h2>-->
+    <div class="cases" ref="caseDetail">
         <h2>Institution:</h2>
         <h2>Discipline:</h2>
         <h2>Story: </h2>
-
     </div>
-
   </div>
 </template>
 
@@ -115,6 +111,35 @@ export default {
       return a.length;
     }));
 
+    function tooltipOn(d) {
+        // x position of parent g element
+        let gParent = d3.select(this.parentElement)
+        let translateValue = gParent.attr("transform")
+
+        d3.select(this)
+          .classed("selected", true)
+          .style("opacity", .5)
+          .style("cursor", "pointer")
+        tooltip.transition()
+          .duration(200)
+          .style("opacity", .9);
+        tooltip.html("<b><span style = 'font-size: 20px; color: #bf033b; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" + "<b>Outcome:  </b>" + d.outcome + "</br>" + "<b>Institution:  </b>" + d.institution + "</br>" +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<a href= '" + d.link + "''>" + "</a>")
+          .style("left", 300 + "px")
+          .style("top", 300 + "px")
+          .style("margin", "10px");
+      };
+
+      function tooltipOff(d) {
+        d3.select(this)
+          .classed("selected", false)
+          .style("fill", function(d){ return d.color; })
+          .style("opacity", 1);
+
+        tooltip.transition()
+            .duration(500)
+            .style("opacity", 1);
+      };
+
     var width = window.innerWidth;
     var height = window.innerHeight;
 
@@ -130,10 +155,11 @@ export default {
     console.log("window width: " + window.innerWidth);
 
     // add the tooltip area to the webpage
-    var tooltip = d3.select(this.$refs.asmdCircleGraphSVG).append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 1)
-  
+    var tooltip = 
+        d3.select(this.$refs.caseDetail)
+          .append()
+          .attr("class", "tooltip")
+          .style("opacity", 0.2)
 
     // g container for each bin
     let binContainer = svg.selectAll(".gBin")
@@ -141,10 +167,11 @@ export default {
 
     binContainer.exit().remove()
 
+    console.log("$refs: " + JSON.stringify(this.$refs))
+
     let binContainerEnter = binContainer.enter()
         .append("g")
-          .attr("class", "gBin")
-          // .attr("transform", d => `translate(${x(d.x0)}, ${this.height})`)
+        .attr("class", "gBin")
 
     // need to populate the bin containers with data the first time
     binContainerEnter.selectAll("rect")
@@ -194,34 +221,6 @@ export default {
         .attr("class", "axis axis--y")
         .style("stroke", "white")
         .call(d3.axisRight(y));
-      
-      function tooltipOn(d) {
-        // x position of parent g element
-        let gParent = d3.select(this.parentElement)
-        let translateValue = gParent.attr("transform")
-
-        d3.select(this)
-          .classed("selected", true)
-          .style("opacity", .5)
-          .style("cursor", "pointer")
-        tooltip.transition()
-            .duration(200)
-            .style("opacity", .9);
-        tooltip.html("<b><span style = 'font-size: 20px; color: #bf033b; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" + "<b>Outcome:  </b>" + d.outcome + "</br>" + "<b>Institution:  </b>" + d.institution + "</br>" +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<a href= '" + d.link + "''>" + "</a>")
-          .style("left", 300 + "px")
-          .style("top", 300 + "px")
-          .style("margin", "10px");
-    }
-
-    function tooltipOff(d) {
-      d3.select(this)
-          .classed("selected", false)
-          .style("fill", function(d){ return d.color; })
-          .style("opacity", 1)
-        tooltip.transition()
-            .duration(500)
-            .style("opacity", 1);
-    }
 
   },
   watch: {
@@ -254,4 +253,3 @@ export default {
   border: 5px solid #ff0000;
 }
 </style>
-
