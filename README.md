@@ -1,6 +1,7 @@
-# thesis-play
+## Working Title
+Women in STEM: A Lesson in Perseverence
 
-> My neat Nuxt.js project
+![viz prototype]('~preview.png')
 
 ## Build Setup
 

@@ -15,8 +15,11 @@ export default {
 </script>
 
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  font-family: 'Lato', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   color: #ffffff;
@@ -30,6 +33,10 @@ html {
 
 body{
   background-color: #333333;
+}
+
+h2{
+  color: #ff6767;
 }
 
 *,

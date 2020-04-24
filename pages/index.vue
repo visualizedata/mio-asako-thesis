@@ -4,41 +4,27 @@
       <el-col :span="24">
         <!--<logo />-->
         <h1 class="title">
-          Sexual misconduct, harassment, and discrimination in STEM academia
+         A Lesson in Perseverence: Women in STEM 
         </h1>
         <h2 class="subtitle">
-          How have women overcome hardships in STEM academia? (title tbd)
+          Overcoming sexual misconduct, harassment, and discrimination in STEM Academia
         </h2>
-        <div class="links">
-          <p>dfdfdff</p>
-        </div>
       </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="6"></el-col>
-      <el-col :span="12">
-        <div>
-          <h2>
-            Introduction
-          </h2>
-        </div>
-      </el-col>
-      <el-col :span="6"></el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
 
 export default {
   components: {
-    Logo
   }
 }
 </script>
 
 <style>
+body {
+}
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -49,19 +35,19 @@ export default {
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+  font-family: Lato, 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 60px;
-  color: ##696969;
+  color: #ffffff;
   letter-spacing: 1px;
 }
 
 .subtitle {
   font-weight: 300;
-  font-size: 20px;
-  color: #526488;
+  font-size: px;
+  color: #ffffff;
   word-spacing: 5px;
   padding-bottom: 15px;
 }

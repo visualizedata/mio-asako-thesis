@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>ASMD test</h2>
+    <h2>{{chartTitle}}</h2>
     <svg ref="asmdCircleGraphSVG" v-bind:width= "width" :height = "height">
     </svg>
     <div class="cases" ref="caseDetail">
@@ -124,7 +124,7 @@ export default {
         tooltip.transition()
           .duration(200)
           .style("opacity", .9);
-        tooltip.html("<b><span style = 'font-size: 20px; color: #bf033b; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" + "<b>Outcome:  </b>" + d.outcome + "</br>" + "<b>Institution:  </b>" + d.institution + "</br>" +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<a href= '" + d.link + "''>" + "</a>")
+        tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" + "<b>Outcome:  </b>" + d.outcome + "</br>" + "<b>Institution:  </b>" + d.institution + "</br>" +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>")
           .style("left", 300 + "px")
           .style("top", 300 + "px")
           .style("margin", "10px");
@@ -186,7 +186,8 @@ export default {
                     institution: p["Institution"],
                     discipline: p["Specific Discipline"],
                     link: p["Original Link(s)"],
-                    color: "#ffffff"
+                    color: "#ffffff",
+                    story: p["Specific Outcome"]
                   }
           }))
         .enter()
@@ -254,6 +255,5 @@ export default {
 }
 
 .cases {
-  border: 5px solid #ff0000;
 }
 </style>
