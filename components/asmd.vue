@@ -4,7 +4,7 @@
     <svg ref="asmdCircleGraphSVG" v-bind:width= "width" :height = "height">
     </svg>
     <div class="cases" ref="caseDetail">
-        <h2>Institution:</h2>
+        <h2>Institution: {{ caseDetailInstitution }}</h2>
         <h2>Discipline:</h2>
         <h2>Story: </h2>
     </div>
@@ -25,6 +25,7 @@ export default {
       height: 800, //why does window.innerHeight not work?
       width: 1500,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
+      caseDetailInstitution: "no institution yet"
       //data: this.asmdData,
     }
   },
@@ -111,7 +112,7 @@ export default {
       return a.length;
     }));
 
-    function tooltipOn(d) {
+    var tooltipOn = function(d) {
         // x position of parent g element
         let gParent = d3.select(this.parentElement)
         let translateValue = gParent.attr("transform")
@@ -127,9 +128,11 @@ export default {
           .style("left", 300 + "px")
           .style("top", 300 + "px")
           .style("margin", "10px");
+
+        this.caseDetailInstitution = "now loog!"
       };
 
-      function tooltipOff(d) {
+    var tooltipOff = function(d) {
         d3.select(this)
           .classed("selected", false)
           .style("fill", function(d){ return d.color; })
@@ -168,6 +171,7 @@ export default {
     binContainer.exit().remove()
 
     console.log("$refs: " + JSON.stringify(this.$refs))
+    console.log("this.caseDetailInstitution: " + this.caseDetailInstitution)
 
     let binContainerEnter = binContainer.enter()
         .append("g")
