@@ -40,7 +40,7 @@ body {
   overflow: hidden;
   position: absolute;
   white-space: pre;
-  background: #11ff66;
+  color: #333333;
 }
 
 .node-label,

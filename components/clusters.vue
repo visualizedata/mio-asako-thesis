@@ -48,11 +48,15 @@ export default {
     // filter out asmdData that's a stem!
     var myStems = this.asmdData
       .filter(this.isValid)
-      .filter(this.isStem);
+      .filter(this.isStem)
+      .map(this.addOutcomeClassifier);
+
+    console.log("myStems: ")
+    console.log(myStems)
 
     //test groupby code
     var myStemsByOutcome = d3.nest()
-        .key(function(d) {return d.Outcome;})
+        .key(function(d) {return d.OutcomeClassifier;})
         .key(function(d) {return d.Discipline;})
         .key(function(d) {return d.Institution;})
         .rollup(function(v) {return v.length;})
@@ -69,6 +73,10 @@ export default {
 
     treemap(root);
 
+    var color = d3.scaleOrdinal()
+        .domain(function(d){return d.Outcome})
+        .range(d3.schemeSet3);
+
     var node = d3.select(this.$refs.asmdClustering)
         .attr("width", this.width)
         .attr("height", this.height)
@@ -79,11 +87,14 @@ export default {
             .style("left", function(d) { return d.x0 + "px"; })
             .style("top", function(d) { return d.y0 + "px"; })
             .style("width", function(d) { return d.x1 - d.x0 + "px"; })
-            .style("height", function(d) { return d.y1 - d.y0 + "px"; });
+            .style("height", function(d) { return d.y1 - d.y0 + "px"; })
+            .style("background", function(d){ return color(d.parent.parent.data.key)});
 
     node.append("div")
         .attr("class", "node-label")
-        .text(function(d) { return d.parent.parent.data.key + " in " + d.parent.data.key + " at " + d.data.key; });
+        .text(function(d) { 
+              return d.parent.parent.data.key + " in " + d.parent.data.key + " at " + d.data.key; 
+            });
 
     node.append("div")
         .attr("class", "node-value")
