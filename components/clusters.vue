@@ -74,23 +74,31 @@ export default {
                  .sum(function(d) { return d.value})
                  .sort(function(a, b) { return b.value - a.value; });
 
+    console.log("root:")
+    console.log(root)
+
     // draw circle packing
-    d3.pack(root)
+    var packedRoot = d3.pack()
+                       .size([this.width, this.height])
+                       .padding(3)(root)
+
+    console.log("packedRoot:")
+    console.log(packedRoot)
 
     var color = d3.scaleOrdinal()
         .domain(function(d){return d.Outcome})
         .range(d3.schemeSet3);
 
-
     var svg = d3.select(this.$refs.asmdClusteringSVG)
         .attr("width", this.width)
         .attr("height", this.height)
 
-    const circleNode = svg.selectAll("g")
+    const node = svg.selectAll("circle")
         .data(root.descendants().slice(1))
-        .join("g")
-        .attr("fill", d => d.values ? color(d.depth) : "white")
- 
+        .join("circle")
+        .attr("fill", d => d.value ? color(d.depth) : "white")
+        .attr("r", d => d.r)
+        .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
 
     // draw treemap
     // treemap(root);
