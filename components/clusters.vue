@@ -1,8 +1,11 @@
 <template>
   <div>
     <h2>{{chartTitle}}</h2>
-    <div ref="asmdClustering" v-bind:width= "width" :height = "height">
-    </div>
+     <el-row>
+      <el-col :span="24">
+        <svg ref="asmdClusteringSVG" style= "float: right;" v-bind:width= "width" :height = "height"></svg>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -51,8 +54,8 @@ export default {
       .filter(this.isStem)
       .map(this.addOutcomeClassifier);
 
-    console.log("myStems: ")
-    console.log(myStems)
+    // console.log("myStems: ")
+    // console.log(myStems)
 
     //test groupby code
     var myStemsByOutcome = d3.nest()
@@ -71,34 +74,49 @@ export default {
                  .sum(function(d) { return d.value})
                  .sort(function(a, b) { return b.value - a.value; });
 
-    treemap(root);
+    // draw circle packing
+    d3.pack(root)
 
     var color = d3.scaleOrdinal()
         .domain(function(d){return d.Outcome})
         .range(d3.schemeSet3);
 
-    var node = d3.select(this.$refs.asmdClustering)
+
+    var svg = d3.select(this.$refs.asmdClusteringSVG)
         .attr("width", this.width)
         .attr("height", this.height)
-        .selectAll(".node")
-        .data(root.leaves())
-        .enter().append("div")
-            .attr("class", "node")
-            .style("left", function(d) { return d.x0 + "px"; })
-            .style("top", function(d) { return d.y0 + "px"; })
-            .style("width", function(d) { return d.x1 - d.x0 + "px"; })
-            .style("height", function(d) { return d.y1 - d.y0 + "px"; })
-            .style("background", function(d){ return color(d.parent.parent.data.key)});
 
-    node.append("div")
-        .attr("class", "node-label")
-        .text(function(d) { 
-              return d.parent.parent.data.key + " in " + d.parent.data.key + " at " + d.data.key; 
-            });
+    const circleNode = svg.selectAll("g")
+        .data(root.descendants().slice(1))
+        .join("g")
+        .attr("fill", d => d.values ? color(d.depth) : "white")
+ 
 
-    node.append("div")
-        .attr("class", "node-value")
-        .text(function(d) { return d.value; });
+    // draw treemap
+    // treemap(root);
+
+    // var treenode = d3.select(this.$refs.asmdClustering)
+    //     .attr("width", this.width)
+    //     .attr("height", this.height)
+    //     .selectAll(".node")
+    //     .data(root.leaves())
+    //     .enter().append("div")
+    //         .attr("class", "node")
+    //         .style("left", function(d) { return d.x0 + "px"; })
+    //         .style("top", function(d) { return d.y0 + "px"; })
+    //         .style("width", function(d) { return d.x1 - d.x0 + "px"; })
+    //         .style("height", function(d) { return d.y1 - d.y0 + "px"; })
+    //         .style("background", function(d){ return color(d.parent.parent.data.key)});
+
+    // treenode.append("div")
+    //     .attr("class", "node-label")
+    //     .text(function(d) { 
+    //           return d.parent.parent.data.key + " in " + d.parent.data.key + " at " + d.data.key; 
+    //         });
+
+    // treenode.append("div")
+    //     .attr("class", "node-value")
+    //     .text(function(d) { return d.value; });
 
 },
   watch: {
