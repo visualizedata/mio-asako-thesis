@@ -20,7 +20,7 @@ var utilsMixin = {
           var elem = s['Outcome'];
           var containsName = function(name) {
             if (!(elem.toLowerCase().indexOf(name) === -1)){
-                return name;
+                return name.charAt(0).toUpperCase() + name.slice(1);
             } else { return false };
           }
           // array of true or false, where true if includes any of stemNames

@@ -54,6 +54,7 @@ export default {
       .filter(this.isStem)
       .map(this.addOutcomeClassifier);
 
+    // the order here creates different hierarchies
     var myStemsByOutcome = d3.nest()
         .key(function(d) {return d.OutcomeClassifier;})
         .key(function(d) {return d.Discipline;})
@@ -70,16 +71,19 @@ export default {
       .size([this.width, this.height])
       .padding(3)(root)
 
+    // create a color scheme
     var color = d3.scaleOrdinal()
         .domain(function(d){return d.Outcome})
         .range(d3.schemeSet3);
 
+    // select the SVG
     var svg = d3.select(this.$refs.asmdClusteringSVG)
         .attr("width", this.width)
         .attr("height", this.height)
 
+    // draw circles for every cluster
     const node = svg.selectAll("circle")
-        .data(root.descendants())
+        .data(root.descendants().slice(1)) // slice(1) removes outer circle
         .join("circle")
         .attr("fill", d => d.value ? color(d.depth) : "white")
         .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
@@ -87,13 +91,14 @@ export default {
         .attr("r", d => d.r)
         .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
 
-      const label = svg.append("g")
-        .selectAll("text")
-        .data(root.descendants())
-        .join("text")
-            .style("display", d => d.parent === root ? "inline" : "none")
-            .text(d => d.data.key)
-            .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
+    // label every circle (depending on criteria)
+    const label = svg.append("g")
+    .selectAll("text")
+    .data(root.descendants())
+    .join("text")
+        .style("display", d => d.parent === root ? "inline" : "none") // here's the criterion
+        .text(d => d.data.key)
+        .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
 
 },
   watch: {
