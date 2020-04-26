@@ -17,6 +17,8 @@
 <script>
 import * as d3 from "d3";
 
+import utilsMixin from '~/mixins/utils.js'
+
 export default {
   name: "asmd",
   data(){
@@ -37,6 +39,7 @@ export default {
       required: true
     }
   },
+  mixins: [utilsMixin],
   methods: {
   },
   computed: {
@@ -48,30 +51,10 @@ export default {
     // this exists, because it is defined as `required` in the props
     const asmdData = this.asmdData;
 
-    // naive stem identifier
-    var isStem = function(s) {
-        // array of stem substrings
-        var stemNames = ['math','bio','med', 'health', 'psych', 'engineering', 'neuro', 'physical science', 'physics', 'anthro', 'chem', 'life', 'computer', 'geo', 'ecology', 'sociology', 'political', 'information', 'statistics','criminology'];
-        var containsName = function(name) {
-          return !(s.toLowerCase().indexOf(name) === -1);
-        }
-        // array of true or false, where true if includes any of stemNames
-        var res = stemNames.map(containsName);
-        // return true if _any_ of the results are true
-        return res.some(function(b){ return b === true ;})
-    }
-
-    var isValid = function(s){
-      return s['Outcome Year'] > 1900;
-    }
-
     // filter out asmdData that's a stem!
-    var myStems = this.asmdData.filter(function(element){
-        var toInspect = element['Discipline'];
-        if(toInspect.length < 1){ return false; }
-        return isStem(toInspect);
-      })
-      .filter(isValid);
+    var myStems = this.asmdData
+      .filter(this.isValid)
+      .filter(this.isStem);
 
     var incidentColor = function(e){
       return e.toLowerCase().indexOf("resigned") === -1 ? "#ff6767" : "#6767ff";
@@ -254,6 +237,4 @@ export default {
   padding: 10px;
 }
 
-.cases {
-}
 </style>
