@@ -54,10 +54,6 @@ export default {
       .filter(this.isStem)
       .map(this.addOutcomeClassifier);
 
-    // console.log("myStems: ")
-    // console.log(myStems)
-
-    //test groupby code
     var myStemsByOutcome = d3.nest()
         .key(function(d) {return d.OutcomeClassifier;})
         .key(function(d) {return d.Discipline;})
@@ -65,25 +61,14 @@ export default {
         .rollup(function(v) {return v.length;})
         .entries(myStems);
 
-    var treemap = d3.treemap()
-        .size([this.width, this.height])
-        .padding(1)
-        .round(true);
-
     var root = d3.hierarchy({values:myStemsByOutcome }, function(d) { return d.values;})
                  .sum(function(d) { return d.value})
                  .sort(function(a, b) { return b.value - a.value; });
 
-    console.log("root:")
-    console.log(root)
-
     // draw circle packing
-    var packedRoot = d3.pack()
-                       .size([this.width, this.height])
-                       .padding(3)(root)
-
-    console.log("packedRoot:")
-    console.log(packedRoot)
+    d3.pack()
+      .size([this.width, this.height])
+      .padding(3)(root)
 
     var color = d3.scaleOrdinal()
         .domain(function(d){return d.Outcome})
@@ -94,37 +79,21 @@ export default {
         .attr("height", this.height)
 
     const node = svg.selectAll("circle")
-        .data(root.descendants().slice(1))
+        .data(root.descendants())
         .join("circle")
         .attr("fill", d => d.value ? color(d.depth) : "white")
+        .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
+        .on("mouseout", function() { d3.select(this).attr("stroke", null); })
         .attr("r", d => d.r)
         .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
 
-    // draw treemap
-    // treemap(root);
-
-    // var treenode = d3.select(this.$refs.asmdClustering)
-    //     .attr("width", this.width)
-    //     .attr("height", this.height)
-    //     .selectAll(".node")
-    //     .data(root.leaves())
-    //     .enter().append("div")
-    //         .attr("class", "node")
-    //         .style("left", function(d) { return d.x0 + "px"; })
-    //         .style("top", function(d) { return d.y0 + "px"; })
-    //         .style("width", function(d) { return d.x1 - d.x0 + "px"; })
-    //         .style("height", function(d) { return d.y1 - d.y0 + "px"; })
-    //         .style("background", function(d){ return color(d.parent.parent.data.key)});
-
-    // treenode.append("div")
-    //     .attr("class", "node-label")
-    //     .text(function(d) { 
-    //           return d.parent.parent.data.key + " in " + d.parent.data.key + " at " + d.data.key; 
-    //         });
-
-    // treenode.append("div")
-    //     .attr("class", "node-value")
-    //     .text(function(d) { return d.value; });
+      const label = svg.append("g")
+        .selectAll("text")
+        .data(root.descendants())
+        .join("text")
+            .style("display", d => d.parent === root ? "inline" : "none")
+            .text(d => d.data.key)
+            .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
 
 },
   watch: {
