@@ -23,8 +23,7 @@ export default {
 </script>
 
 <style>
-body {
-}
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -35,7 +34,7 @@ body {
 }
 
 .title {
-  font-family: Lato, 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;

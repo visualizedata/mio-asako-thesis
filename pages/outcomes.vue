@@ -2,7 +2,6 @@
   <el-row>
     <el-col :span="3"></el-col>
     <el-col :span="18">
-        <p>clustering test</p>
       <clusters :asmdData=loadedAsmdData />
     </el-col>
     <el-col :span="3"></el-col>
@@ -31,4 +30,29 @@ export default {
 </script>
 
 <style>
+body {
+  font: 10px sans-serif;
+  position: relative;
+}
+.node {
+  box-sizing: border-box;
+  line-height: 1em;
+  overflow: hidden;
+  position: absolute;
+  white-space: pre;
+  background: #11ff66;
+}
+
+.node-label,
+.node-value {
+  margin: 4px;
+}
+
+.node-value {
+  margin-top: -2px;
+}
+
+.node-value {
+  font-weight: bold;
+}
 </style>

@@ -11,12 +11,6 @@
     </div>
 </template>
 
-<style scoped>
-    .line{
-        stroke: red;
-    }
-</style>
-
 <script>
   export default {
     data() {
