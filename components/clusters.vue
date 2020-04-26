@@ -1,11 +1,7 @@
 <template>
   <div>
     <h2>{{chartTitle}}</h2>
-     <el-row>
-      <el-col :span="24">
         <svg ref="asmdClusteringSVG" style= "float: right;" v-bind:width= "width" :height = "height"></svg>
-      </el-col>
-    </el-row>
   </div>
 </template>
 
@@ -59,6 +55,7 @@ export default {
         .key(function(d) {return d.OutcomeClassifier;})
         .key(function(d) {return d.Discipline;})
         .key(function(d) {return d.Institution;})
+        //.key(function(d) {return d.Person;})
         .rollup(function(v) {return v.length;})
         .entries(myStems);
 
@@ -70,11 +67,14 @@ export default {
     d3.pack()
       .size([this.width, this.height])
       .padding(3)(root)
+    
+    console.log(root)
 
     // create a color scheme
     var color = d3.scaleOrdinal()
-        .domain(function(d){return d.Outcome})
+        .domain(function(d){return d.OutcomeClassifier})
         .range(d3.schemeSet3);
+
 
     // select the SVG
     var svg = d3.select(this.$refs.asmdClusteringSVG)
@@ -85,20 +85,34 @@ export default {
     const node = svg.selectAll("circle")
         .data(root.descendants().slice(1)) // slice(1) removes outer circle
         .join("circle")
-        .attr("fill", d => d.value ? color(d.depth) : "white")
-        .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
+        //.attr("fill", d => d.value ? color(d.depth) : "white") //color needs to change
+        .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
+                                        : d.depth == 2 ? color(d.data.key)
+                                        : d.depth == 1 ? color(d.data.key)
+                                        : color(d.data.key);
+        })
+        .attr("pointer-events", d => !d.children ? "none" : null)
+        .on("mouseover", function() { d3.select(this).attr("stroke", "#000000"); })
         .on("mouseout", function() { d3.select(this).attr("stroke", null); })
         .attr("r", d => d.r)
         .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
+    
 
     // label every circle (depending on criteria)
     const label = svg.append("g")
     .selectAll("text")
     .data(root.descendants())
     .join("text")
-        .style("display", d => d.parent === root ? "inline" : "none") // here's the criterion
+        //.style("display", d => d.parent === root ? "inline" : "none") // here's the criterion
+        .style("display", function(d) {return d.depth == 3 ? "none"
+                            : d.depth == 2 ? "inline"
+                            : d.depth == 1 ? "inline"
+                            : "inline";
+                            })
+        //.style("display", "none")
         .text(d => d.data.key)
-        .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
+        .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
+    //.on("mouseover", function() { d3.select(this).style("display", "inline"); }) 
 
 },
   watch: {
