@@ -12,15 +12,78 @@
         </el-col>
       </el-row>
     </div>
-    <el-row>
+    <el-row class = "intro">
       <el-col :span="8">
-        <div class="grid-content bg-purple"></div>
       </el-col>
       <el-col :span="8">
-          <h2 class = "header">Introduction</h2>
+          <h2 class = "header">INTRODUCTION</h2>
+          <p>It is now almost three years since the #MeToo movement sparked a global phenomenon that changed the 
+          cultural landscape of how we perceive sexual misconduct. A term originally coined in 2006 by civil rights 
+          activist Tarana Burke, #MeToo reemerged on Twitter in October 2017, where actress Alyssa Milano used it as 
+          a hashtag to highlight sexual abuse by the Hollywood titan Harvey Weinstein. With this, she called out for 
+          fellow survivors of sexual violation to step forward and join in on highlighting similar experiences. What 
+          ensued was nothing short of extraordinary--by sheer number and persistence, the voices of women were finally 
+          being legitimized in the public lense.</p>
+          <p>The act of sexual misconduct has been ever present in our society--it involves a certain lack of respect 
+          for other humans, and yet time and time again those who engage in it have been told it is , by virtue of inaction, 
+          or lenient sentences. Why is this so?</p>
       </el-col>
       <el-col :span="8">
-        <div class="grid-content bg-purple"></div>
+      </el-col>
+    </el-row>
+    <el-row class = "consent">
+      <el-col :span="8">
+      </el-col>
+      <el-col :span="8">
+          <h2 class = "header">THE LANGUAGE OF CONSENT</h2>
+          <p>Part of the reason is that we do not have a stable foundation of education around these matters. There is a 
+          severe lack of uniform understanding of boundaries, consent, and what comprises sexual misconduct across all 
+          demographics in society. In a Planned Parenthood survey conducted in 2015, a nationally representative group 
+          of adults age 18-95 across the US were asked questions about their views on consent and sexual assault.</p>
+          <p>Women overall showed a better understanding of the definition of consent, regardless of age, marital status, 
+          age, and ethnicity. However, people still held varying perspectives on what actions constituted sexual consent.</p>
+          <img :src = "images.consent">
+      </el-col>
+      <el-col :span="8">
+      </el-col>
+    </el-row>
+    <el-row class = "assault">
+      <el-col :span="8">
+      </el-col>
+      <el-col :span="8">
+          <h2 class = "header">AND THE CIRCUMSTANCES OF SEXUAL ASSAULT</h2>
+          <p>People also held differing views on what entailed sexual assault, and who was to blame for it. This causes 
+          significant problems on a macroscale level when law and order are decreed by those who do not have an understanding 
+          on these matters. Most reported that they did not get education about consent and sexual assault in middle or high 
+          school, and that their parents did not talk to them about these issues when growing up. </p>
+          <img :src = "images.assault">
+      </el-col>
+      <el-col :span="8">
+      </el-col>
+    </el-row>
+    <el-row class = "stem_intro">
+      <el-col :span="8">
+      </el-col>
+      <el-col :span="8">
+          <p>The environment is especially harsh for women who work in fields that have been historically male dominated. 
+            One of those fields is STEM. Women in STEM experience the highest rate of sexual harassment of any profession 
+            outside of the military.  In STEM academia, though the effect of the #MeToo movement have been observed, more 
+            must be done to provide a fair, equal, and respectful environment for women in the field.</p>
+      </el-col>
+      <el-col :span="8">
+      </el-col>
+    </el-row>
+    <el-row class = "stem_intro_2">
+      <el-col :span="8">
+      </el-col>
+      <el-col :span="8">
+        <h2>HOW SEVERE IS THE PROBLEM?</h2>
+          <p>Sexual misconduct, harassment, and discrimination in STEM academia is a problem that requires change at the 
+            institutional and national level. It has and still causes extensive damage to women who choose to pursue STEM 
+            academia as a career. Here you can explore the breakdown of sexual misconduct cases on a macro and micro scale, 
+            and also celebrate the women who have persevered through this to establish their careers.</p>
+      </el-col>
+      <el-col :span="8">
       </el-col>
     </el-row>
   </div>
@@ -29,16 +92,19 @@
 <script>
 
 export default {
-  components: {
+  data(){
+    return{
+      images: {
+        consent: require("~/assets/consent_v2.png"),
+        assault: require("~/assets/assault_v2.png")
+      }
+    }
   }
 }
 </script>
 
-<style scoped>
-body {
-  background: rgb(179,179,255);
-  background: linear-gradient(90deg, rgba(179,179,255,1) 0%, rgba(255,179,179,1) 100%);
-}
+<style>
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -46,10 +112,12 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  background: rgb(179,179,255);
+  background: linear-gradient(90deg, rgba(179,179,255,1) 0%, rgba(255,179,179,1) 100%);
 }
 
 .title {
-  font-family: Lato, 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+  font-family: 'Lato', 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
@@ -82,12 +150,8 @@ body {
   }
 }
 .el-col {
-  border-radius: 4px;
-}
-
-.grid-content{
-  border-radius: 4px;
   min-height: 36px;
+
 }
 
 </style>

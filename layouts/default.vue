@@ -38,6 +38,12 @@ body{
 h2{
   color: #ff6767;
   font-size: 36px;
+  font-family: 'Lato';
+}
+
+p{
+  font-family: 'Lato';
+  font-size: 18px;
 }
 
 *,
