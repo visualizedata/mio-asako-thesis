@@ -2,6 +2,7 @@
   <el-row>
     <el-col :span="3"></el-col>
     <el-col :span="18">
+    <h2>PATTERNS OF MISCONDUCT CASE OUTCOMES</h2>
       <clusters :asmdData=loadedAsmdData />
     </el-col>
     <el-col :span="3"></el-col>

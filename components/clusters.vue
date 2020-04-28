@@ -58,6 +58,8 @@ export default {
         //.key(function(d) {return d.Person;})
         .rollup(function(v) {return v.length;})
         .entries(myStems);
+    
+    console.log(myStemsByOutcome);
 
     var root = d3.hierarchy({values:myStemsByOutcome }, function(d) { return d.values;})
                  .sum(function(d) { return d.value})
@@ -71,10 +73,17 @@ export default {
     console.log(root)
 
     // create a color scheme
-    var color = d3.scaleOrdinal()
+    var colorO = d3.scaleOrdinal()
         .domain(function(d){return d.OutcomeClassifier})
+        .range(d3.schemeSet2);
+
+    var colorD = d3.scaleOrdinal()
+        .domain(function(d){return d.Discipline})
         .range(d3.schemeSet3);
 
+    var colorI = d3.scaleOrdinal()
+        .domain(function(d){return d.Institution})
+        .range(d3.schemeSet3);
 
     // select the SVG
     var svg = d3.select(this.$refs.asmdClusteringSVG)
@@ -87,11 +96,11 @@ export default {
         .join("circle")
         //.attr("fill", d => d.value ? color(d.depth) : "white") //color needs to change
         .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
-                                        : d.depth == 2 ? color(d.data.key)
-                                        : d.depth == 1 ? color(d.data.key)
+                                        : d.depth == 2 ? colorD(d.data.key)
+                                        : d.depth == 1 ? colorO(d.data.key)
                                         : color(d.data.key);
         })
-        .attr("pointer-events", d => !d.children ? "none" : null)
+        //.attr("pointer-events", d => !d.children ? "none" : null)
         .on("mouseover", function() { d3.select(this).attr("stroke", "#000000"); })
         .on("mouseout", function() { d3.select(this).attr("stroke", null); })
         .attr("r", d => d.r)
@@ -102,17 +111,17 @@ export default {
     const label = svg.append("g")
     .selectAll("text")
     .data(root.descendants())
+    .on("mouseover", function() { d3.select(this).style("display", "inline"); }) 
     .join("text")
-        //.style("display", d => d.parent === root ? "inline" : "none") // here's the criterion
-        .style("display", function(d) {return d.depth == 3 ? "none"
-                            : d.depth == 2 ? "inline"
-                            : d.depth == 1 ? "inline"
-                            : "inline";
-                            })
-        //.style("display", "none")
+        .attr("pointer-events", "all")
+        .style("display", d => d.parent === root ? "inline" : "none") // here's the criterion
+        // .style("display", function(d) {return d.depth == 3 ? "none"
+        //                     : d.depth == 2 ? "inline"
+        //                     : d.depth == 1 ? "inline"
+        //                     : "inline";
+        //                     })
         .text(d => d.data.key)
         .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
-    //.on("mouseover", function() { d3.select(this).style("display", "inline"); }) 
 
 },
   watch: {

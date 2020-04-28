@@ -37,6 +37,7 @@ body{
 
 h2{
   color: #ff6767;
+  font-size: 36px;
 }
 
 *,
