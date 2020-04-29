@@ -56,7 +56,8 @@
           significant problems on a macroscale level when law and order are decreed by those who do not have an understanding 
           on these matters. Most reported that they did not get education about consent and sexual assault in middle or high 
           school, and that their parents did not talk to them about these issues when growing up. </p>
-          <img :src = "images.assault">
+          <img :src = "images.assault" class = "assault">
+
       </el-col>
       <el-col :span="8">
       </el-col>

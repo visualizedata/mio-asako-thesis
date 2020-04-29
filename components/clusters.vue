@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h2>{{chartTitle}}</h2>
-        <svg ref="asmdClusteringSVG" style= "float: right;" v-bind:width= "width" :height = "height"></svg>
+    <svg ref="asmdClusteringSVG" style= "float: right;" v-bind:width= "width" :height = "height"></svg>
   </div>
 </template>
 
@@ -54,8 +53,8 @@ export default {
     var myStemsByOutcome = d3.nest()
         .key(function(d) {return d.OutcomeClassifier;})
         .key(function(d) {return d.Discipline;})
-        .key(function(d) {return d.Institution;})
-        //.key(function(d) {return d.Person;})
+        //.key(function(d) {return d.Institution;})
+        .key(function(d) {return d.Person;})
         .rollup(function(v) {return v.length;})
         .entries(myStems);
     
@@ -75,11 +74,11 @@ export default {
     // create a color scheme
     var colorO = d3.scaleOrdinal()
         .domain(function(d){return d.OutcomeClassifier})
-        .range(d3.schemeSet2);
+        .range(d3.schemeSet3);
 
     var colorD = d3.scaleOrdinal()
         .domain(function(d){return d.Discipline})
-        .range(d3.schemeSet3);
+        .range(d3.schemeSet2);
 
     var colorI = d3.scaleOrdinal()
         .domain(function(d){return d.Institution})

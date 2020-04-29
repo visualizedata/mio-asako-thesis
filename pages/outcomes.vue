@@ -1,11 +1,13 @@
 <template>
   <el-row>
-    <el-col :span="3"></el-col>
-    <el-col :span="18">
-    <h2>PATTERNS OF MISCONDUCT CASE OUTCOMES</h2>
+    <el-col :span = "4">
+    </el-col>
+    <el-col :span= "16">
+      <h2 style = "text-align: center">PATTERNS OF MISCONDUCT CASE OUTCOMES</h2>
       <clusters :asmdData=loadedAsmdData />
     </el-col>
-    <el-col :span="3"></el-col>
+    <el-col :span = "4">
+    </el-col>
   </el-row>
 
 </template>
@@ -55,5 +57,20 @@ body {
 
 .node-value {
   font-weight: bold;
+}
+
+.el-row {
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.el-col {
+  min-height: 36px;
+
+}
+
+.clusters{
+  justify-content: center;
 }
 </style>

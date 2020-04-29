@@ -4,9 +4,6 @@
     <svg ref="asmdCircleGraphSVG" v-bind:width= "width" :height = "height">
     </svg>
     <div class="cases" ref="caseDetail">
-        <h2>Institution: {{ caseDetailInstitution }}</h2>
-        <h2>Discipline:</h2>
-        <h2>Story: </h2>
     </div>
   </div>
 </template>
@@ -57,7 +54,7 @@ export default {
       .filter(this.isStem);
 
     var incidentColor = function(e){
-      return e.toLowerCase().indexOf("resigned") === -1 ? "#ff6767" : "#6767ff";
+      return e.toLowerCase().indexOf("resigned") === -1 ? "#6767ff" : "#6767ff";
     }
 
     // we need this to convert a date of the form 2000 to 2000-01-01:12:00:000
@@ -183,7 +180,7 @@ export default {
           .attr("height", circleRadius)
           .attr("width", circleRadius *3)
           .style("fill", function(d){ return incidentColor(d.outcome); })
-
+          //.style("fill", "#6767ff")
           .on("mouseover", function(d, i){console.log("Mousover outcome:"  + outcome[i])})
           .on("mouseover", tooltipOn)
           .on("click", tooltipOff)
