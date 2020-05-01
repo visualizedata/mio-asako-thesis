@@ -88,18 +88,18 @@ export default {
             .attr("width", d => x(d.x2))
             .attr("height", y.bandwidth());
     
-    // svg.append("g")
-    //     .attr("fill", "white")
-    //     .attr("text-anchor", "end")
-    //     .attr("font-family", "sans-serif")
-    //     .attr("font-size", 12)
-    //     .selectAll("text")
-    // .data(caseStudyData)
-    // .join("text")
-    //   .attr("x", d => x(d.x2) - 4)
-    //   .attr("y", (d, i) => y(i) + y.bandwidth() / 2)
-    //   .attr("dy", "0.35em")
-    //   .text(d => format(d.name));
+        svg.append("g")
+            .attr("fill", "white")
+            .attr("text-anchor", "end")
+            .attr("font-family", "Lato")
+            .attr("font-size", 12)
+            .selectAll("text")
+        .data(caseStudyData)
+        .join("text")
+        .attr("x", d => x(d.x2) - 4)
+        .attr("y", (d, i) => y(i) + y.bandwidth() / 2)
+        .attr("dy", "0.35em")
+        .text(d => d.name);
 
 },
   watch: {
