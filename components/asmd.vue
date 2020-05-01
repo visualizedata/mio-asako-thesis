@@ -21,7 +21,7 @@ export default {
   data(){
     return{
       chartTitle: "Academic Sexual Misconduct Cases",
-      height: 800, //why does window.innerHeight not work?
+      height: 800, //why does window.innerHeight not work? don't know how to make this responsive
       width: 1500,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
       caseDetailInstitution: "no institution yet"
@@ -123,7 +123,7 @@ export default {
             .style("opacity", 1);
       };
 
-    var width = window.innerWidth;
+    var width = window.innerWidth; 
     var height = window.innerHeight;
 
     var y = d3.scaleLinear()

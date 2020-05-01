@@ -42,7 +42,7 @@
           of adults age 18-95 across the US were asked questions about their views on consent and sexual assault.</p>
           <p>Women overall showed a better understanding of the definition of consent, regardless of age, marital status, 
           age, and ethnicity. However, people still held varying perspectives on what actions constituted sexual consent.</p>
-          <img :src = "images.consent">
+          <img :src = "images.consent" style = "max-width: 100%">
       </el-col>
       <el-col :span="8">
       </el-col>
@@ -56,7 +56,7 @@
           significant problems on a macroscale level when law and order are decreed by those who do not have an understanding 
           on these matters. Most reported that they did not get education about consent and sexual assault in middle or high 
           school, and that their parents did not talk to them about these issues when growing up. </p>
-          <img :src = "images.assault" class = "assault">
+          <img :src = "images.assault" style = "max-width: 100%">
 
       </el-col>
       <el-col :span="8">
