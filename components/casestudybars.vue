@@ -49,20 +49,29 @@ export default {
     var width = window.innerWidth
     var height = window.innerHeight
 
-    var parseDate = d3.timeParse("%m/%d/%Y");
+    var parseDate = d3.timeParse("%Y");
 
+    // var x = d3.scaleTime()
+    //     .domain([new Date("1970-01-01"), new Date("2019-12-31")])
+    //     .rangeRound([[this.margin.left, this.width-this.margin.right]]);
     
+    var x = d3.scaleTime()
+        .rangeRound([0,this.width])
+        .domain([new Date(1970, 1, 1), new Date(2019, 12, 31)])
 
-    var x = d3.scaleLinear()
-            .domain(d3.extent(caseStudyData, d => d.x2))
-            .rangeRound([this.margin.left, this.width-this.margin.right])
+    console.log("check timeparse:")
+    console.log(parseDate(2018))
+    console.log(x(parseDate(2018)))
+
+    // var x = d3.scaleLinear()
+    //         .domain(d3.extent(caseStudyData, d => d.x2))
+    //         .rangeRound([this.margin.left, this.width-this.margin.right])
 
     var y = d3.scaleBand()
             .domain(d3.range(caseStudyData.length))
             .rangeRound([this.margin.top, this.height-this.margin.bottom])
             .padding(0.1)
     
-    console.log(y)
     
     //make sure data is going through x and y variables
     console.log("x and y domains:")
@@ -83,23 +92,44 @@ export default {
         .data(caseStudyData)
         .join("rect")
             .attr("fill", "#6767ff")
-            .attr("x", x(0))
+            //.attr("x", x(0))
+            .attr("x", d => x(parseDate(d.first_incident)))
             .attr("y", (d,i) => y(i))
-            .attr("width", d => x(d.x2))
+            .attr("width", d => x(parseDate(d.outcome)))
             .attr("height", y.bandwidth());
     
-        svg.append("g")
-            .attr("fill", "white")
-            .attr("text-anchor", "end")
-            .attr("font-family", "Lato")
-            .attr("font-size", 12)
-            .selectAll("text")
-        .data(caseStudyData)
-        .join("text")
-        .attr("x", d => x(d.x2) - 4)
+    svg.append("g")
+        .attr("fill", "white")
+        .attr("text-anchor", "end")
+        .attr("font-family", "Lato")
+        .attr("font-size", 12)
+        .selectAll("text")
+    .data(caseStudyData)
+    .join("text")
+        .attr("x", d => x(parseDate(d.first_incident)) - 4)
         .attr("y", (d, i) => y(i) + y.bandwidth() / 2)
         .attr("dy", "0.35em")
         .text(d => d.name);
+
+    svg.append("g")
+        .style("font", "12px helvetica")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + this.height + ")")
+        .style("stroke", "white")
+        .call(d3.axisTop(x));
+
+    var bars = svg.selectAll(".bar")
+        .data(caseStudyData)
+        .enter();
+
+    bars.append("rect")
+        .attr("class", "bar")
+        .attr("x", d => x(parseDate(d.first_complaint)))
+        .attr("y", (d,i) => y(i))
+        .attr("width", 2)
+        .attr("height", y.bandwidth())
+        .attr("fill", "#ffffff")
+    
 
 },
   watch: {
