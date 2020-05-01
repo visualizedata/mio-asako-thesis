@@ -70,7 +70,4 @@ body {
 
 }
 
-.clusters{
-  justify-content: center;
-}
 </style>

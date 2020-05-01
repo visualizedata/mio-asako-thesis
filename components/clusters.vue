@@ -1,6 +1,6 @@
 <template>
   <div>
-    <svg ref="asmdClusteringSVG" style= "float: right;" v-bind:width= "width" :height = "height"></svg>
+    <svg ref="asmdClusteringSVG"></svg>
   </div>
 </template>
 
@@ -71,6 +71,9 @@ export default {
     
     console.log(root)
 
+    let focus = root;
+    let view;
+
     // create a color scheme
     var colorO = d3.scaleOrdinal()
         .domain(function(d){return d.OutcomeClassifier})
@@ -88,6 +91,9 @@ export default {
     var svg = d3.select(this.$refs.asmdClusteringSVG)
         .attr("width", this.width)
         .attr("height", this.height)
+        .style("display", "block")
+        .style("margin", "0 -14px")
+        .on("click", () => zoom(root));
 
     // draw circles for every cluster
     const node = svg.selectAll("circle")
@@ -100,17 +106,21 @@ export default {
                                         : color(d.data.key);
         })
         //.attr("pointer-events", d => !d.children ? "none" : null)
-        .on("mouseover", function() { d3.select(this).attr("stroke", "#000000"); })
+        .on("mouseover", function() { d3.select(this).attr("fill", "#000000"); })
         .on("mouseout", function() { d3.select(this).attr("stroke", null); })
+        .on("click", d => focus !== d && (zoom(d), d3.event.stopPropagation()))
         .attr("r", d => d.r)
         .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
     
 
     // label every circle (depending on criteria)
     const label = svg.append("g")
+    .style("font", "18px Lato")
+    .attr("pointer-events", "all")
+    .attr("text-anchor", "middle")
     .selectAll("text")
     .data(root.descendants())
-    .on("mouseover", function() { d3.select(this).style("display", "inline"); }) 
+    .on("mouseover", function() { d3.select(this).style("color", "#ff0000"); }) 
     .join("text")
         .attr("pointer-events", "all")
         .style("display", d => d.parent === root ? "inline" : "none") // here's the criterion
@@ -121,6 +131,43 @@ export default {
         //                     })
         .text(d => d.data.key)
         .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
+       // zoomTo([root.x, root.y, root.r * 2]);
+
+    //   function zoomTo(v) {
+    //     var width = 1000;
+    //     const k = width / v[2];
+
+    //     view = v;
+        
+    //     console.log(v);
+
+    //     label.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
+    //     node.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
+    //     node.attr("r", d => d.r * k);
+    //   }
+    //   function zoom(d) {
+    //   const focus0 = focus;
+
+    //   focus = d;
+
+    //   const transition = svg.transition()
+    //       .duration(d3.event.altKey ? 7500 : 750)
+    //       .tween("zoom", d => {
+    //         const i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2]);
+    //         return t => zoomTo(i(t));
+    //       });
+
+    //   label
+    //     .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
+    //     .transition(transition)
+    //       .style("fill-opacity", d => d.parent === focus ? 1 : 0)
+    //       .on("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
+    //       .on("end", function(d) { if (d.parent !== focus) this.style.display = "none"; });
+    // }
+
+    // return svg.node();
+
+
 
 },
   watch: {
