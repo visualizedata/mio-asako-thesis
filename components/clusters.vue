@@ -78,13 +78,19 @@ export default {
     var tooltipOn = function(d) {
       // change the appearance of the circle ?
       d3.select(this)
-        .attr("opacity", "0.4")
+        //.attr("opacity", "0.4")
       // transition tooltip
       tooltip.transition()
              .duration(200)
              .style("opacity", 1)
       // write html
       tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.data.key + "</span></b>")
+
+      d3.selectAll("circle")
+        .style("opacity", 0.3)
+      
+      d3.select(d3.event.currentTarget)
+        .style("opacity", 1)
     }
     
     // function to be called when hovering _off_ the circle
@@ -95,6 +101,8 @@ export default {
       tooltip.transition()
              .duration(500)
              .style("opacity", 0);
+      d3.selectAll("circle")
+        .style("opacity", 1)
     };
 
     // draw circle packing
