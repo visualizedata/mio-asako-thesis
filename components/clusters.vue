@@ -34,14 +34,15 @@ export default {
   },
   mixins: [utilsMixin],
   methods: {
-      resize(){
+    // TODO: this needs to be enabled somewhere
+    resize(){
       console.log('resized window');
       this.width = this.$refs.container.offsetWidth;
       this.height = this.width;
 
       d3.select(this.$refs.asmdClusteringSVG)
-      .attr('width', this.width)
-      .attr('height', this.height)
+        .attr('width', this.width)
+        .attr('height', this.height)
     }
   },
   computed: {
@@ -68,21 +69,38 @@ export default {
         .rollup(function(v) {return v.length;})
         .entries(myStems);
     
-    console.log(myStemsByOutcome);
 
     var root = d3.hierarchy({values:myStemsByOutcome }, function(d) { return d.values;})
                  .sum(function(d) { return d.value})
                  .sort(function(a, b) { return b.value - a.value; });
 
+    // function to be called when hovering over circle
+    var tooltipOn = function(d) {
+      // change the appearance of the circle ?
+      d3.select(this)
+        .attr("opacity", "0.4")
+      // transition tooltip
+      tooltip.transition()
+             .duration(200)
+             .style("opacity", 1)
+      // write html
+      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.data.key + "</span></b>")
+    }
+    
+    // function to be called when hovering _off_ the circle
+    var tooltipOff = function(d) {
+      d3.select(this)
+        .attr("opacity", "1.0")
+      // transition tooltip
+      tooltip.transition()
+             .duration(500)
+             .style("opacity", 0);
+    };
+
     // draw circle packing
     d3.pack()
       .size([this.width, this.height])
       .padding(3)(root)
-    
-    console.log(root)
-
-    let focus = root;
-    let view;
 
     // create a color scheme
     var colorO = d3.scaleOrdinal()
@@ -108,26 +126,21 @@ export default {
     const node = svg.selectAll("circle")
         .data(root.descendants().slice(1)) // slice(1) removes outer circle
         .join("circle")
-        //.attr("fill", d => d.value ? color(d.depth) : "white") //color needs to change
         .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
                                         : d.depth == 2 ? colorD(d.data.key)
                                         : d.depth == 1 ? colorO(d.data.key)
                                         : color(d.data.key);
         })
-        //.attr("pointer-events", d => !d.children ? "none" : null)
         .on("mouseover", tooltipOn)
         .on("mouseout", tooltipOff)
-
-        // .on("mouseover", function() { d3.select(this).attr("opacity", "0.4"); })
-        // .on("mouseover", tooltipOn)
-        // .on("mouseout", function() { d3.select(this).attr("stroke", null); })
-       // .on("click", d => focus !== d && (zoom(d), d3.event.stopPropagation()))
         .attr("r", d => d.r)
         .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
     
     var tooltip = d3.select(this.$refs.outcomeDetail)
                     .append()
                     .attr("class", "tooltip")
+
+                    // TODO: add this to the CSS
                     // .style("position", "absolute")
                     // .style("top", "50%")
                     // .style("left", "50%")
@@ -140,32 +153,6 @@ export default {
                     // .style("background", "white")
                     // .style("pointerEvents", 'none')
                     // .style("maxWidth", '11em')
-
-    var tooltipOn = function(d) {
-
-      console.log("toolTipOn: 😎")
-      
-      // TODO, change the appearance of the circle (ie this) ?
-
-      // transition tooltip and write html
-      tooltip.transition()
-        .duration(200)
-        .style("opacity", 1);
-      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.data.key + "</span></b>")
-    }
-    
-    var tooltipOff = function(d) {
-
-      console.log("toolTipOff: 😇")
-      
-      // TODO, change the appearance of the circle (ie this) ?
-      
-      // transition tooltip
-      tooltip.transition()
-          .duration(500)
-          .style("opacity", 0);
-    };
-    
 
     // label every circle (depending on criteria)
     // const label = svg.append("g")
@@ -184,7 +171,6 @@ export default {
     //     //                     })
     //     .text(d => d.data.key)
     //     .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
-       // zoomTo([root.x, root.y, root.r * 2]);
 
 },
   watch: {
