@@ -1,6 +1,7 @@
 <template>
   <div>
     <svg ref="asmdClusteringSVG"></svg>
+    <div class="outcomes" ref="outcomeDetail"></div>
   </div>
 </template>
 
@@ -33,6 +34,15 @@ export default {
   },
   mixins: [utilsMixin],
   methods: {
+      resize(){
+      console.log('resized window');
+      this.width = this.$refs.container.offsetWidth;
+      this.height = this.width;
+
+      d3.select(this.$refs.asmdClusteringSVG)
+      .attr('width', this.width)
+      .attr('height', this.height)
+    }
   },
   computed: {
   },
@@ -93,7 +103,6 @@ export default {
         .attr("height", this.height)
         .style("display", "block")
         .style("margin", "0 -14px")
-        .on("click", () => zoom(root));
 
     // draw circles for every cluster
     const node = svg.selectAll("circle")
@@ -106,68 +115,76 @@ export default {
                                         : color(d.data.key);
         })
         //.attr("pointer-events", d => !d.children ? "none" : null)
-        .on("mouseover", function() { d3.select(this).attr("fill", "#000000"); })
-        .on("mouseout", function() { d3.select(this).attr("stroke", null); })
-        .on("click", d => focus !== d && (zoom(d), d3.event.stopPropagation()))
+        .on("mouseover", tooltipOn)
+        .on("mouseout", tooltipOff)
+
+        // .on("mouseover", function() { d3.select(this).attr("opacity", "0.4"); })
+        // .on("mouseover", tooltipOn)
+        // .on("mouseout", function() { d3.select(this).attr("stroke", null); })
+       // .on("click", d => focus !== d && (zoom(d), d3.event.stopPropagation()))
         .attr("r", d => d.r)
         .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
     
+    var tooltip = d3.select(this.$refs.outcomeDetail)
+                    .append()
+                    .attr("class", "tooltip")
+                    // .style("position", "absolute")
+                    // .style("top", "50%")
+                    // .style("left", "50%")
+                    // .style("opacity", '1')
+                    // .style("borderRadius", "0.25em")
+                    // .style("padding", "0.7em 1em")
+                    // .style("boxShadow", '0px 0px 10px rgba(0,0,0,0.1)')
+                    // .style("fontSize", '0.7rem')
+                    // .style("fontFamily", '"Helvetica Neue", sans-serif')
+                    // .style("background", "white")
+                    // .style("pointerEvents", 'none')
+                    // .style("maxWidth", '11em')
+
+    var tooltipOn = function(d) {
+
+      console.log("toolTipOn: 😎")
+      
+      // TODO, change the appearance of the circle (ie this) ?
+
+      // transition tooltip and write html
+      tooltip.transition()
+        .duration(200)
+        .style("opacity", 1);
+      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.data.key + "</span></b>")
+    }
+    
+    var tooltipOff = function(d) {
+
+      console.log("toolTipOff: 😇")
+      
+      // TODO, change the appearance of the circle (ie this) ?
+      
+      // transition tooltip
+      tooltip.transition()
+          .duration(500)
+          .style("opacity", 0);
+    };
+    
 
     // label every circle (depending on criteria)
-    const label = svg.append("g")
-    .style("font", "18px Lato")
-    .attr("pointer-events", "all")
-    .attr("text-anchor", "middle")
-    .selectAll("text")
-    .data(root.descendants())
-    .on("mouseover", function() { d3.select(this).style("color", "#ff0000"); }) 
-    .join("text")
-        .attr("pointer-events", "all")
-        .style("display", d => d.parent === root ? "inline" : "none") // here's the criterion
-        // .style("display", function(d) {return d.depth == 3 ? "none"
-        //                     : d.depth == 2 ? "inline"
-        //                     : d.depth == 1 ? "inline"
-        //                     : "inline";
-        //                     })
-        .text(d => d.data.key)
-        .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
+    // const label = svg.append("g")
+    // .style("font", "18px Lato")
+    // .attr("pointer-events", "all")
+    // .attr("text-anchor", "middle")
+    // .selectAll("text")
+    // .data(root.descendants())
+    // .join("text")
+    //     .attr("pointer-events", "all")
+    //     .style("display", d => d.parent === root ? "inline" : "none") // here's the criterion
+    //     // .style("display", function(d) {return d.depth == 3 ? "none"
+    //     //                     : d.depth == 2 ? "inline"
+    //     //                     : d.depth == 1 ? "inline"
+    //     //                     : "inline";
+    //     //                     })
+    //     .text(d => d.data.key)
+    //     .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
        // zoomTo([root.x, root.y, root.r * 2]);
-
-    //   function zoomTo(v) {
-    //     var width = 1000;
-    //     const k = width / v[2];
-
-    //     view = v;
-        
-    //     console.log(v);
-
-    //     label.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
-    //     node.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
-    //     node.attr("r", d => d.r * k);
-    //   }
-    //   function zoom(d) {
-    //   const focus0 = focus;
-
-    //   focus = d;
-
-    //   const transition = svg.transition()
-    //       .duration(d3.event.altKey ? 7500 : 750)
-    //       .tween("zoom", d => {
-    //         const i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2]);
-    //         return t => zoomTo(i(t));
-    //       });
-
-    //   label
-    //     .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
-    //     .transition(transition)
-    //       .style("fill-opacity", d => d.parent === focus ? 1 : 0)
-    //       .on("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
-    //       .on("end", function(d) { if (d.parent !== focus) this.style.display = "none"; });
-    // }
-
-    // return svg.node();
-
-
 
 },
   watch: {

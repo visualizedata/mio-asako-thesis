@@ -93,35 +93,34 @@ export default {
     }));
 
     var tooltipOn = function(d) {
-        // x position of parent g element
-        let gParent = d3.select(this.parentElement)
-        let translateValue = gParent.attr("transform")
-
-        d3.select(this)
-          .classed("selected", true)
-          .style("opacity", .5)
-          .style("cursor", "pointer")
-        tooltip.transition()
-          .duration(200)
-          .style("opacity", .9);
-        tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" + "<b>Outcome:  </b>" + d.outcome + "</br>" + "<b>Institution:  </b>" + d.institution + "</br>" +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>")
-          .style("left", 300 + "px")
-          .style("top", 300 + "px")
-          .style("margin", "10px");
-
-        this.caseDetailInstitution = "now loog!"
-      };
+      // change opacity of bar in graph
+      d3.select(this)
+        .classed("selected", true)
+        .style("opacity", .5)
+        .style("cursor", "pointer")
+      // tell tooltip to transition and change opacity
+      tooltip.transition()
+        .duration(200)
+        .style("opacity", .9);
+      // write into tooltip with raw HTML
+      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" + "<b>Outcome:  </b>" + d.outcome + "</br>" + "<b>Institution:  </b>" + d.institution + "</br>" +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>")
+        .style("left", 300 + "px")
+        .style("top", 300 + "px")
+        .style("margin", "10px");
+    };
 
     var tooltipOff = function(d) {
-        d3.select(this)
-          .classed("selected", false)
-          .style("fill", function(d){ return d.color; })
-          .style("opacity", 1);
+      // change opacity of bar in graph
+      d3.select(this)
+        .classed("selected", false)
+        .style("fill", function(d){ return d.color; })
+        .style("opacity", 1);
 
-        tooltip.transition()
-            .duration(500)
-            .style("opacity", 1);
-      };
+      // tell tooltip to transition and make invisible
+      tooltip.transition()
+          .duration(500)
+          .style("opacity", 0);
+    };
 
     var width = window.innerWidth; 
     var height = window.innerHeight;
@@ -180,14 +179,11 @@ export default {
           .attr("height", circleRadius)
           .attr("width", circleRadius *3)
           .style("fill", function(d){ return incidentColor(d.outcome); })
-          //.style("fill", "#6767ff")
-          .on("mouseover", function(d, i){console.log("Mousover outcome:"  + outcome[i])})
           .on("mouseover", tooltipOn)
-          .on("click", tooltipOff)
           .on("mouseout", tooltipOff)
           .on("click", function(d){
-           window.open(d.link)
-          })
+             window.open(d.link)
+             })
 
       binContainerEnter.merge(binContainer)
           .attr("transform", d => `translate(${x(d.x0)}, ${this.height})`);

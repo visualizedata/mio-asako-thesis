@@ -5,6 +5,7 @@
     <el-col :span= "16">
       <h2 style = "text-align: center">PATTERNS OF MISCONDUCT CASE OUTCOMES</h2>
       <clusters :asmdData=loadedAsmdData />
+    </div>
     </el-col>
     <el-col :span = "4">
     </el-col>
