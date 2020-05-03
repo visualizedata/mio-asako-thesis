@@ -46,6 +46,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    'vue-scrollto/nuxt'
   ],
   /*
   ** Build configuration
