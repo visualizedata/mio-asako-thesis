@@ -1,10 +1,8 @@
 <template>
   <el-row>
-    <el-col :span="3"></el-col>
-    <el-col :span="18">
+    <el-col :span="24">
       <asmd :asmdData=loadedAsmdData />
     </el-col>
-    <el-col :span="3"></el-col>
   </el-row>
 
 </template>
@@ -30,5 +28,8 @@ export default {
 </script>
 
 <style>
-
+svg{
+  display: block;
+  margin: auto;
+}
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>PATTERNS OF MISCONDUCT CASE OUTCOMES</h2>
     <svg ref="asmdClusteringSVG"></svg>
     <div class="outcomes" ref="outcomeDetail"></div>
   </div>
@@ -64,8 +65,8 @@ export default {
     var myStemsByOutcome = d3.nest()
         .key(function(d) {return d.OutcomeClassifier;})
         .key(function(d) {return d["Specific Discipline"];})
-        //.key(function(d) {return d.Institution;})
-        .key(function(d) {return d.Person;})
+        .key(function(d) {return d.Institution;})
+        //.key(function(d) {return d.Person;})
         .rollup(function(v) {return v.length;})
         .entries(myStems);
     
@@ -158,7 +159,7 @@ export default {
                                 : d.depth == 1 ? color_scale(d.data.key)
                                 : color0(d.data.key);
         })
-        .attr("opacity", function(d){return d.depth == 3 ? 1
+        .attr("opacity", function(d){return d.depth == 3 ? 0.7
                                     : d.depth == 2 ? 0.7
                                     : d.depth == 1 ? 0.5
                                     : 1;

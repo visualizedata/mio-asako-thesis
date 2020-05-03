@@ -1,16 +1,9 @@
 <template>
   <el-row>
-    <el-col :span = "4">
-    </el-col>
-    <el-col :span= "16">
-      <h2 style = "text-align: center">PATTERNS OF MISCONDUCT CASE OUTCOMES</h2>
+    <el-col :span= "24">
       <clusters :asmdData=loadedAsmdData />
-    </div>
-    </el-col>
-    <el-col :span = "4">
     </el-col>
   </el-row>
-
 </template>
 
 <script>
@@ -34,10 +27,6 @@ export default {
 </script>
 
 <style>
-body {
-  font: 10px sans-serif;
-  position: relative;
-}
 .node {
   box-sizing: border-box;
   line-height: 1em;
@@ -69,6 +58,11 @@ body {
 .el-col {
   min-height: 36px;
 
+}
+
+svg{
+  display: block;
+  margin: auto;
 }
 
 </style>

@@ -45,4 +45,9 @@ body {
 
 }
 
+svg{
+  display: block;
+  margin: auto;
+}
+
 </style>

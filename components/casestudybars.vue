@@ -1,6 +1,7 @@
 <template>
   <div>
     <svg ref="caseStudiesSVG" v-bind:width= "width" :height = "height"></svg>
+    <div class="outcomes" ref="caseStudyDetail"></div>
   </div>
 </template>
 
@@ -78,6 +79,29 @@ export default {
     // back to year 0
     const yearInPixels = x(parseDate(2001)) - x(parseDate(2000));
 
+    // function to be called when hovering over circle
+    var tooltipOn = function(d) {
+      // change the appearance of the circle ?
+      d3.select(this)
+        //.attr("opacity", "0.4")
+      // transition tooltip
+      tooltip.transition()
+             .duration(200)
+             .style("opacity", 1)
+      // write html
+      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.description + "</span></b>")
+    }
+    
+    // function to be called when hovering _off_ the circle
+    var tooltipOff = function(d) {
+      d3.select(this)
+        .attr("opacity", "1.0")
+      // transition tooltip
+      tooltip.transition()
+             .duration(500)
+             .style("opacity", 0);
+    };
+
     // draw on our SVG
     var svg = d3.select(this.$refs.caseStudiesSVG)
         .attr("width", this.width)
@@ -97,6 +121,8 @@ export default {
             .attr("height", y.bandwidth())
             // translate the rectangle to that first_complaint is in the middle
             .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+            .on("mouseover", tooltipOn)
+            .on("mouseout", tooltipOff)
     
     // draw the name of the incident
     svg.append("g")
@@ -134,6 +160,10 @@ export default {
             .attr("height", y.bandwidth())
             .attr("fill", "#ffffff")
             .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+    
+    var tooltip = d3.select(this.$refs.caseStudyDetail)
+                    .append()
+                    .attr("class", "tooltip")
 
 },
   watch: {
