@@ -63,7 +63,7 @@ export default {
     // the order here creates different hierarchies
     var myStemsByOutcome = d3.nest()
         .key(function(d) {return d.OutcomeClassifier;})
-        .key(function(d) {return d.Discipline;})
+        .key(function(d) {return d["Specific Discipline"];})
         //.key(function(d) {return d.Institution;})
         .key(function(d) {return d.Person;})
         .rollup(function(v) {return v.length;})
@@ -102,7 +102,11 @@ export default {
              .duration(500)
              .style("opacity", 0);
       d3.selectAll("circle")
-        .style("opacity", 1)
+        .style("opacity", function(d){return d.depth == 3 ? 1
+                                    : d.depth == 2 ? 0.7
+                                    : d.depth == 1 ? 0.5
+                                    : 1;
+        })
     };
 
     // draw circle packing
@@ -111,20 +115,28 @@ export default {
       .padding(3)(root)
 
     // create a color scheme
-    var colorO = d3.scaleOrdinal()
-        .domain(function(d){return d.OutcomeClassifier})
-        .range(d3.schemeSet3);
 
     var colorD = d3.scaleOrdinal()
         .domain(function(d){return d.Discipline})
         .range(d3.schemeSet2);
 
-    var colorI = d3.scaleOrdinal()
+    var colorO = d3.scaleOrdinal()
         .domain(function(d){return d.Institution})
         .range(d3.schemeSet3);
+    
+    var color_scale = d3.scaleOrdinal()
+                        .domain(function(d){ return d.Discipline })
+                        .range(["#f90da0", "#25b8ea", "#e9c338", "#40e18c", "#bb4ca2", "#489260", "#f24219", "#b3dfc1", 
+                        "#746cc4", "#a7e831", "#8b56f0", "#b8b2f0", "#a9681c", "#4cf32c", "#bc1cfa", "#f09bf1"])
+    
+    var color = d3.scaleLinear()
+                  .domain([0, 3])
+                  .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+                  .interpolate(d3.interpolateHcl)
 
     // select the SVG
     var svg = d3.select(this.$refs.asmdClusteringSVG)
+        .attr("viewBox", "0 0 1000 1000")
         .attr("width", this.width)
         .attr("height", this.height)
         .style("display", "block")
@@ -134,10 +146,22 @@ export default {
     const node = svg.selectAll("circle")
         .data(root.descendants().slice(1)) // slice(1) removes outer circle
         .join("circle")
+        //.attr("fill", d => d.children ? color(d.depth) : "white")
+        // .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
+        //                                 : d.data.key == "Medicine" ? "#ff0000"
+        //                                 : d.data.key == "Psychology" ? "#00ff00"
+        //                                 : d.depth == 1 ? color_scale(d.data.key)
+        //                                 : colorO(d.data.key);
+        // })
         .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
-                                        : d.depth == 2 ? colorD(d.data.key)
-                                        : d.depth == 1 ? colorO(d.data.key)
-                                        : color(d.data.key);
+                                : d.depth == 2 ? color_scale(d.parent.data.key)
+                                : d.depth == 1 ? color_scale(d.data.key)
+                                : color0(d.data.key);
+        })
+        .attr("opacity", function(d){return d.depth == 3 ? 1
+                                    : d.depth == 2 ? 0.7
+                                    : d.depth == 1 ? 0.5
+                                    : 1;
         })
         .on("mouseover", tooltipOn)
         .on("mouseout", tooltipOff)
