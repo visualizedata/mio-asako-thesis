@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="container">
-      <el-row>
+    <div>
+      <el-row class = "container">
         <el-col :span="24">
           <h1 class="title">
           A Lesson in Perseverence: <br/> Women in STEM 
@@ -9,8 +9,10 @@
           <h2 class="subtitle">
             Overcoming sexual misconduct, harassment, and discrimination in STEM Academia
           </h2>
-          <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#intro'}"></el-button>
         </el-col>
+      </el-row>
+      <el-row>
+        <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#intro'}"></el-button>
       </el-row>
     </div>
     <el-row id = "intro">

@@ -1,6 +1,7 @@
 <template>
   <el-row>
     <el-col :span="24">
+      <h2>Academic Sexual Misconduct Cases</h2>
       <asmd :asmdData=loadedAsmdData />
     </el-col>
   </el-row>
@@ -28,8 +29,9 @@ export default {
 </script>
 
 <style>
-svg{
+.el-col{
+  align-items:center;
+  justify-content: center;
   display: block;
-  margin: auto;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h2>{{chartTitle}}</h2>
+  <div id = "container">
     <svg ref="asmdCircleGraphSVG" v-bind:width= "width" :height = "height">
     </svg>
     <div class="cases" ref="caseDetail">
@@ -208,3 +207,5 @@ export default {
   }
 };
 </script>
+<style scoped>
+</style>

@@ -60,9 +60,4 @@ export default {
 
 }
 
-svg{
-  display: block;
-  margin: auto;
-}
-
 </style>
