@@ -83,13 +83,19 @@ export default {
     var tooltipOn = function(d) {
       // change the appearance of the circle ?
       d3.select(this)
-        //.attr("opacity", "0.4")
+        .attr("cursor", "pointer")
       // transition tooltip
       tooltip.transition()
              .duration(200)
              .style("opacity", 1)
       // write html
       tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.description + "</span></b>")
+
+      d3.selectAll("rect")
+        .style("opacity", 0.3)
+      
+      d3.select(d3.event.currentTarget)
+        .style("opacity", 1)
     }
     
     // function to be called when hovering _off_ the circle
@@ -100,6 +106,9 @@ export default {
       tooltip.transition()
              .duration(500)
              .style("opacity", 0);
+
+      d3.selectAll("rect")
+        .style("opacity", 1)
     };
 
     // draw on our SVG
@@ -113,7 +122,8 @@ export default {
         .selectAll("rect")
         .data(caseStudyData)
         .join("rect")
-            .attr("fill", "#6767ff")
+            .attr("fill", d => d.name == "Title IX investigation" ? "#ff6767"
+                                      : "#6767ff")
             .attr("x", d => x(parseDate(d.first_incident)))
             .attr("y", (d,i) => y(i))
             // width is number of years between outcome and first_incident (times yearInPixels)
@@ -138,7 +148,8 @@ export default {
             .attr("dy", "0.35em")
             .text(d => d.name)
             // move the text since we moved the box
-            .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+            //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+            .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident)}, ${0})`)
 
     // append the x-axis
     svg.append("g")

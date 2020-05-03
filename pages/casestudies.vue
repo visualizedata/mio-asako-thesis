@@ -48,6 +48,7 @@ body {
 svg{
   display: block;
   margin: auto;
+  float: right;
 }
 
 </style>
