@@ -14,11 +14,6 @@ import utilsMixin from '~/mixins/utils.js'
 
 export default {
   name: "square",
-  data() {
-    return {
-      chartTitle: "square",
-    }
-  },
   props: {
     // this component requires the outer "page" that uses this component
     // to populate `asmdData`, and it should be an array
@@ -30,6 +25,11 @@ export default {
     // toggle it
     colorToggled: {
         type: String,
+        required: true
+    },
+    // this indicates the step of our sibling component
+    stepValue: {
+        type: Number,
         required: true
     }
   },
@@ -49,18 +49,37 @@ export default {
        .attr('height', 150)
        .attr('stroke', this.colorToggled)
        .attr('fill', this.colorToggled)
+
+    // write text that indicates the value of our sibling-component: the steps
+    svg.append('text')
+       .style("font", "18px Lato")
+       .attr('x', window.innerWidth/4 - 150)
+       .attr('y', window.innerHeight/4 - 75)
+       .attr('width', 300)
+       .attr('height', 150)
+       .attr('stroke', "#ffffff")
+       .text("slider in step: " + this.stepValue)
+       
   },
   watch: {
     // this function gets called everytime data.colorToggled changes
     colorToggled: function(){
-        console.log("colorToggled 😷");
-
-        // find the SVG we drew in mounted() and change its color
-        var svg = d3.select(this.$refs.squareSVG)
-                    .select('rect')
-                    .attr('stroke', this.colorToggled)
-                    .attr('fill', this.colorToggled)
-        }
-      }
+      console.log("colorToggled 😷");
+      // find the SVG we drew in mounted() and change its color
+      var svg = d3.select(this.$refs.squareSVG)
+                  .select('rect')
+                  .attr('stroke', this.colorToggled)
+                  .attr('fill', this.colorToggled)
+    },
+  
+    // this is our stepValue listener and we update the text with the proper
+    // value whenever it is being triggered
+    stepValue: function(){
+      console.log("hey i'm square and i'm watching stepValue");
+      var svg = d3.select(this.$refs.squareSVG)
+                  .select('text')
+                  .text("slider in step: " + this.stepValue)
+    }
+  }
 };
 </script>

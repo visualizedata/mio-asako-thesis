@@ -8,6 +8,7 @@
 
 <script>
 import clusters from '~/components/clusters.vue'
+import stepbar from '~/components/steps.vue'
 
 import loadedAsmdData from "~/static/asmd_incidents.json";
 
@@ -18,7 +19,8 @@ export default {
     };
   },
   components: {
-      clusters
+      clusters,
+      stepbar
   },
   mounted(){
 
