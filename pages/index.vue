@@ -16,7 +16,7 @@
         <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#intro'}"></el-button>
       </el-row>
     </div>
-    <el-row id = "intro">
+    <el-row id = "intro" :style= "{backgroundImage: 'url(' + images.tarana + ')' }">
       <el-col :span="8">
       </el-col>
       <el-col :span="8">
@@ -38,25 +38,36 @@
       <el-col :span="8">
       </el-col>
     </el-row>
-    <el-row id = "consent">
-      <el-col :span="8">
-      </el-col>
-      <el-col :span="8">
-        <div class = "intro_text">
-          <h2 class = "header">THE LANGUAGE OF CONSENT</h2>
-          <p>Part of the reason is that we do not have a stable foundation of education around these matters. There is a 
-          severe lack of uniform understanding of boundaries, consent, and what comprises sexual misconduct across all 
-          demographics in society. In a Planned Parenthood survey conducted in 2015, a nationally representative group 
-          of adults age 18-95 across the US were asked questions about their views on consent and sexual assault.</p>
-          <p>Women overall showed a better understanding of the definition of consent, regardless of age, marital status, 
-          age, and ethnicity. However, people still held varying perspectives on what actions constituted sexual consent.</p>
-          <img :src = "images.consent" style = "max-width: 100%">
+    <div id = "consent" >
+      <el-row>
+        <el-col :span="8">
+        </el-col>
+        <el-col :span="8">
+          <div class = "intro_text">
+            <h2 class = "header">THE LANGUAGE OF CONSENT</h2>
+            <p>Part of the reason is that we do not have a stable foundation of education around these matters. There is a 
+            severe lack of uniform understanding of boundaries, consent, and what comprises sexual misconduct across all 
+            demographics in society. In a Planned Parenthood survey conducted in 2015, a nationally representative group 
+            of adults age 18-95 across the US were asked questions about their views on consent and sexual assault.</p>
+            <p>Women overall showed a better understanding of the definition of consent, regardless of age, marital status, 
+            age, and ethnicity. However, people still held varying perspectives on what actions constituted sexual consent.</p>
+            <h4> "Do you agree that..."</h4>
         </div>
-        <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#assault'}"></el-button>
-      </el-col>
-      <el-col :span="8">
-      </el-col>
-    </el-row>
+        </el-col>
+        <el-col :span="8">
+        </el-col>
+      </el-row>
+      <el-row id = "consent_img">
+        <el-col :span ="2">
+        </el-col>
+        <el-col :span ="20">
+          <img :src = "images.consent" style = "max-width: 100%">
+          <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#assault'}"></el-button>
+        </el-col>
+        <el-col :span ="2">
+        </el-col>
+      </el-row>
+    </div>
     <el-row id = "assault">
       <el-col :span="8">
       </el-col>
@@ -67,14 +78,14 @@
           significant problems on a macroscale level when law and order are decreed by those who do not have an understanding 
           on these matters. Most reported that they did not get education about consent and sexual assault in middle or high 
           school, and that their parents did not talk to them about these issues when growing up. </p>
-          <img :src = "images.assault" style = "max-width: 100%">
+          <img class = "ppsurvey" :src = "images.assault" style = "max-width: 175%">
           </div>
         <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#stem_intro'}"></el-button>
       </el-col>
       <el-col :span="8">
       </el-col>
     </el-row>
-    <el-row id = "stem_intro">
+    <el-row id = "stem_intro" :style= "{backgroundImage: 'url(' + images.lab + ')' }">
       <el-col :span="8">
       </el-col>
       <el-col :span="8">
@@ -94,7 +105,7 @@
       </el-col>
       <el-col :span="8">
         <div class = "intro_text">
-        <h2>HOW SEVERE IS THE PROBLEM?</h2>
+        <h2 class = "header">HOW SEVERE IS THE PROBLEM?</h2>
           <p>Sexual misconduct, harassment, and discrimination in STEM academia is a problem that requires change at the 
             institutional and national level. It has and still causes extensive damage to women who choose to pursue STEM 
             academia as a career. Here you can explore the breakdown of sexual misconduct cases on a macro and micro scale, 
@@ -114,8 +125,10 @@ export default {
   data(){
     return{
       images: {
-        consent: require("~/assets/consent_v3.png"),
-        assault: require("~/assets/assault_v3.png")
+        consent: require("~/assets/consent_v4_background.png"),
+        assault: require("~/assets/assault_v4_background.png"),
+        tarana: require("~/assets/tarana_march.png"),
+        lab: require("~/assets/lab.png")
       }
     }
   }
@@ -159,10 +172,10 @@ export default {
 }
 
 .el-row {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px;
   &:last-child {
     margin-bottom: 0;
-  }
+  } */
 }
 .el-col {
   min-height: 36px;
@@ -179,7 +192,8 @@ export default {
 }
 
 #consent{
-  min-height: 100vh;
+  max-height: 100vh;
+  max-width: 100%;
 }
 
 #assault{
@@ -198,8 +212,16 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  /* bring your own prefixes */
   transform: translate(-50%, -50%);
+  max-width: 50vh;
+}
+
+#consent_img{
+  position: relative;
+}
+
+.ppsurvey{
+transform: translate(-25%, 0);
 }
 
 </style>
