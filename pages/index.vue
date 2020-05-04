@@ -9,6 +9,7 @@
           <h2 class="subtitle">
             Overcoming sexual misconduct, harassment, and discrimination in STEM Academia
           </h2>
+          <p id = "author">by Mio Akasako | Parsons School of Design MS Data Visualization | May 2020</p>
         </el-col>
       </el-row>
       <el-row>
@@ -19,6 +20,7 @@
       <el-col :span="8">
       </el-col>
       <el-col :span="8">
+        <div class = "intro_text">
           <h2 class = "header">INTRODUCTION</h2>
           <p>It is now almost three years since the #MeToo movement sparked a global phenomenon that changed the 
           cultural landscape of how we perceive sexual misconduct. A term originally coined in 2006 by civil rights 
@@ -30,6 +32,7 @@
           <p>The act of sexual misconduct has been ever present in our society--it involves a certain lack of respect 
           for other humans, and yet time and time again those who engage in it have been told it is , by virtue of inaction, 
           or lenient sentences. Why is this so?</p>
+          </div>
           <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#consent'}"></el-button>
       </el-col>
       <el-col :span="8">
@@ -39,6 +42,7 @@
       <el-col :span="8">
       </el-col>
       <el-col :span="8">
+        <div class = "intro_text">
           <h2 class = "header">THE LANGUAGE OF CONSENT</h2>
           <p>Part of the reason is that we do not have a stable foundation of education around these matters. There is a 
           severe lack of uniform understanding of boundaries, consent, and what comprises sexual misconduct across all 
@@ -47,7 +51,8 @@
           <p>Women overall showed a better understanding of the definition of consent, regardless of age, marital status, 
           age, and ethnicity. However, people still held varying perspectives on what actions constituted sexual consent.</p>
           <img :src = "images.consent" style = "max-width: 100%">
-          <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#assault'}"></el-button>
+        </div>
+        <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#assault'}"></el-button>
       </el-col>
       <el-col :span="8">
       </el-col>
@@ -56,13 +61,15 @@
       <el-col :span="8">
       </el-col>
       <el-col :span="8">
+        <div class = "intro_text">
           <h2 class = "header">AND THE CIRCUMSTANCES OF SEXUAL ASSAULT</h2>
           <p>People also held differing views on what entailed sexual assault, and who was to blame for it. This causes 
           significant problems on a macroscale level when law and order are decreed by those who do not have an understanding 
           on these matters. Most reported that they did not get education about consent and sexual assault in middle or high 
           school, and that their parents did not talk to them about these issues when growing up. </p>
           <img :src = "images.assault" style = "max-width: 100%">
-          <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#stem_intro'}"></el-button>
+          </div>
+        <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#stem_intro'}"></el-button>
       </el-col>
       <el-col :span="8">
       </el-col>
@@ -71,11 +78,13 @@
       <el-col :span="8">
       </el-col>
       <el-col :span="8">
+        <div class = "intro_text">
           <p>The environment is especially harsh for women who work in fields that have been historically male dominated. 
             One of those fields is STEM. Women in STEM experience the highest rate of sexual harassment of any profession 
             outside of the military.  In STEM academia, though the effect of the #MeToo movement have been observed, more 
             must be done to provide a fair, equal, and respectful environment for women in the field.</p>
-            <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#stem_intro_2'}"></el-button>
+          </div>
+          <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#stem_intro_2'}"></el-button>
       </el-col>
       <el-col :span="8">
       </el-col>
@@ -84,11 +93,13 @@
       <el-col :span="8">
       </el-col>
       <el-col :span="8">
+        <div class = "intro_text">
         <h2>HOW SEVERE IS THE PROBLEM?</h2>
           <p>Sexual misconduct, harassment, and discrimination in STEM academia is a problem that requires change at the 
             institutional and national level. It has and still causes extensive damage to women who choose to pursue STEM 
             academia as a career. Here you can explore the breakdown of sexual misconduct cases on a macro and micro scale, 
             and also celebrate the women who have persevered through this to establish their careers.</p>
+          </div>
           <el-button><NuxtLink to="misconduct">Take a look<i class="el-icon-arrow-right el-icon-right"></i></NuxtLink></el-button>
       </el-col>
       <el-col :span="8">
@@ -128,18 +139,14 @@ export default {
   font-family: 'Lato', 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
-  font-weight: 300;
-  font-size: 72px;
+  font-size: 5rem;
   color: #ffffff;
-  letter-spacing: 1px;
 }
 
 .subtitle {
-  font-weight: 300;
-  font-size: px;
   color: #ffffff;
-  word-spacing: 5px;
   padding-bottom: 15px;
+  font-family: "Lato"
 }
 
 .header{
@@ -185,6 +192,14 @@ export default {
 
 #stem_intro_2{
   min-height: 100vh;
+}
+
+.intro_text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
 }
 
 </style>
