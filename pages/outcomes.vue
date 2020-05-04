@@ -1,14 +1,21 @@
 <template>
-  <el-row>
-    <el-col :span= "24">
-      <clusters :asmdData=loadedAsmdData />
-    </el-col>
-  </el-row>
+  <div>
+    <el-row>
+      <el-col :span="24">
+        <clusters :asmdData=loadedAsmdData />
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <steps />
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
 import clusters from '~/components/clusters.vue'
-import stepbar from '~/components/steps.vue'
+import steps from '~/components/steps.vue'
 
 import loadedAsmdData from "~/static/asmd_incidents.json";
 
@@ -20,7 +27,7 @@ export default {
   },
   components: {
       clusters,
-      stepbar
+      steps
   },
   mounted(){
 

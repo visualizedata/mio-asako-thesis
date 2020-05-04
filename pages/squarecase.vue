@@ -2,7 +2,6 @@
   <div>
     <el-row>
       <el-col :span= "24">
-        <h2 style = "text-align: center">square experiments</h2>
         <!-- our square component with three props 
         -->
         <square :caseStudyData=loadedCaseStudies :colorToggled=colorToggled :stepValue=stepValue />

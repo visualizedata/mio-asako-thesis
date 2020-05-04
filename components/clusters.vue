@@ -1,8 +1,22 @@
 <template>
-  <div>
-    <h2>PATTERNS OF MISCONDUCT CASE OUTCOMES</h2>
-    <svg ref="asmdClusteringSVG"></svg>
-    <div class="outcomes" ref="outcomeDetail"></div>
+
+  <div id="container">
+
+    <!-- our title -->
+    <h2> {{ chartTitle }} </h2>
+
+    <el-row>
+
+      <el-col :span= "8">
+        <div class="outcomes" ref="outcomeDetail"></div>
+      </el-col>
+
+      <el-col :span= "16">
+        <svg ref="asmdClusteringSVG"></svg>
+      </el-col>
+
+    </el-row>
+
   </div>
 </template>
 
@@ -15,10 +29,9 @@ import * as d3 from "d3";
 import utilsMixin from '~/mixins/utils.js'
 
 export default {
-  name: "clusters",
   data(){
     return{
-      chartTitle: "Clustering of outcomes",
+      chartTitle: "PATTERNS OF MISCONDUCT CASE OUTCOMES",
       height: 1000, //why does window.innerHeight not work?
       width: 1000,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },

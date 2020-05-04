@@ -1,15 +1,22 @@
 <template>
-  <el-row>
-    <el-col :span="24">
-      <h2>Academic Sexual Misconduct Cases</h2>
-      <asmd :asmdData=loadedAsmdData />
-    </el-col>
-  </el-row>
-
+  <div>
+    <el-row>
+      <el-col :span="24">
+        <asmd :asmdData=loadedAsmdData />
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <steps />
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
+
 import asmd from '~/components/asmd.vue'
+import steps from '~/components/steps.vue'
 
 import loadedAsmdData from "~/static/asmd_incidents.json";
 
@@ -20,7 +27,8 @@ export default {
     };
   },
   components: {
-    asmd
+    asmd,
+    steps
   },
   mounted(){
 
@@ -29,9 +37,13 @@ export default {
 </script>
 
 <style>
-.el-col{
-  align-items:center;
-  justify-content: center;
+#container{
   display: block;
 }
+
+h2{
+  font-family: 'Lato'
+
+}
+
 </style>

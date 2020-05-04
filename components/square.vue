@@ -1,7 +1,19 @@
 <template>
-  <div id = "svg-container">
-    <svg ref="squareSVG"></svg>
+
+  <div id="container">
+
+    <!-- our title -->
+    <h2> {{ chartTitle }} </h2>
+
+    <el-row>
+      <el-col :span= "24">
+        <svg ref="squareSVG"></svg>
+      </el-col>
+
+    </el-row>
+
   </div>
+
 </template>
 
 <style>
@@ -13,7 +25,15 @@ import * as d3 from "d3";
 import utilsMixin from '~/mixins/utils.js'
 
 export default {
-  name: "square",
+  data(){
+    return{
+      chartTitle: "A SQUARE",
+      height: 1000, //why does window.innerHeight not work?
+      width: 1000,
+      margin: {top: 25, left: 25, bottom: 25, right: 25 },
+      //data: this.asmdData,
+    }
+  },
   props: {
     // this component requires the outer "page" that uses this component
     // to populate `asmdData`, and it should be an array

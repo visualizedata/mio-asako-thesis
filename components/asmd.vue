@@ -1,9 +1,22 @@
 <template>
-  <div id = "container">
-    <svg ref="asmdCircleGraphSVG" v-bind:width= "width" :height = "height">
-    </svg>
-    <div class="cases" ref="caseDetail">
-    </div>
+  <div id="container">
+
+    <!-- our title -->
+    <h2> {{ chartTitle }} </h2>
+
+    <!-- our diagram -->
+    <el-row>
+      <el-col :span= "24">
+        <svg ref="asmdTimelineSVG"></svg>
+      </el-col>
+    </el-row>
+
+    <!-- our details div -->
+    <el-row>
+      <el-col :span= "24">
+        <div class="cases" ref="caseDetail"></div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -20,11 +33,9 @@ export default {
   data(){
     return{
       chartTitle: "Academic Sexual Misconduct Cases",
-      height: 800, //why does window.innerHeight not work? don't know how to make this responsive
+      height: 800,
       width: 1500,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
-      caseDetailInstitution: "no institution yet"
-      //data: this.asmdData,
     }
   },
   props: {
@@ -102,9 +113,11 @@ export default {
         .duration(200)
         .style("opacity", .9);
       // write into tooltip with raw HTML
-      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" + "<b>Outcome:  </b>" + d.outcome + "</br>" + "<b>Institution:  </b>" + d.institution + "</br>" +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>")
-        .style("left", 300 + "px")
-        .style("top", 300 + "px")
+      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" 
+      + "<b>Outcome:  </b>" + d.outcome + "</span></br>" + "<b>Institution:  </b>" + d.institution + "</br>" 
+      +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>")
+        .style("font-family", "Lato")
+        .style("font-size", "24px")
         .style("margin", "10px");
     };
 
@@ -129,9 +142,8 @@ export default {
         .domain([0, maxCases]); // FIXME: it almost works when I multiply by (this.width/this.height)
 
     // Adds the svg canvas
-    var svg = d3.select(this.$refs.asmdCircleGraphSVG)
-        .attr("width", this.width)
-        .attr("height", this.height)
+    var svg = d3.select(this.$refs.asmdTimelineSVG)
+        .attr("viewBox", [0, 0, 1500 + this.margin.left + this.margin.right , 800 + this.margin.top + this.margin.bottom])
 
     console.log("window width: " + window.innerWidth);
 
@@ -193,7 +205,7 @@ export default {
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + this.height + ")")
         .style("stroke", "white")
-        .call(d3.axisTop(x));
+        .call(d3.axisBottom(x));
 
       // add y axis
       svg.append("g")
@@ -207,5 +219,6 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style>
+
 </style>

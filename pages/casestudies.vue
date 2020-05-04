@@ -1,16 +1,21 @@
 <template>
-  <el-row>
-    <el-col :span= "24">
-      <h2 style = "text-align: center">CASE STUDIES OF MISCONDUCT CASES WITH OUTCOMES IN 2018</h2>
-      <casestudybars :caseStudyData=loadedCaseStudies />
-    </el-col>
-  </el-row>
-
+  <div>
+    <el-row>
+      <el-col :span= "24">
+        <casestudybars :caseStudyData=loadedCaseStudies />
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+        <steps />
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
 import casestudybars from '~/components/casestudybars.vue'
-
+import steps from '~/components/steps.vue'
 import loadedCaseStudies from "~/static/case_studies.json";
 
 export default {
@@ -20,7 +25,8 @@ export default {
     };
   },
   components: {
-      casestudybars
+      casestudybars,
+      steps
   },
   mounted(){
 

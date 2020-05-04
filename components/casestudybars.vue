@@ -1,7 +1,22 @@
 <template>
-  <div>
-    <svg ref="caseStudiesSVG" v-bind:width= "width" :height = "height"></svg>
-    <div class="outcomes" ref="caseStudyDetail"></div>
+
+  <div id="container">
+
+    <!-- our title -->
+    <h2> {{ chartTitle }} </h2>
+
+    <el-row>
+
+      <el-col :span= "8">
+        <div class="outcomes" ref="caseStudyDetail"></div>
+      </el-col>
+
+      <el-col :span= "16">
+        <svg ref="caseStudiesSVG"></svg>
+      </el-col>
+
+    </el-row>
+
   </div>
 </template>
 
@@ -17,7 +32,7 @@ export default {
   name: "casestudybars",
   data(){
     return{
-      chartTitle: "case study bars",
+      chartTitle: "CASE STUDIES OF MISCONDUCT CASES WITH OUTCOMES IN 2018",
       height: 1000, //why does window.innerHeight not work?
       width: 1000,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
