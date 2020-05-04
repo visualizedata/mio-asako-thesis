@@ -1,17 +1,13 @@
 <template>
 
   <div id="container">
-
     <!-- our title -->
     <h2> {{ chartTitle }} </h2>
-
     <el-row>
       <el-col :span= "24">
         <svg ref="squareSVG"></svg>
       </el-col>
-
     </el-row>
-
   </div>
 
 </template>
@@ -28,10 +24,7 @@ export default {
   data(){
     return{
       chartTitle: "A SQUARE",
-      height: 1000, //why does window.innerHeight not work?
-      width: 1000,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
-      //data: this.asmdData,
     }
   },
   props: {

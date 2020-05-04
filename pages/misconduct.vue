@@ -6,7 +6,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="24">
+      <el-col :span="24" style="position: fixed; bottom: 0">
         <steps />
       </el-col>
     </el-row>

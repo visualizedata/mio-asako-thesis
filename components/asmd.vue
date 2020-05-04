@@ -6,17 +6,17 @@
 
     <!-- our diagram -->
     <el-row>
-      <el-col :span= "24">
-        <svg ref="asmdTimelineSVG"></svg>
-      </el-col>
-    </el-row>
 
-    <!-- our details div -->
-    <el-row>
-      <el-col :span= "24">
+      <el-col :span= "8">
         <div class="cases" ref="caseDetail"></div>
       </el-col>
+
+      <el-col :span= "16">
+        <svg ref="asmdTimelineSVG"></svg>
+      </el-col>
+
     </el-row>
+
   </div>
 </template>
 

@@ -1,18 +1,28 @@
 <template>
     <div>
         <el-row>
-            <el-steps :active="active" align-center>
-                <el-step title="Timeline"></el-step>
-                <el-step title="Timeline 2"></el-step>
-                <el-step title="Outcomes"></el-step>
-                <el-step title="Outcome w Disciplines"></el-step>
-                <el-step title="Case studies"></el-step>
-                <el-step title="Case studies ordered"></el-step>
-            </el-steps> 
+            <el-col :span="24">
+                <el-steps :active="active" align-center>
+                    <el-step title="Timeline"></el-step>
+                    <el-step title="Timeline 2"></el-step>
+                    <el-step title="Outcomes"></el-step>
+                    <el-step title="Outcome w Disciplines"></el-step>
+                    <el-step title="Case studies"></el-step>
+                    <el-step title="Case studies ordered"></el-step>
+                </el-steps> 
+            </el-col>
         </el-row>
         <el-row>
-            <el-button class="arrow" icon="el-icon-arrow-left" style="margin-top: 12px; margin-right: 100px" v-on:click="back"></el-button>
-            <el-button class="arrow" icon="el-icon-arrow-right" style="margin-top: 12px; margin-left: 100px" v-on:click="next"></el-button>
+            <el-col :span="8">
+            </el-col>
+            <el-col :span="4">
+                <el-button class="el-button-steps" icon="el-icon-arrow-left" v-on:click="back"></el-button>
+            </el-col>
+            <el-col :span="4">
+                <el-button class="el-button-steps" icon="el-icon-arrow-right" v-on:click="next"></el-button>
+            </el-col>
+            <el-col :span="8">
+            </el-col>
         </el-row>
     </div>
 </template>
@@ -49,7 +59,12 @@
 </script>
 
 <style>
-.arrow{
-    display: inline-block;
+
+.el-button-steps{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
 }
+
 </style>

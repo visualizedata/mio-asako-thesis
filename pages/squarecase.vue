@@ -1,21 +1,20 @@
 <template>
+
   <div>
     <el-row>
       <el-col :span= "24">
-        <!-- our square component with three props 
-        -->
-        <square :caseStudyData=loadedCaseStudies :colorToggled=colorToggled :stepValue=stepValue />
-        <!-- this button toggles the color. we add a listener to "click" which calls changeColor()
-        -->
-        <el-button v-on:click="changeColor">Change color</el-button>
+        <!-- our square component with three props -->
+        <square :caseStudyData=loadedCaseStudies :colorToggled=colorToggled :stepValue=stepValue /> -->
       </el-col>
     </el-row>
     <el-row>
-      <!-- a sibling component to our square which keeps track of the stepValue
-           this component $emits the message 'stepChange' and here make sure that we 
-           call the function propagateStepChange whenever that occurs
-      -->
-      <stepbar v-on:stepChange="propagateStepChange" />
+      <el-col :span="24" style="position: fixed; bottom: 0">
+        <!-- a sibling component to our square which keeps track of the stepValue
+            this component $emits the message 'stepChange' and here make sure that we 
+            call the function propagateStepChange whenever that occurs
+        -->
+        <stepbar v-on:stepChange="propagateStepChange" />
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -70,16 +69,10 @@ export default {
     overflow: hidden;
 }
 
-.svg{
+.svg {
     display: inline-block;
     position: absolute;
     top: 0;
     left: 0;
-}
-
-.el-button{
-  position:absolute;
-  bottom: 5vh;
-  left: 50%
 }
 </style>

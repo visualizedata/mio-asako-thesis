@@ -13,7 +13,7 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#intro'}"></el-button>
+        <el-button class="el-button-home" round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#intro'}"></el-button>
       </el-row>
     </div>
     <el-row id = "intro" :style= "{backgroundImage: 'url(' + images.tarana + ')' }">
@@ -33,7 +33,7 @@
           for other humans, and yet time and time again those who engage in it have been told it is , by virtue of inaction, 
           or lenient sentences. Why is this so?</p>
           </div>
-          <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#consent'}"></el-button>
+          <el-button class="el-button-home" round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#consent'}"></el-button>
       </el-col>
       <el-col :span="8">
       </el-col>
@@ -52,7 +52,7 @@
             of adults age 18-95 across the US were asked questions about their views on consent and sexual assault.</p>
             <p>Women overall showed a better understanding of the definition of consent, regardless of age, marital status, 
             age, and ethnicity. However, people still held varying perspectives on what actions constituted sexual consent.</p>
-            <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#assault'}"></el-button>
+            <el-button class="el-button-home" round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#assault'}"></el-button>
         </el-col>
       </el-row>
     </div>
@@ -65,7 +65,7 @@
           on these matters. Most reported that they did not get education about consent and sexual assault in middle or high 
           school, and that their parents did not talk to them about these issues when growing up. </p>
         </div>
-        <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#stem_intro'}"></el-button>
+        <el-button class="el-button-home" round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#stem_intro'}"></el-button>
       </el-col>
       <el-col :span="12">
         <img :src = "images.assault" style = "max-width: 100%">
@@ -81,7 +81,7 @@
             outside of the military.  In STEM academia, though the effect of the #MeToo movement have been observed, more 
             must be done to provide a fair, equal, and respectful environment for women in the field.</p>
           </div>
-          <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#stem_intro_2'}"></el-button>
+          <el-button class="el-button-home" round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#stem_intro_2'}"></el-button>
       </el-col>
       <el-col :span="8">
       </el-col>
@@ -97,7 +97,7 @@
             academia as a career. Here you can explore the breakdown of sexual misconduct cases on a macro and micro scale, 
             and also celebrate the women who have persevered through this to establish their careers.</p>
           </div>
-          <el-button><NuxtLink to="misconduct">Take a look<i class="el-icon-arrow-right el-icon-right"></i></NuxtLink></el-button>
+          <el-button class="el-button-home"><NuxtLink to="misconduct">Take a look<i class="el-icon-arrow-right el-icon-right"></i></NuxtLink></el-button>
       </el-col>
       <el-col :span="8">
       </el-col>
@@ -168,7 +168,7 @@ export default {
   min-height: 36px;
 }
 
-.el-button{
+.el-button-home{
   position:absolute;
   bottom: 5vh;
   left: 50%
@@ -218,7 +218,6 @@ export default {
   max-width: 50vh;
   transform: translate(-50%, -50%);
 }
-
 
 /*pp survey header*/
 .ppsurvey_question{
