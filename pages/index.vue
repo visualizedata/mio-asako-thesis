@@ -40,10 +40,11 @@
     </el-row>
     <div id = "consent" >
       <el-row>
-        <el-col :span="8">
+        <el-col :span="12">
+          <h6 class = "ppsurvey_question">"Do you agree that..."</h6>
+          <img :src = "images.consent" style = "max-width: 100%">
         </el-col>
-        <el-col :span="8">
-          <div class = "intro_text">
+        <el-col :span="12" class = "consent_text">
             <h2 class = "header">THE LANGUAGE OF CONSENT</h2>
             <p>Part of the reason is that we do not have a stable foundation of education around these matters. There is a 
             severe lack of uniform understanding of boundaries, consent, and what comprises sexual misconduct across all 
@@ -51,38 +52,23 @@
             of adults age 18-95 across the US were asked questions about their views on consent and sexual assault.</p>
             <p>Women overall showed a better understanding of the definition of consent, regardless of age, marital status, 
             age, and ethnicity. However, people still held varying perspectives on what actions constituted sexual consent.</p>
-            <h4> "Do you agree that..."</h4>
-        </div>
-        </el-col>
-        <el-col :span="8">
-        </el-col>
-      </el-row>
-      <el-row id = "consent_img">
-        <el-col :span ="2">
-        </el-col>
-        <el-col :span ="20">
-          <img :src = "images.consent" style = "max-width: 100%">
-          <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#assault'}"></el-button>
-        </el-col>
-        <el-col :span ="2">
+            <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#assault'}"></el-button>
         </el-col>
       </el-row>
     </div>
     <el-row id = "assault">
-      <el-col :span="8">
-      </el-col>
-      <el-col :span="8">
-        <div class = "intro_text">
+      <el-col :span="12">
+        <div class = "assault_text">
           <h2 class = "header">AND THE CIRCUMSTANCES OF SEXUAL ASSAULT</h2>
           <p>People also held differing views on what entailed sexual assault, and who was to blame for it. This causes 
           significant problems on a macroscale level when law and order are decreed by those who do not have an understanding 
           on these matters. Most reported that they did not get education about consent and sexual assault in middle or high 
           school, and that their parents did not talk to them about these issues when growing up. </p>
-          <img class = "ppsurvey" :src = "images.assault" style = "max-width: 175%">
-          </div>
+        </div>
         <el-button round icon = "el-icon-arrow-down" v-scroll-to = "{ el: '#stem_intro'}"></el-button>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="12">
+        <img :src = "images.assault" style = "max-width: 100%">
       </el-col>
     </el-row>
     <el-row id = "stem_intro" :style= "{backgroundImage: 'url(' + images.lab + ')' }">
@@ -165,6 +151,7 @@ export default {
 .header{
   justify-content: center;
   text-align: center;
+  font-size: 3rem;
 }
 
 .links {
@@ -216,12 +203,28 @@ export default {
   max-width: 50vh;
 }
 
-#consent_img{
-  position: relative;
+.consent_text{
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  max-width: 50vh;
 }
 
-.ppsurvey{
-transform: translate(-25%, 0);
+.assault_text{
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  max-width: 50vh;
+  transform: translate(-50%, -50%);
+}
+
+
+/*pp survey header*/
+.ppsurvey_question{
+  justify-content: center;
+  text-align: center;
+  margin-top: 5vh;
 }
 
 </style>
