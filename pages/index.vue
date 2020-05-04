@@ -114,8 +114,8 @@ export default {
   data(){
     return{
       images: {
-        consent: require("~/assets/consent_v2.png"),
-        assault: require("~/assets/assault_v2.png")
+        consent: require("~/assets/consent_v3.png"),
+        assault: require("~/assets/assault_v3.png")
       }
     }
   }
