@@ -205,23 +205,26 @@ export default {
                     // .style("pointerEvents", 'none')
                     // .style("maxWidth", '11em')
 
-    // label every circle (depending on criteria)
-    // const label = svg.append("g")
-    // .style("font", "18px Lato")
-    // .attr("pointer-events", "all")
-    // .attr("text-anchor", "middle")
-    // .selectAll("text")
-    // .data(root.descendants())
-    // .join("text")
-    //     .attr("pointer-events", "all")
-    //     .style("display", d => d.parent === root ? "inline" : "none") // here's the criterion
-    //     // .style("display", function(d) {return d.depth == 3 ? "none"
-    //     //                     : d.depth == 2 ? "inline"
-    //     //                     : d.depth == 1 ? "inline"
-    //     //                     : "inline";
-    //     //                     })
-    //     .text(d => d.data.key)
-    //     .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
+    //label every circle (depending on criteria)
+    const label = svg.append("g")
+    .style("font-family", "Lato")
+    .style("font-size", "1.5rem")
+    .style("fill", "white")
+    .style("text-transform", "uppercase")
+    .attr("pointer-events", "all")
+    .attr("text-anchor", "middle")
+    .selectAll("text")
+    .data(this.root.descendants())
+    .join("text")
+        .attr("pointer-events", "all")
+        .style("display", d => d.parent === this.root ? "none" : "none") // here's the criterion
+        // .style("display", function(d) {return d.depth == 3 ? "none"
+        //                     : d.depth == 2 ? "inline"
+        //                     : d.depth == 1 ? "inline"
+        //                     : "inline";
+        //                     })
+        .text(d => d.data.key)
+        .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
 
 },
   watch: {
@@ -229,16 +232,16 @@ export default {
     // value whenever it is being triggered
     stepValue: function(){
       console.log("hey i'm square and i'm watching stepValue: " + this.stepValue)
+      var colorScale = d3.scaleOrdinal()
+                        .domain(function(d){ return d.Discipline })
+                        .range(["#f90da0", "#25b8ea", "#e9c338", "#40e18c", "#bb4ca2", "#489260", "#f24219", "#b3dfc1", 
+                       "#746cc4", "#a7e831", "#8b56f0", "#b8b2f0", "#a9681c", "#4cf32c", "#bc1cfa", "#f09bf1"]);
+          var colorO = d3.scaleOrdinal()
+                        .domain(function(d){return d.Institution})
+                        .range(d3.schemeSet3);
       switch (this.stepValue){
         case 1:
           console.log("i'm at uno")
-          var colorScale = d3.scaleOrdinal()
-               .domain(function(d){ return d.Discipline })
-               .range(["#f90da0", "#25b8ea", "#e9c338", "#40e18c", "#bb4ca2", "#489260", "#f24219", "#b3dfc1", 
-                       "#746cc4", "#a7e831", "#8b56f0", "#b8b2f0", "#a9681c", "#4cf32c", "#bc1cfa", "#f09bf1"]);
-          var colorO = d3.scaleOrdinal()
-               .domain(function(d){return d.Institution})
-               .range(d3.schemeSet3);
           d3.select(this.$refs.asmdClusteringSVG)
                .selectAll("circle")
                .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
@@ -246,21 +249,85 @@ export default {
                                 : d.depth == 1 ? colorScale(d.data.key)
                                 : colorO(d.data.key);
           })
+              .attr("opacity", function(d){return d.depth == 3 ? 0.7
+                                        : d.depth == 2 ? 0.7
+                                        : d.depth == 1 ? 0.5
+                                        : 1;
+            })
+          
+          d3.select(this.$refs.asmdClusteringSVG)
+          .selectAll("text")
+          .join("text")
+              .attr("pointer-events", "all")
+              .style("display", d => d.parent === this.root ? "none" : "none") // here's the criterion
+              .text(d => d.data.key)
+              .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
           break;
         case 2:
           console.log("i'm at dos")
-            d3.select(this.$refs.asmdClusteringSVG)
-              .selectAll("circle")
-              .attr("fill", "#ff0000")
+          d3.select(this.$refs.asmdClusteringSVG)
+            .selectAll("circle")
+            .attr("opacity", function(d){return d.depth == 3 ? 0.2
+                                  : d.depth == 2 ? 0.2
+                                  : d.depth == 1 ? 1
+                                  : 1;
+        })
+
+          d3.select(this.$refs.asmdClusteringSVG)
+          .selectAll("text")
+          .join("text")
+              .attr("pointer-events", "all")
+              .style("display", d => d.parent === this.root ? "inline" : "none") // here's the criterion
+              .text(d => d.data.key)
+              .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
+
           break;
         case 3:
           console.log("tres")
           d3.select(this.$refs.asmdClusteringSVG)
               .selectAll("circle")
-              .attr("fill", "#0000ff")
+              .attr("opacity", function(d){return d.depth == 3 ? 0.2
+                                    : d.depth === 2? 0.2
+                                    : d.data.key === "No longer employed" ? 0.2
+                                    : d.data.key === "Criminal Plea" ? 0.2
+                                    : d.data.key === "Barred" ? 0.2
+                                    : 1;
+        })
+          d3.select(this.$refs.asmdClusteringSVG)
+              .selectAll("text")
+              .join("text")
+                  .attr("pointer-events", "all")
+                  .style("display", function(d){return d.data.key === "No longer employed" ? "none"
+                                    : d.data.key === "Criminal plea" ? "none"
+                                    : d.data.key === "Barred" ? "none"
+                                    : d.depth === 1 ? "inline" 
+                                    : "none";
+                  })
+                  .text(d => d.data.key)
+                  .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
           break;
         case 4:
           console.log("quatro")
+          d3.select(this.$refs.asmdClusteringSVG)
+               .selectAll("circle")
+               .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
+                                : d.depth == 2 ? colorScale(d.parent.data.key)
+                                : d.depth == 1 ? colorScale(d.data.key)
+                                : colorO(d.data.key);
+          })
+              .attr("opacity", function(d){return d.depth == 3 ? 0.7
+                                        : d.depth == 2 ? 0.7
+                                        : d.depth == 1 ? 0.5
+                                        : 1;
+          })
+          
+          d3.select(this.$refs.asmdClusteringSVG)
+          .selectAll("text")
+          .join("text")
+              .attr("pointer-events", "all")
+              .style("display", d => d.parent === this.root ? "none" : "none") // here's the criterion
+              .text(d => d.data.key)
+              .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
           break;
         default:
           console.log("mas numeros")
