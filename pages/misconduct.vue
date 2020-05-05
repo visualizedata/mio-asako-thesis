@@ -7,7 +7,7 @@
     </el-row>
     <el-row>
       <el-col :span="24" style="position: fixed; bottom: 0">
-        <steps />
+        <steps :labels=stepLabels />
       </el-col>
     </el-row>
   </div>
@@ -23,7 +23,8 @@ import loadedAsmdData from "~/static/asmd_incidents.json";
 export default {
   data() {
     return{
-      loadedAsmdData
+      loadedAsmdData: loadedAsmdData,
+      stepLabels: ["Misconduct Step 1", "Miscondit Step 2", "misonduct Step 3"]
     };
   },
   components: {

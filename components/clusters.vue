@@ -44,9 +44,37 @@ export default {
     asmdData: {
       type: Array,
       required: true
+    },
+    // this indicates the step of our sibling component
+    stepValue: {
+        type: Number,
+        required: true
     }
   },
   mixins: [utilsMixin],
+  computed: {
+    myStemsByOutcome: function(){
+      // filter out asmdData that's a stem!
+      var myStems = 
+        this.asmdData
+            .filter(this.isValid)
+            .filter(this.isStem)
+            .map(this.addOutcomeClassifier)
+      // the order here creates different hierarchies
+      return d3.nest()
+        .key(function(d) {return d.OutcomeClassifier;})
+        .key(function(d) {return d["Specific Discipline"];})
+        .key(function(d) {return d.Institution;})
+        //.key(function(d) {return d.Person;})
+        .rollup(function(v) {return v.length;})
+        .entries(myStems);
+    },
+    root: function(){
+      return d3.hierarchy({values:this.myStemsByOutcome }, function(d) { return d.values;})
+                 .sum(function(d) { return d.value})
+                 .sort(function(a, b) { return b.value - a.value; });
+    }
+  },
   methods: {
     // TODO: this needs to be enabled somewhere
     resize(){
@@ -57,36 +85,30 @@ export default {
       d3.select(this.$refs.asmdClusteringSVG)
         .attr('width', this.width)
         .attr('height', this.height)
-    }
-  },
-  computed: {
+    },
   },
   mounted() {
 
     console.log("cluster mounted 😷");
 
-    // this exists, because it is defined as `required` in the props
-    const asmdData = this.asmdData;
-
-    // filter out asmdData that's a stem!
-    var myStems = this.asmdData
-      .filter(this.isValid)
-      .filter(this.isStem)
-      .map(this.addOutcomeClassifier);
-
-    // the order here creates different hierarchies
-    var myStemsByOutcome = d3.nest()
-        .key(function(d) {return d.OutcomeClassifier;})
-        .key(function(d) {return d["Specific Discipline"];})
-        .key(function(d) {return d.Institution;})
-        //.key(function(d) {return d.Person;})
-        .rollup(function(v) {return v.length;})
-        .entries(myStems);
+    // create the color schemes
+    var colorD = d3.scaleOrdinal()
+        .domain(function(d){return d.Discipline})
+        .range(d3.schemeSet2);
     
-
-    var root = d3.hierarchy({values:myStemsByOutcome }, function(d) { return d.values;})
-                 .sum(function(d) { return d.value})
-                 .sort(function(a, b) { return b.value - a.value; });
+    var colorO = d3.scaleOrdinal()
+        .domain(function(d){return d.Institution})
+        .range(d3.schemeSet3);
+    
+    var colorScale = d3.scaleOrdinal()
+               .domain(function(d){ return d.Discipline })
+               .range(["#f90da0", "#25b8ea", "#e9c338", "#40e18c", "#bb4ca2", "#489260", "#f24219", "#b3dfc1", 
+                       "#746cc4", "#a7e831", "#8b56f0", "#b8b2f0", "#a9681c", "#4cf32c", "#bc1cfa", "#f09bf1"]);
+    
+    var color = d3.scaleLinear()
+               .domain([0, 3])
+               .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+               .interpolate(d3.interpolateHcl);
 
     // function to be called when hovering over circle
     var tooltipOn = function(d) {
@@ -126,27 +148,7 @@ export default {
     // draw circle packing
     d3.pack()
       .size([this.width, this.height])
-      .padding(3)(root)
-
-    // create a color scheme
-
-    var colorD = d3.scaleOrdinal()
-        .domain(function(d){return d.Discipline})
-        .range(d3.schemeSet2);
-
-    var colorO = d3.scaleOrdinal()
-        .domain(function(d){return d.Institution})
-        .range(d3.schemeSet3);
-    
-    var color_scale = d3.scaleOrdinal()
-                        .domain(function(d){ return d.Discipline })
-                        .range(["#f90da0", "#25b8ea", "#e9c338", "#40e18c", "#bb4ca2", "#489260", "#f24219", "#b3dfc1", 
-                        "#746cc4", "#a7e831", "#8b56f0", "#b8b2f0", "#a9681c", "#4cf32c", "#bc1cfa", "#f09bf1"])
-    
-    var color = d3.scaleLinear()
-                  .domain([0, 3])
-                  .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
-                  .interpolate(d3.interpolateHcl)
+      .padding(3)(this.root)
 
     // select the SVG
     var svg = d3.select(this.$refs.asmdClusteringSVG)
@@ -158,20 +160,23 @@ export default {
 
     // draw circles for every cluster
     const node = svg.selectAll("circle")
-        .data(root.descendants().slice(1)) // slice(1) removes outer circle
+        .data(this.root.descendants().slice(1)) // slice(1) removes outer circle
         .join("circle")
+
         //.attr("fill", d => d.children ? color(d.depth) : "white")
         // .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
         //                                 : d.data.key == "Medicine" ? "#ff0000"
         //                                 : d.data.key == "Psychology" ? "#00ff00"
-        //                                 : d.depth == 1 ? color_scale(d.data.key)
+        //                                 : d.depth == 1 ? colorScale(d.data.key)
         //                                 : colorO(d.data.key);
         // })
+
         .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
-                                : d.depth == 2 ? color_scale(d.parent.data.key)
-                                : d.depth == 1 ? color_scale(d.data.key)
-                                : color0(d.data.key);
+                                : d.depth == 2 ? colorScale(d.parent.data.key)
+                                : d.depth == 1 ? colorScale(d.data.key)
+                                : colorO(d.data.key);
         })
+
         .attr("opacity", function(d){return d.depth == 3 ? 0.7
                                     : d.depth == 2 ? 0.7
                                     : d.depth == 1 ? 0.5
@@ -181,7 +186,7 @@ export default {
         .on("mouseout", tooltipOff)
         .attr("r", d => d.r)
         .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
-    
+
     var tooltip = d3.select(this.$refs.outcomeDetail)
                     .append()
                     .attr("class", "tooltip")
@@ -220,6 +225,48 @@ export default {
 
 },
   watch: {
+    // this is our stepValue listener and we update the text with the proper
+    // value whenever it is being triggered
+    stepValue: function(){
+      console.log("hey i'm square and i'm watching stepValue: " + this.stepValue)
+      switch (this.stepValue){
+        case 1:
+          console.log("i'm at uno")
+          var colorScale = d3.scaleOrdinal()
+               .domain(function(d){ return d.Discipline })
+               .range(["#f90da0", "#25b8ea", "#e9c338", "#40e18c", "#bb4ca2", "#489260", "#f24219", "#b3dfc1", 
+                       "#746cc4", "#a7e831", "#8b56f0", "#b8b2f0", "#a9681c", "#4cf32c", "#bc1cfa", "#f09bf1"]);
+          var colorO = d3.scaleOrdinal()
+               .domain(function(d){return d.Institution})
+               .range(d3.schemeSet3);
+          d3.select(this.$refs.asmdClusteringSVG)
+               .selectAll("circle")
+               .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
+                                : d.depth == 2 ? colorScale(d.parent.data.key)
+                                : d.depth == 1 ? colorScale(d.data.key)
+                                : colorO(d.data.key);
+          })
+          break;
+        case 2:
+          console.log("i'm at dos")
+            d3.select(this.$refs.asmdClusteringSVG)
+              .selectAll("circle")
+              .attr("fill", "#ff0000")
+          break;
+        case 3:
+          console.log("tres")
+          d3.select(this.$refs.asmdClusteringSVG)
+              .selectAll("circle")
+              .attr("fill", "#0000ff")
+          break;
+        case 4:
+          console.log("quatro")
+          break;
+        default:
+          console.log("mas numeros")
+          break;
+      }
+    }
   }
 };
 </script>

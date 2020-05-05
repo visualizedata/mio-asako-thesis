@@ -3,12 +3,7 @@
         <el-row>
             <el-col :span="24">
                 <el-steps :active="active" align-center>
-                    <el-step title="Timeline"></el-step>
-                    <el-step title="Timeline 2"></el-step>
-                    <el-step title="Outcomes"></el-step>
-                    <el-step title="Outcome w Disciplines"></el-step>
-                    <el-step title="Case studies"></el-step>
-                    <el-step title="Case studies ordered"></el-step>
+                    <el-step v-for="label in labels" :title="label" :key="label"></el-step>
                 </el-steps> 
             </el-col>
         </el-row>
@@ -34,11 +29,16 @@
         active: 1
       };
     },
-
+    props: {
+      labels: {
+          type: Array,
+          required: true
+      }
+    },
     methods: {
       // changes the step, updates the "line" but also $emits the new value
       next() {
-        if (this.active++ > 5){
+        if (this.active++ > this.labels.length){
           this.active = 1;
           // TODO: consider $emitting that we reached end of line, and we want to go to the
           // next step in the _mother_ stepper
@@ -65,6 +65,10 @@
   margin-left: auto;
   margin-right: auto;
   width: 40%;
+}
+
+.el-steps{
+    stroke: red;
 }
 
 </style>

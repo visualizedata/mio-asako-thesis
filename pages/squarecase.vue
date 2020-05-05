@@ -13,7 +13,7 @@
             this component $emits the message 'stepChange' and here make sure that we 
             call the function propagateStepChange whenever that occurs
         -->
-        <stepbar v-on:stepChange="propagateStepChange" />
+        <steps v-on:stepChange="propagateStepChange" :labels="stepLabels" />
       </el-col>
     </el-row>
   </div>
@@ -22,7 +22,7 @@
 <script>
 
 import square from '~/components/square.vue'
-import stepbar from '~/components/steps.vue'
+import steps from '~/components/steps.vue'
 
 import loadedCaseStudies from "~/static/case_studies.json";
 
@@ -34,12 +34,13 @@ export default {
       // a color to be changed in this page, but utilized in the child component
       colorToggled: "#ff0000",
       // start value for stepper
-      stepValue: 1
+      stepValue: 1,
+      stepLabels: ["sdfisdf", "sdfsdfs"]
     };
   },
   components: {
       square,
-      stepbar
+      steps
   },
   methods: {
     
