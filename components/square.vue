@@ -2,7 +2,7 @@
 
   <div id="container">
     <!-- our title -->
-    <h2> {{ chartTitle }} </h2>
+    <h2> {{ chartTitle }} stepsValue is {{ stepValue }}</h2>
     <el-row>
       <el-col :span= "24">
         <svg ref="squareSVG"></svg>

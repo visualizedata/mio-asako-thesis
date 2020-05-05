@@ -2,12 +2,12 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <clusters :asmdData=loadedAsmdData />
+        <clusters :asmdData=loadedAsmdData :stepValue=stepValue />
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24" style="position: fixed; bottom: 0">
-        <steps />
+        <steps v-on:stepChange="propagateStepChange" :labels="stepLabels" />
       </el-col>
     </el-row>
   </div>
@@ -22,12 +22,23 @@ import loadedAsmdData from "~/static/asmd_incidents.json";
 export default {
   data() {
     return{
-      loadedAsmdData
+      loadedAsmdData,
+      //start value for stepper
+      stepValue: 1,
+      stepLabels: ["outcome labal1", "sfkjsdf", "sdfsdf"]
     };
   },
   components: {
       clusters,
       steps
+  },
+  methods: {
+    // this propagates the value and also changes the color
+    propagateStepChange: function(value){
+      console.log("propagateStepChange: " + value)
+      //this.changeColor();
+      this.stepValue = value;
+    }
   },
   mounted(){
 

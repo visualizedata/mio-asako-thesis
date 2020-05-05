@@ -7,7 +7,7 @@
     </el-row>
     <el-row>
       <el-col :span="24" style="position: fixed; bottom: 0">
-        <steps />
+        <steps :labels="stepLabels"/>
       </el-col>
     </el-row>
   </div>
@@ -21,7 +21,8 @@ import loadedCaseStudies from "~/static/case_studies.json";
 export default {
   data() {
     return{
-      loadedCaseStudies
+      loadedCaseStudies: loadedCaseStudies,
+      stepLabels: ["sdf", "sdfsdf", "sdf3453"]
     };
   },
   components: {
