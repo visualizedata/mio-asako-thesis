@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <outcomes :asmdData=loadedAsmdData :stepValue=stepValue />
+        <outcomes :asmdData=loadedAsmdData :stepValue=stepValue :descriptions=descriptions />
       </el-col>
     </el-row>
     <el-row>
@@ -18,6 +18,7 @@ import outcomes from '~/components/outcomes.vue'
 import steps from '~/components/steps.vue'
 
 import loadedAsmdData from "~/static/asmd_incidents.json";
+import descriptions from '~/static/outcomes_steps.json';
 
 export default {
   data() {
@@ -25,7 +26,8 @@ export default {
       loadedAsmdData,
       //start value for stepper
       stepValue: 1,
-      stepLabels: ["general outcomes", "good", "bad", "disciplines", "explore"]
+      stepLabels: descriptions.map(v => {return v.label}),
+      descriptions
     };
   },
   components: {

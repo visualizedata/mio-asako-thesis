@@ -3,12 +3,17 @@
   <div id="container">
 
     <!-- our title -->
-    <h2> {{ chartTitle }} </h2>
+    <h2> {{ chartTitle }}  - {{ descriptions[stepValue-1].label }}</h2>
 
     <el-row>
 
       <el-col :span= "8">
-        <div class="outcomes" ref="caseStudyDetail"></div>
+        <el-row>
+          <div class="description" ref="description"> {{ descriptions[stepValue-1].description }} </div>
+        </el-row>
+        <el-row>
+          <div class="outcomes" ref="caseStudyDetail"></div>
+        </el-row>
       </el-col>
 
       <el-col :span= "16">
@@ -49,6 +54,10 @@ export default {
         // this indicates the step of our sibling component
     stepValue: {
       type: Number,
+      required: true
+    },
+    descriptions: {
+      type: Array,
       required: true
     }
   },

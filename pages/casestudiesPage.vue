@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span= "24">
-        <casestudies :caseStudyData=loadedCaseStudies :stepValue=stepValue />
+        <casestudies :caseStudyData=loadedCaseStudies :stepValue=stepValue :descriptions=descriptions />
       </el-col>
     </el-row>
     <el-row>
@@ -17,13 +17,16 @@
 import casestudies from '~/components/casestudies.vue'
 import steps from '~/components/steps.vue'
 import loadedCaseStudies from "~/static/case_studies.json";
+import descriptions from '~/static/casestudies_steps.json';
+
 
 export default {
   data() {
     return{
       loadedCaseStudies: loadedCaseStudies,
       stepValue: 1,
-      stepLabels: ["sdf", "sdfsdf", "sdf3453"]
+      stepLabels: descriptions.map(v => {return v.label}),
+      descriptions
     };
   },
   components: {
