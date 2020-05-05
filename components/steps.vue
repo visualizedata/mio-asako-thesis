@@ -11,10 +11,10 @@
             <el-col :span="8">
             </el-col>
             <el-col :span="4">
-                <el-button class="el-button-steps" icon="el-icon-arrow-left" v-on:click="back"></el-button>
+                <el-button type = "info" class="el-button-steps" icon="el-icon-arrow-left" v-on:click="back"></el-button>
             </el-col>
             <el-col :span="4">
-                <el-button class="el-button-steps" icon="el-icon-arrow-right" v-on:click="next"></el-button>
+                <el-button type = "info" class="el-button-steps" icon="el-icon-arrow-right" v-on:click="next"></el-button>
             </el-col>
             <el-col :span="8">
             </el-col>
@@ -65,6 +65,7 @@
   margin-left: auto;
   margin-right: auto;
   width: 40%;
+  fill: #ff6767;
 }
 
 .el-steps{

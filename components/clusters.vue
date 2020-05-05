@@ -8,7 +8,12 @@
     <el-row>
 
       <el-col :span= "8">
-        <div class="outcomes" ref="outcomeDetail"></div>
+        <el-row id = "outcomeDetail">
+          <div id = "commentary">hello {{stepValue}}</div>
+        </el-row>
+        <el-row>
+          <div class="outcomes" ref="outcomeDetail"></div>
+        </el-row>
       </el-col>
 
       <el-col :span= "16">
@@ -92,10 +97,6 @@ export default {
     console.log("cluster mounted 😷");
 
     // create the color schemes
-    var colorD = d3.scaleOrdinal()
-        .domain(function(d){return d.Discipline})
-        .range(d3.schemeSet2);
-    
     var colorO = d3.scaleOrdinal()
         .domain(function(d){return d.Institution})
         .range(d3.schemeSet3);
@@ -104,11 +105,6 @@ export default {
                .domain(function(d){ return d.Discipline })
                .range(["#f90da0", "#25b8ea", "#e9c338", "#40e18c", "#bb4ca2", "#489260", "#f24219", "#b3dfc1", 
                        "#746cc4", "#a7e831", "#8b56f0", "#b8b2f0", "#a9681c", "#4cf32c", "#bc1cfa", "#f09bf1"]);
-    
-    var color = d3.scaleLinear()
-               .domain([0, 3])
-               .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
-               .interpolate(d3.interpolateHcl);
 
     // function to be called when hovering over circle
     var tooltipOn = function(d) {
@@ -162,15 +158,6 @@ export default {
     const node = svg.selectAll("circle")
         .data(this.root.descendants().slice(1)) // slice(1) removes outer circle
         .join("circle")
-
-        //.attr("fill", d => d.children ? color(d.depth) : "white")
-        // .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
-        //                                 : d.data.key == "Medicine" ? "#ff0000"
-        //                                 : d.data.key == "Psychology" ? "#00ff00"
-        //                                 : d.depth == 1 ? colorScale(d.data.key)
-        //                                 : colorO(d.data.key);
-        // })
-
         .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
                                 : d.depth == 2 ? colorScale(d.parent.data.key)
                                 : d.depth == 1 ? colorScale(d.data.key)
@@ -218,11 +205,6 @@ export default {
     .join("text")
         .attr("pointer-events", "all")
         .style("display", d => d.parent === this.root ? "none" : "none") // here's the criterion
-        // .style("display", function(d) {return d.depth == 3 ? "none"
-        //                     : d.depth == 2 ? "inline"
-        //                     : d.depth == 1 ? "inline"
-        //                     : "inline";
-        //                     })
         .text(d => d.data.key)
         .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
 
@@ -259,7 +241,7 @@ export default {
           .selectAll("text")
           .join("text")
               .attr("pointer-events", "all")
-              .style("display", d => d.parent === this.root ? "none" : "none") // here's the criterion
+              .style("display", d => d.parent === this.root ? "none" : "none") 
               .text(d => d.data.key)
               .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
           break;
@@ -267,6 +249,11 @@ export default {
           console.log("i'm at dos")
           d3.select(this.$refs.asmdClusteringSVG)
             .selectAll("circle")
+            .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
+                                : d.depth == 2 ? colorScale(d.parent.data.key)
+                                : d.depth == 1 ? colorScale(d.data.key)
+                                : colorO(d.data.key);
+          })
             .attr("opacity", function(d){return d.depth == 3 ? 0.2
                                   : d.depth == 2 ? 0.2
                                   : d.depth == 1 ? 1
@@ -277,7 +264,7 @@ export default {
           .selectAll("text")
           .join("text")
               .attr("pointer-events", "all")
-              .style("display", d => d.parent === this.root ? "inline" : "none") // here's the criterion
+              .style("display", d => d.parent === this.root ? "inline" : "none") 
               .text(d => d.data.key)
               .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
 
@@ -286,10 +273,17 @@ export default {
           console.log("tres")
           d3.select(this.$refs.asmdClusteringSVG)
               .selectAll("circle")
+              .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
+                                    : d.data.key === "No longer employed" ? "#000000"
+                                    : d.data.key === "Criminal plea" ? "#000000"
+                                    : d.data.key === "Barred" ? "#000000"
+                                    : d.depth === 2? "#000000"
+                                    : "#6767ff";
+          })
               .attr("opacity", function(d){return d.depth == 3 ? 0.2
                                     : d.depth === 2? 0.2
                                     : d.data.key === "No longer employed" ? 0.2
-                                    : d.data.key === "Criminal Plea" ? 0.2
+                                    : d.data.key === "Criminal plea" ? 0.2
                                     : d.data.key === "Barred" ? 0.2
                                     : 1;
         })
@@ -311,11 +305,14 @@ export default {
           d3.select(this.$refs.asmdClusteringSVG)
                .selectAll("circle")
                .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
-                                : d.depth == 2 ? colorScale(d.parent.data.key)
-                                : d.depth == 1 ? colorScale(d.data.key)
-                                : colorO(d.data.key);
+                                    : d.data.key === "Psychology" ? "#00ffff"
+                                    : d.data.key === "Bioscience" ? "#ff00ff"
+                                    : d.data.key === "Mathematics" ? "#ffff00"
+                                    // : d.data.key === "Medicine" ? "#0000ff"
+                                    // : d.data.key === "Sociology" ? "#ff6767"
+                                    : "#000000";
           })
-              .attr("opacity", function(d){return d.depth == 3 ? 0.7
+              .attr("opacity", function(d){return d.depth == 3 ? 0.2
                                         : d.depth == 2 ? 0.7
                                         : d.depth == 1 ? 0.5
                                         : 1;
@@ -325,15 +322,60 @@ export default {
           .selectAll("text")
           .join("text")
               .attr("pointer-events", "all")
-              .style("display", d => d.parent === this.root ? "none" : "none") // here's the criterion
+              .style("display", function(d){return d.data.key === "Psychology" && d.parent.data.key === "Resigned" ? "inline"
+                                  : d.data.key === "Bioscience" && d.parent.data.key === "Resigned" ? "inline"
+                                  : d.data.key === "Mathematics" && d.parent.data.key === "Resigned" ? "inline"
+                                  : "none";
+                })
               .text(d => d.data.key)
               .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
           break;
         default:
           console.log("mas numeros")
+          d3.select(this.$refs.asmdClusteringSVG)
+               .selectAll("circle")
+               .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
+                                : d.depth == 2 ? colorScale(d.parent.data.key)
+                                : d.depth == 1 ? colorScale(d.data.key)
+                                : colorO(d.data.key);
+          })
+              .attr("opacity", function(d){return d.depth == 3 ? 0.7
+                                        : d.depth == 2 ? 0.7
+                                        : d.depth == 1 ? 0.5
+                                        : 1;
+            })
+          
+          d3.select(this.$refs.asmdClusteringSVG)
+          .selectAll("text")
+          .join("text")
+              .attr("pointer-events", "all")
+              .style("display", d => d.parent === this.root ? "none" : "none") 
+              .text(d => d.data.key)
+              .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
           break;
       }
     }
   }
 };
 </script>
+<style scoped>
+#commentary{
+  font-family: "Lato";
+  font-size: 24px;
+}
+
+#outcomeDetail{
+  max-width: 50vh;
+}
+
+.el-row {
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.el-col {
+  min-height: 36px;
+
+}
+</style>
