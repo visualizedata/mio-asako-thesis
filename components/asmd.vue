@@ -44,6 +44,11 @@ export default {
     asmdData: {
       type: Array,
       required: true
+    },
+    // this indicates the step of our sibling component
+    stepValue: {
+        type: Number,
+        required: true
     }
   },
   mixins: [utilsMixin],
@@ -216,6 +221,14 @@ export default {
 
   },
   watch: {
+    // this is our stepValue listener and we update the text with the proper
+    // value whenever it is being triggered
+    stepValue: function(){
+      console.log("hey i'm square and i'm watching stepValue");
+      var svg = d3.select(this.$refs.asmdTimelineSVG)
+                  .select('text')
+                  .text("slider in step: " + this.stepValue)
+    }
   }
 };
 </script>

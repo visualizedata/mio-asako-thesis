@@ -2,12 +2,12 @@
   <div>
     <el-row>
       <el-col :span= "24">
-        <casestudybars :caseStudyData=loadedCaseStudies />
+        <casestudybars :caseStudyData=loadedCaseStudies :stepValue=stepValue />
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24" style="position: fixed; bottom: 0">
-        <steps :labels="stepLabels"/>
+        <steps v-on:stepChange="propagateStepChange" :labels="stepLabels" :stepValue=stepValue />
       </el-col>
     </el-row>
   </div>
@@ -22,12 +22,21 @@ export default {
   data() {
     return{
       loadedCaseStudies: loadedCaseStudies,
+      stepValue: 1,
       stepLabels: ["sdf", "sdfsdf", "sdf3453"]
     };
   },
   components: {
       casestudybars,
       steps
+  },
+  methods: {
+    // this propagates the value and also changes the color
+    propagateStepChange: function(value){
+      console.log("propagateStepChange: " + value)
+      //this.changeColor();
+      this.stepValue = value;
+    }
   },
   mounted(){
 

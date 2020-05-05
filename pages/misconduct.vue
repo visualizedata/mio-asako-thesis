@@ -2,12 +2,12 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <asmd :asmdData=loadedAsmdData />
+        <asmd :asmdData=loadedAsmdData :stepValue=stepValue />
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24" style="position: fixed; bottom: 0">
-        <steps :labels=stepLabels />
+        <steps v-on:stepChange="propagateStepChange" :labels="stepLabels" :stepValue=stepValue  />
       </el-col>
     </el-row>
   </div>
@@ -24,12 +24,20 @@ export default {
   data() {
     return{
       loadedAsmdData: loadedAsmdData,
-      stepLabels: ["Misconduct Step 1", "Miscondit Step 2", "misonduct Step 3"]
+      stepValue: 1,
+      stepLabels: ["All", "STEM", "misonduct Step 3"]
     };
   },
   components: {
     asmd,
     steps
+  },methods: {
+    // this propagates the value and also changes the color
+    propagateStepChange: function(value){
+      console.log("propagateStepChange: " + value)
+      //this.changeColor();
+      this.stepValue = value;
+    }
   },
   mounted(){
 
