@@ -2,12 +2,12 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <chronology :asmdData=loadedAsmdData :stepValue=stepValue />
+        <chronology :asmdData=loadedAsmdData :stepValue=stepValue :descriptions=descriptions />
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24" style="position: fixed; bottom: 0">
-        <steps v-on:stepChange="propagateStepChange" :labels="stepLabels" :stepValue=stepValue  />
+        <steps v-on:stepChange=propagateStepChange :labels=stepLabels :stepValue=stepValue  />
       </el-col>
     </el-row>
   </div>
@@ -19,15 +19,15 @@ import chronology from '~/components/chronology.vue'
 import steps from '~/components/steps.vue'
 
 import descriptions from '~/static/chronology_steps.json';
-
 import loadedAsmdData from "~/static/asmd_incidents.json";
 
 export default {
   data() {
     return{
-      loadedAsmdData: loadedAsmdData,
+      loadedAsmdData,
       stepValue: 1,
-      stepLabels: ["All", "STEM", "misonduct Step 3"]
+      stepLabels: descriptions.map(v => {return v.label}),
+      descriptions
     };
   },
   components: {
@@ -54,7 +54,5 @@ export default {
 
 h2{
   font-family: 'Lato'
-
 }
-
 </style>

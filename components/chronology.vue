@@ -2,13 +2,19 @@
   <div id="container">
 
     <!-- our title -->
-    <h2> {{ chartTitle }} </h2>
+    <h2> {{ chartTitle }} - {{ descriptions[stepValue-1].label }}</h2>
 
     <!-- our diagram -->
     <el-row>
 
       <el-col :span= "8">
-        <div class="cases" ref="caseDetail"></div>
+        <el-row>
+          <div class="description" ref="description"> {{ descriptions[stepValue-1].description }} </div>
+        </el-row>
+
+        <el-row>
+          <div class="cases" ref="caseDetail"></div>
+        </el-row>
       </el-col>
 
       <el-col :span= "16">
@@ -48,13 +54,13 @@ export default {
     stepValue: {
         type: Number,
         required: true
+    },
+    descriptions: {
+      type: Array,
+      required: true
     }
   },
   mixins: [utilsMixin],
-  methods: {
-  },
-  computed: {
-  },
   mounted() {
 
     console.log("chronology component mounted 😷");
