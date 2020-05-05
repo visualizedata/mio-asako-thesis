@@ -225,9 +225,19 @@ export default {
     // value whenever it is being triggered
     stepValue: function(){
       console.log("hey i'm square and i'm watching stepValue");
-      var svg = d3.select(this.$refs.asmdTimelineSVG)
-                  .select('text')
-                  .text("slider in step: " + this.stepValue)
+       switch (this.stepValue){
+        case 1:
+          console.log("i'm at one")
+        break;
+        case 2:
+          console.log("i'm at two")
+        break;
+        case 3:
+          console.log("i'm at threee")
+        break;
+        default:
+        break;
+       }
     }
   }
 };
