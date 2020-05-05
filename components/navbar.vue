@@ -6,6 +6,7 @@
             <el-menu-item index="3"><NuxtLink to="outcomesPage">OUTCOMES</NuxtLink></el-menu-item>
             <el-menu-item index="4"><NuxtLink to="casestudiesPage">CASE STUDIES</NuxtLink></el-menu-item>
             <el-menu-item index="5"><NuxtLink to="squarePage">SQUARE</NuxtLink></el-menu-item>
+            <el-menu-item index="6"><NuxtLink to="namesPage">NAMES</NuxtLink></el-menu-item>
         </el-menu>
         <div class="line"></div>
     </div>

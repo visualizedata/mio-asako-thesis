@@ -2,14 +2,14 @@
   <div id="container">
 
     <!-- our title -->
-    <h2> {{ chartTitle }} - {{ descriptions[stepValue-1].label }}</h2>
+    <h2> {{ chartTitle }} - {{ descriptions[stepValue].label }}</h2>
 
     <!-- our diagram -->
     <el-row>
 
       <el-col :span= "8">
         <el-row>
-          <div class="description" ref="description"> {{ descriptions[stepValue-1].description }} </div>
+          <div class="description" ref="description"> {{ descriptions[stepValue].description }} </div>
         </el-row>
 
         <el-row>
@@ -231,13 +231,13 @@ export default {
     stepValue: function(){
       console.log("hey i'm square and i'm watching stepValue");
        switch (this.stepValue){
-        case 1:
+        case 0:
           console.log("i'm at one")
         break;
-        case 2:
+        case 1:
           console.log("i'm at two")
         break;
-        case 3:
+        case 2:
           console.log("i'm at threee")
         break;
         default:

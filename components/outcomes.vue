@@ -3,13 +3,13 @@
   <div id="container">
 
     <!-- our title -->
-    <h2> {{ chartTitle }}  - {{ descriptions[stepValue-1].label }}</h2>
+    <h2> {{ chartTitle }}  - {{ descriptions[stepValue].label }}</h2>
 
     <el-row>
 
       <el-col :span= "8">
         <el-row id = "outcomeDetail">
-          <div class="description" ref="description"> {{ descriptions[stepValue-1].description }} </div>
+          <div class="description" ref="description"> {{ descriptions[stepValue].description }} </div>
         </el-row>
         <el-row>
           <div class="outcomes" ref="outcomeDetail"></div>
@@ -226,7 +226,7 @@ export default {
                         .domain(function(d){return d.Institution})
                         .range(d3.schemeSet3);
       switch (this.stepValue){
-        case 1:
+        case 0:
           console.log("i'm at uno")
           d3.select(this.$refs.outcomesSVG)
                .selectAll("circle")
@@ -249,7 +249,7 @@ export default {
               .text(d => d.data.key)
               .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
           break;
-        case 2:
+        case 1:
           console.log("i'm at dos")
           d3.select(this.$refs.outcomesSVG)
             .selectAll("circle")
@@ -273,7 +273,7 @@ export default {
               .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
 
           break;
-        case 3:
+        case 2:
           console.log("tres")
           d3.select(this.$refs.outcomesSVG)
               .selectAll("circle")
@@ -304,7 +304,7 @@ export default {
                   .text(d => d.data.key)
                   .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
           break;
-        case 4:
+        case 3:
           console.log("quatro")
           d3.select(this.$refs.outcomesSVG)
                .selectAll("circle")

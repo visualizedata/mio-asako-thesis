@@ -25,7 +25,7 @@ export default {
   data() {
     return{
       loadedAsmdData,
-      stepValue: 1,
+      stepValue: 0,
       stepLabels: descriptions.map(v => {return v.label}),
       descriptions
     };

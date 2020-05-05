@@ -26,7 +26,7 @@
   export default {
     data() {
       return {
-        active: 1
+        active: 0
       };
     },
     props: {
@@ -38,20 +38,16 @@
     methods: {
       // changes the step, updates the "line" but also $emits the new value
       next() {
-        if (this.active++ > this.labels.length){
-          this.active = 1;
-          // TODO: consider $emitting that we reached end of line, and we want to go to the
-          // next step in the _mother_ stepper
+        if (this.active < this.labels.length - 1){
+          this.active = this.active + 1;
         }
-
         this.$emit('stepChange', this.active)
       },
       // changes the step, updates the "line" but also $emits the new value
       back(){
-        if (this.active-- < 2){
-          this.active = 1;
-        } 
-
+        if (this.active > 0){
+          this.active = this.active - 1;
+        }
         this.$emit('stepChange', this.active)
       },
     }
@@ -68,8 +64,17 @@
   fill: #ff6767;
 }
 
-.el-steps{
-    stroke: red;
+.el-step__title.is-finish {
+  color:red;
 }
+
+.el-step__title.is-process {
+  color:greenyellow;
+}
+
+.el-step__title.is-wait {
+  color:yellow;
+}
+
 
 </style>

@@ -25,7 +25,7 @@ export default {
     return{
       loadedAsmdData,
       //start value for stepper
-      stepValue: 1,
+      stepValue: 0,
       stepLabels: descriptions.map(v => {return v.label}),
       descriptions
     };
@@ -41,9 +41,6 @@ export default {
       //this.changeColor();
       this.stepValue = value;
     }
-  },
-  mounted(){
-
   }
 };
 </script>
@@ -79,7 +76,6 @@ export default {
 }
 .el-col {
   min-height: 36px;
-
 }
 
 </style>

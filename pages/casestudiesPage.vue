@@ -14,17 +14,17 @@
 </template>
 
 <script>
+
 import casestudies from '~/components/casestudies.vue'
 import steps from '~/components/steps.vue'
 import loadedCaseStudies from "~/static/case_studies.json";
 import descriptions from '~/static/casestudies_steps.json';
 
-
 export default {
   data() {
     return{
       loadedCaseStudies: loadedCaseStudies,
-      stepValue: 1,
+      stepValue: 0,
       stepLabels: descriptions.map(v => {return v.label}),
       descriptions
     };
@@ -40,9 +40,6 @@ export default {
       //this.changeColor();
       this.stepValue = value;
     }
-  },
-  mounted(){
-
   }
 };
 </script>
@@ -59,6 +56,7 @@ body {
     margin-bottom: 0;
   }
 }
+
 .el-col {
   min-height: 36px;
 }

@@ -3,13 +3,13 @@
   <div id="container">
 
     <!-- our title -->
-    <h2> {{ chartTitle }}  - {{ descriptions[stepValue-1].label }}</h2>
+    <h2> {{ chartTitle }}  - {{ descriptions[stepValue].label }}</h2>
 
     <el-row>
 
       <el-col :span= "8">
         <el-row>
-          <div class="description" ref="description"> {{ descriptions[stepValue-1].description }} </div>
+          <div class="description" ref="description"> {{ descriptions[stepValue].description }} </div>
         </el-row>
         <el-row>
           <div class="outcomes" ref="caseStudyDetail"></div>
@@ -34,7 +34,6 @@ import * as d3 from "d3";
 import utilsMixin from '~/mixins/utils.js'
 
 export default {
-  name: "casestudies",
   data(){
     return{
       chartTitle: "CASE STUDIES OF MISCONDUCT CASES WITH OUTCOMES IN 2018",
@@ -62,10 +61,6 @@ export default {
     }
   },
   mixins: [utilsMixin],
-  methods: {
-  },
-  computed: {
-  },
   mounted() {
 
     console.log("caseStudy component mounted 😷");
@@ -208,14 +203,14 @@ export default {
   // value whenever it is being triggered
     stepValue: function(){
       switch (this.stepValue){
-        case 1:
+        case 0:
           console.log("1")
           d3.select(this.$refs.caseStudiesSVG)
             .selectAll("rect")
             .data(this.caseStudyData.sort(d => {return d.outcome - d.first_incident}))
         break;
 
-        case 2:
+        case 1:
           console.log("2")
           d3.select(this.$refs.caseStudiesSVG)
             .selectAll("rect")
