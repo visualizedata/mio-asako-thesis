@@ -126,12 +126,12 @@ export default {
         .duration(200)
         .style("opacity", .9);
       // write into tooltip with raw HTML
-      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" 
+      tooltip.html("<b><span style = 'font-size: 24px; color: #6767ff; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" 
       + "<b>Outcome:  </b>" + d.outcome + "</span></br>" + "<b>Institution:  </b>" + d.institution + "</br>" 
       +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>")
         .style("font-family", "Lato")
-        .style("font-size", "24px")
-        .style("margin", "10px");
+        .style("font-size", "18px")
+;
     };
 
     var tooltipOff = function(d) {
@@ -189,7 +189,7 @@ export default {
                     institution: p["Institution"],
                     discipline: p["Specific Discipline"],
                     link: p["Original Link(s)"],
-                    color: "#ffffff",
+                    color: "#6767ff",
                     story: p["Specific Outcome"]
                   }
           }))
@@ -214,7 +214,7 @@ export default {
       
       // add x axis
       svg.append("g")
-        .style("font", "12px helvetica")
+        .style("font", "16px helvetica")
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + this.height + ")")
         .style("stroke", "white")
@@ -222,7 +222,7 @@ export default {
 
       // add y axis
       svg.append("g")
-        .style("font", "12px helvetica")
+        .style("font", "16px helvetica")
         .attr("class", "axis axis--y")
         .style("stroke", "white")
         .call(d3.axisRight(y));

@@ -3,11 +3,12 @@
   <div id="container">
 
     <!-- our title -->
-    <h2> {{ chartTitle }}  - {{ descriptions[stepValue].label }}</h2>
-
     <el-row>
 
       <el-col :span= "8">
+        <div class = "chartTitle">
+          <h3> {{ chartTitle }}</h3>
+         </div>
         <el-row id = "outcomeDetail">
           <div class="description" ref="description"> {{ descriptions[stepValue].description }} </div>
         </el-row>

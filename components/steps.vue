@@ -81,5 +81,14 @@
   border-color: #ff6767;
 }
 
+.el-step__head.is-process{
+  color: #ff6767;
+  border-color: #ff6767;
+}
+
+.el-step__head.is-wait{
+  color: #ff6767;
+  border-color: #ff6767;
+}
 
 </style>

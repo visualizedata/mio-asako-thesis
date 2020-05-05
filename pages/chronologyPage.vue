@@ -57,10 +57,16 @@ export default {
   line-height: 1.5;
 }
 
-/*why not work?*/
 .chartTitle{
   max-width: 75%;
   margin: 5vh 5vh 5vh 5vh;
-  color: #00ff00;
   }
+
+.tooltip{
+  max-width: 800px;
+}
+
+.cases{
+  margin: 5vh 5vh 5vh 5vh;
+}
 </style>
