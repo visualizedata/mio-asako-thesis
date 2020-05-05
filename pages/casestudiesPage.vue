@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span= "24">
-        <casestudybars :caseStudyData=loadedCaseStudies :stepValue=stepValue />
+        <casestudies :caseStudyData=loadedCaseStudies :stepValue=stepValue />
       </el-col>
     </el-row>
     <el-row>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import casestudybars from '~/components/casestudybars.vue'
+import casestudies from '~/components/casestudies.vue'
 import steps from '~/components/steps.vue'
 import loadedCaseStudies from "~/static/case_studies.json";
 
@@ -27,7 +27,7 @@ export default {
     };
   },
   components: {
-      casestudybars,
+      casestudies,
       steps
   },
   methods: {

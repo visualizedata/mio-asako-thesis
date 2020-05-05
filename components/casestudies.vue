@@ -29,7 +29,7 @@ import * as d3 from "d3";
 import utilsMixin from '~/mixins/utils.js'
 
 export default {
-  name: "casestudybars",
+  name: "casestudies",
   data(){
     return{
       chartTitle: "CASE STUDIES OF MISCONDUCT CASES WITH OUTCOMES IN 2018",

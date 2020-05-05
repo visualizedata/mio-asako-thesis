@@ -12,7 +12,7 @@
       </el-col>
 
       <el-col :span= "16">
-        <svg ref="asmdTimelineSVG"></svg>
+        <svg ref="chronologySVG"></svg>
       </el-col>
 
     </el-row>
@@ -29,7 +29,6 @@ import * as d3 from "d3";
 import utilsMixin from '~/mixins/utils.js'
 
 export default {
-  name: "asmd",
   data(){
     return{
       chartTitle: "Academic Sexual Misconduct Cases",
@@ -58,7 +57,7 @@ export default {
   },
   mounted() {
 
-    console.log("ASMD mounted 😷");
+    console.log("chronology component mounted 😷");
 
     // this exists, because it is defined as `required` in the props
     const asmdData = this.asmdData;
@@ -147,7 +146,7 @@ export default {
         .domain([0, maxCases]); // FIXME: it almost works when I multiply by (this.width/this.height)
 
     // Adds the svg canvas
-    var svg = d3.select(this.$refs.asmdTimelineSVG)
+    var svg = d3.select(this.$refs.chronologySVG)
         .attr("viewBox", [0, 0, 1500 + this.margin.left + this.margin.right , 800 + this.margin.top + this.margin.bottom])
 
     console.log("window width: " + window.innerWidth);

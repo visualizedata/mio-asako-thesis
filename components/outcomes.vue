@@ -17,7 +17,7 @@
       </el-col>
 
       <el-col :span= "16">
-        <svg ref="asmdClusteringSVG"></svg>
+        <svg ref="outcomesSVG"></svg>
       </el-col>
 
     </el-row>
@@ -147,7 +147,7 @@ export default {
       .padding(3)(this.root)
 
     // select the SVG
-    var svg = d3.select(this.$refs.asmdClusteringSVG)
+    var svg = d3.select(this.$refs.outcomesSVG)
         .attr("viewBox", "0 0 1000 1000")
         .attr("width", this.width)
         .attr("height", this.height)
@@ -224,7 +224,7 @@ export default {
       switch (this.stepValue){
         case 1:
           console.log("i'm at uno")
-          d3.select(this.$refs.asmdClusteringSVG)
+          d3.select(this.$refs.outcomesSVG)
                .selectAll("circle")
                .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
                                 : d.depth == 2 ? colorScale(d.parent.data.key)
@@ -237,7 +237,7 @@ export default {
                                         : 1;
             })
           
-          d3.select(this.$refs.asmdClusteringSVG)
+          d3.select(this.$refs.outcomesSVG)
           .selectAll("text")
           .join("text")
               .attr("pointer-events", "all")
@@ -247,7 +247,7 @@ export default {
           break;
         case 2:
           console.log("i'm at dos")
-          d3.select(this.$refs.asmdClusteringSVG)
+          d3.select(this.$refs.outcomesSVG)
             .selectAll("circle")
             .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
                                 : d.depth == 2 ? colorScale(d.parent.data.key)
@@ -260,7 +260,7 @@ export default {
                                   : 1;
         })
 
-          d3.select(this.$refs.asmdClusteringSVG)
+          d3.select(this.$refs.outcomesSVG)
           .selectAll("text")
           .join("text")
               .attr("pointer-events", "all")
@@ -271,7 +271,7 @@ export default {
           break;
         case 3:
           console.log("tres")
-          d3.select(this.$refs.asmdClusteringSVG)
+          d3.select(this.$refs.outcomesSVG)
               .selectAll("circle")
               .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
                                     : d.data.key === "No longer employed" ? "#000000"
@@ -287,7 +287,7 @@ export default {
                                     : d.data.key === "Barred" ? 0.2
                                     : 1;
         })
-          d3.select(this.$refs.asmdClusteringSVG)
+          d3.select(this.$refs.outcomesSVG)
               .selectAll("text")
               .join("text")
                   .attr("pointer-events", "all")
@@ -302,7 +302,7 @@ export default {
           break;
         case 4:
           console.log("quatro")
-          d3.select(this.$refs.asmdClusteringSVG)
+          d3.select(this.$refs.outcomesSVG)
                .selectAll("circle")
                .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
                                     : d.data.key === "Psychology" ? "#00ffff"
@@ -318,7 +318,7 @@ export default {
                                         : 1;
           })
           
-          d3.select(this.$refs.asmdClusteringSVG)
+          d3.select(this.$refs.outcomesSVG)
           .selectAll("text")
           .join("text")
               .attr("pointer-events", "all")
@@ -332,7 +332,7 @@ export default {
           break;
         default:
           console.log("mas numeros")
-          d3.select(this.$refs.asmdClusteringSVG)
+          d3.select(this.$refs.outcomesSVG)
                .selectAll("circle")
                .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
                                 : d.depth == 2 ? colorScale(d.parent.data.key)
@@ -345,7 +345,7 @@ export default {
                                         : 1;
             })
           
-          d3.select(this.$refs.asmdClusteringSVG)
+          d3.select(this.$refs.outcomesSVG)
           .selectAll("text")
           .join("text")
               .attr("pointer-events", "all")

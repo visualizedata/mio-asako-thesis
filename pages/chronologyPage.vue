@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <asmd :asmdData=loadedAsmdData :stepValue=stepValue />
+        <chronology :asmdData=loadedAsmdData :stepValue=stepValue />
       </el-col>
     </el-row>
     <el-row>
@@ -15,7 +15,7 @@
 
 <script>
 
-import asmd from '~/components/asmd.vue'
+import chronology from '~/components/chronology.vue'
 import steps from '~/components/steps.vue'
 
 import descriptions from '~/static/chronology_steps.json';
@@ -31,7 +31,7 @@ export default {
     };
   },
   components: {
-    asmd,
+    chronology,
     steps
   },methods: {
     // this propagates the value and also changes the color

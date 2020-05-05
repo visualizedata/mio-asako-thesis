@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <clusters :asmdData=loadedAsmdData :stepValue=stepValue />
+        <outcomes :asmdData=loadedAsmdData :stepValue=stepValue />
       </el-col>
     </el-row>
     <el-row>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import clusters from '~/components/clusters.vue'
+import outcomes from '~/components/outcomes.vue'
 import steps from '~/components/steps.vue'
 
 import loadedAsmdData from "~/static/asmd_incidents.json";
@@ -29,7 +29,7 @@ export default {
     };
   },
   components: {
-      clusters,
+      outcomes,
       steps
   },
   methods: {
