@@ -7,7 +7,7 @@
     </el-row>
     <el-row>
       <el-col :span="24" style="position: fixed; bottom: 0">
-        <steps v-on:stepChange="propagateStepChange" :labels="stepLabels" />
+        <steps v-on:stepChange="propagateStepChange" :labels="stepLabels" :stepValue=stepValue  />
       </el-col>
     </el-row>
   </div>
@@ -25,7 +25,7 @@ export default {
       loadedAsmdData,
       //start value for stepper
       stepValue: 1,
-      stepLabels: ["outcome labal1", "sfkjsdf", "sdfsdf"]
+      stepLabels: ["general outcomes", "good", "bad", "disciplines", "explore"]
     };
   },
   components: {

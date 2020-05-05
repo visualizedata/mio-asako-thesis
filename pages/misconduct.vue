@@ -44,6 +44,7 @@ export default {
 
 h2{
   font-family: 'Lato'
+
 }
 
 </style>

@@ -228,7 +228,22 @@ export default {
     // this is our stepValue listener and we update the text with the proper
     // value whenever it is being triggered
     stepValue: function(){
-      console.log("hey i'm square and i'm watching stepValue");
+      console.log("hey i'm square and i'm watching stepValue")
+      switch (this.stepValue){
+        case 1:
+          console.log("i'm at uno")
+        case 2:
+          console.log("i'm at dos")
+            d3.select(this.$refs.asmdClusteringSVG)
+              .selectAll("circle")
+              .attr("fill", "#ff0000")
+        case 3:
+          console.log("tres")
+        case 4:
+          console.log("quatro")
+        default:
+          console.log("mas numeros")
+      }
     }
   }
 };

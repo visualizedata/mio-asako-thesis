@@ -38,11 +38,12 @@
     methods: {
       // changes the step, updates the "line" but also $emits the new value
       next() {
-        if (this.active++ > labels.length-1){
+        if (this.active++ > this.labels.length){
           this.active = 1;
           // TODO: consider $emitting that we reached end of line, and we want to go to the
           // next step in the _mother_ stepper
         }
+
         this.$emit('stepChange', this.active)
       },
       // changes the step, updates the "line" but also $emits the new value
@@ -50,6 +51,7 @@
         if (this.active-- < 2){
           this.active = 1;
         } 
+
         this.$emit('stepChange', this.active)
       },
     }
