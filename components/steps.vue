@@ -65,15 +65,20 @@
 }
 
 .el-step__title.is-finish {
-  color:red;
+  color:#ff6767;
 }
 
 .el-step__title.is-process {
-  color:greenyellow;
+  color:#ff6767;
 }
 
 .el-step__title.is-wait {
-  color:yellow;
+  color:#626262;
+}
+
+.el-step__head.is-finish{
+  color: #ff6767;
+  border-color: #ff6767;
 }
 
 
