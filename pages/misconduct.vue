@@ -18,6 +18,8 @@
 import asmd from '~/components/asmd.vue'
 import steps from '~/components/steps.vue'
 
+import descriptions from '~/static/chronology_steps.json';
+
 import loadedAsmdData from "~/static/asmd_incidents.json";
 
 export default {
