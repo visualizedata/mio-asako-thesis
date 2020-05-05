@@ -48,7 +48,7 @@ h2,
 h3,
 h4,
 h5,
-h6,{
+h6 {
   font-family: 'Lato';
 }
 
@@ -61,7 +61,7 @@ h1 {
 h2 {
   font-size: 3.6rem;
   line-height: 1.25;
-  letter-spacing: -0.125rem;
+  /* letter-spacing: -0.125rem; */
   color: #ff6767;
 }
 
@@ -69,6 +69,7 @@ h3 {
   font-size: 3rem;
   line-height: 1.3;
   letter-spacing: -0.1rem;
+  color: #ff6767;
 }
 
 h4 {
@@ -77,6 +78,7 @@ h4 {
   line-height: 1.28;
   /* letter-spacing: -0.08rem; */
   letter-spacing: -0.1rem;
+  color: #ff6767;
 }
 
 h5 {
@@ -103,32 +105,4 @@ p{
   margin: 0;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
 </style>

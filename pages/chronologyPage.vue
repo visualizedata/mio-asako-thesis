@@ -48,11 +48,19 @@ export default {
 </script>
 
 <style>
-#container{
-  display: block;
+/* style for all description divs across pages */
+.description{
+  font-family: "Lato";
+  font-size: 18px;
+  max-width: 75%;
+  margin: 5vh 5vh 5vh 5vh;
+  line-height: 1.5;
 }
 
-h2{
-  font-family: 'Lato'
-}
+/*why not work?*/
+.chartTitle{
+  max-width: 75%;
+  margin: 5vh 5vh 5vh 5vh;
+  color: #00ff00;
+  }
 </style>

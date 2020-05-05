@@ -219,7 +219,6 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-/*pp survey header*/
 .ppsurvey_question{
   justify-content: center;
   text-align: center;

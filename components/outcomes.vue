@@ -363,23 +363,5 @@ export default {
 };
 </script>
 <style scoped>
-#commentary{
-  font-family: "Lato";
-  font-size: 24px;
-}
 
-#outcomeDetail{
-  max-width: 50vh;
-}
-
-.el-row {
-  margin-bottom: 20px;
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-.el-col {
-  min-height: 36px;
-
-}
 </style>

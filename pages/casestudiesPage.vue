@@ -45,26 +45,12 @@ export default {
 </script>
 
 <style>
-body {
-  font: 10px sans-serif;
-  position: relative;
-}
 
-.el-row {
-  margin-bottom: 20px;
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.el-col {
-  min-height: 36px;
-}
-
-svg{
+/*This moves the svgs to the right*/
+/* svg{
   display: block;
   margin: auto;
   float: right;
-}
+} */
 
 </style>

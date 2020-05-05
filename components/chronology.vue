@@ -2,14 +2,17 @@
   <div id="container">
 
     <!-- our title -->
-    <h2> {{ chartTitle }} - {{ descriptions[stepValue].label }}</h2>
-
     <!-- our diagram -->
     <el-row>
 
       <el-col :span= "8">
         <el-row>
-          <div class="description" ref="description"> {{ descriptions[stepValue].description }} </div>
+          <div class="chartTitle">
+            <h3> {{ chartTitle }} </h3>
+          </div>
+          <div class="description" ref="description"> 
+            {{ descriptions[stepValue].description }}
+          </div>
         </el-row>
 
         <el-row>
@@ -37,7 +40,7 @@ import utilsMixin from '~/mixins/utils.js'
 export default {
   data(){
     return{
-      chartTitle: "Academic Sexual Misconduct Cases",
+      chartTitle: "ACADEMIC SEXUAL MISCONDUCT CASES",
       height: 800,
       width: 1500,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
