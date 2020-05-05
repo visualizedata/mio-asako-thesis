@@ -14,14 +14,13 @@
             {{ descriptions[stepValue].description }}
           </div>
         </el-row>
-
-        <el-row>
-          <div class="cases" ref="caseDetail"></div>
-        </el-row>
       </el-col>
 
       <el-col :span= "16">
         <svg ref="chronologySVG"></svg>
+         <el-row>
+          <div class="cases" ref="caseDetail"></div>
+        </el-row>
       </el-col>
 
     </el-row>
@@ -128,10 +127,7 @@ export default {
       // write into tooltip with raw HTML
       tooltip.html("<b><span style = 'font-size: 24px; color: #6767ff; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" 
       + "<b>Outcome:  </b>" + d.outcome + "</span></br>" + "<b>Institution:  </b>" + d.institution + "</br>" 
-      +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>")
-        .style("font-family", "Lato")
-        .style("font-size", "18px")
-;
+      +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>");
     };
 
     var tooltipOff = function(d) {

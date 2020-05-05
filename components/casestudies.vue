@@ -113,7 +113,8 @@ export default {
              .duration(200)
              .style("opacity", 1)
       // write html
-      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.description + "</span></b>")
+      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.name + "</span></b>" + "</br><span style = 'font-size: 18px; color: #ffffff;'>" 
+      + d.description + "</span></br>")
 
       d3.selectAll("rect")
         .style("opacity", 0.3)
