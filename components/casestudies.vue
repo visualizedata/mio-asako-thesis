@@ -59,13 +59,10 @@ export default {
   },
   mounted() {
 
-    console.log("cluster mounted 😷");
-
-    // this exists, because it is defined as `required` in the props
-    const caseStudyData = this.caseStudyData;
+    console.log("caseStudy component mounted 😷");
 
     console.log("caseStudyData:");
-    console.log(caseStudyData);
+    console.log(this.caseStudyData);
 
     var width = window.innerWidth
     var height = window.innerHeight
@@ -91,7 +88,7 @@ export default {
 
     // divide y-axis by number of cases
     var y = d3.scaleBand()
-              .domain(d3.range(caseStudyData.length))
+              .domain(d3.range(this.caseStudyData.length))
               .rangeRound([this.margin.top, this.height-this.margin.bottom])
               .padding(0.1)
 
@@ -140,7 +137,7 @@ export default {
     // draw a rectangle for each case, then translate it to the mid-year
     svg.append("g")
         .selectAll("rect")
-        .data(caseStudyData)
+        .data(this.caseStudyData)
         .join("rect")
             .attr("fill", d => d.name == "Title IX investigation" ? "#ff6767"
                                       : "#6767ff")
@@ -161,7 +158,7 @@ export default {
         .attr("font-family", "Lato")
         .attr("font-size", 12)
         .selectAll("text")
-        .data(caseStudyData)
+        .data(this.caseStudyData)
         .join("text")
             .attr("x", d => x(parseDate(d.first_incident)) - 4)
             .attr("y", (d, i) => y(i) + y.bandwidth() / 2)
@@ -181,7 +178,7 @@ export default {
 
     // draw the first_complaint at midYear
     var bars = svg.selectAll(".bar")
-        .data(caseStudyData)
+        .data(this.caseStudyData)
         .enter()
         .append("rect")
             .attr("class", "bar")
@@ -201,10 +198,26 @@ export default {
   // this is our stepValue listener and we update the text with the proper
   // value whenever it is being triggered
     stepValue: function(){
-      console.log("hey i'm case study bars and i'm watching stepValue");
-      var svg = d3.select(this.$refs.caseStudiesSVG)
-                  .select('text')
-                  .text("slider in step: " + this.stepValue)
+      switch (this.stepValue){
+        case 1:
+          console.log("1")
+          d3.select(this.$refs.caseStudiesSVG)
+            .selectAll("rect")
+            .data(this.caseStudyData.sort(d => {return d.outcome - d.first_incident}))
+        break;
+
+        case 2:
+          console.log("2")
+          d3.select(this.$refs.caseStudiesSVG)
+            .selectAll("rect")
+            .data(this.caseStudyData.sort(d => {return d.first_complaint}))
+        break;
+
+        default:
+        break;
+
+      }
+
     }
   }
 };
