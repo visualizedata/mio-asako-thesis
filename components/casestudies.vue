@@ -15,7 +15,7 @@
       </el-col>
 
       <el-col :span= "16">
-        <svg ref="caseStudiesSVG"></svg>
+        <svg id = "caseStudiesSVG" ref="caseStudiesSVG"></svg>
       </el-col>
 
     </el-row>
@@ -32,8 +32,8 @@ export default {
   data(){
     return{
       chartTitle: "CASE STUDIES OF MISCONDUCT CASES WITH OUTCOMES IN 2018",
-      height: 1000, //why does window.innerHeight not work?
-      width: 1000,
+      height: 950, //why does window.innerHeight not work?
+      width: 950,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
       //data: this.asmdData,
     }
@@ -181,11 +181,29 @@ export default {
 
     // append the x-axis
     svg.append("g")
-        .style("font", "12px helvetica")
+        .style("font", "14px Helvetica")
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + this.height + ")")
         .style("stroke", "white")
         .call(xAxis)
+        .call(g => g.append("text")
+        .attr("x", x(0) + 20)
+        .attr("y", -925)
+        .attr("fill", "#ffffff")
+        .attr("text-anchor", "start")
+        .text(" ← Time point of first known incident"))
+        .call(g => g.append("text")
+        .attr("x", x(0) + 550)
+        .attr("y", -925)
+        .attr("fill", "#ffffff")
+        .attr("text-anchor", "end")
+        .text("Time point of first complaint"))
+        .call(g => g.append("text")
+        .attr("x", x(0) + 900)
+        .attr("y", -925)
+        .attr("fill", "#ffffff")
+        .attr("text-anchor", "end")
+        .text("Time point of initial outcome → "))
 
     // draw the first_complaint at midYear
     var bars = svg.selectAll(".bar")

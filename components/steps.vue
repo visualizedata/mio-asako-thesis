@@ -2,9 +2,9 @@
     <div>
         <el-row>
             <el-col :span="24">
-                <el-steps :active="active" align-center>
+                <!-- <el-steps :active="active" align-center>
                     <el-step v-for="label in labels" :title="label" :key="label"></el-step>
-                </el-steps> 
+                </el-steps>  -->
             </el-col>
         </el-row>
         <el-row>
@@ -67,6 +67,7 @@
   margin-right: auto;
   width: 40%;
   background-color: #333333;
+  margin-bottom: 2vh;
 }
 
 .el-step__title.is-wait {
@@ -98,11 +99,19 @@
 
 .el-step.is-horizontal .el-step__line {
     height: 0px;
-    top: 50%;
-    left: 50%;
-    right: 00%;
+    top: 55%;
+    left: 0%;
+    right: 0%;
     position: absolute;
     background-color: gray
+}
+
+.el-step.is-center .el-step__line{}
+
+.el-step:last-of-type .el-step__line{}
+
+.el-step__line-inner{
+  background-color: #ffffff;
 }
 
 </style>

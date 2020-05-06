@@ -71,17 +71,18 @@ export default {
   max-width: 600px;
   line-height: 1.2;
   font-size: 16px;
+  /* min-height: 50px; */
 }
 
 .cases{
   margin: 5vh 5vh 5vh 5vh;
-  min-height: 50px;
+  /* min-height: 50px; */
   line-height: 0.5;
-  background-color: rgba(0, 0, 0, 0.5);
   max-width: 600px;
   padding: 2vh 2vh 2vh 2vh;
   position:absolute;
   z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 #chronologyPage{

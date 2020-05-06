@@ -47,10 +47,10 @@ export default {
 <style>
 
 /*This moves the svgs to the right*/
-/* svg{
+#caseStudiesSVG{
   display: block;
   margin: auto;
   float: right;
-} */
+} 
 
 </style>

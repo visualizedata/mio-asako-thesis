@@ -17,7 +17,7 @@
       </el-col>
 
       <el-col :span= "16">
-        <svg ref="outcomesSVG"></svg>
+        <svg id = "outcomesSVG" ref="outcomesSVG"></svg>
       </el-col>
 
     </el-row>
@@ -34,8 +34,8 @@ export default {
   data(){
     return{
       chartTitle: "PATTERNS OF MISCONDUCT CASE OUTCOMES",
-      height: 1000, //why does window.innerHeight not work?
-      width: 1000,
+      height: 950, //why does window.innerHeight not work?
+      width: 950,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
       //data: this.asmdData,
     }
@@ -116,7 +116,7 @@ export default {
              .duration(200)
              .style("opacity", 1)
       // write html
-      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.data.key + "</span></b>")
+      tooltip.html("<b><span style = 'font-size: 24px; font-family: Syncopate; text-transform: uppercase; color: #6767ff;'>"+ d.data.key + "</span></b>")
 
       d3.selectAll("circle")
         .style("opacity", 0.3)
@@ -194,8 +194,9 @@ export default {
 
     //label every circle (depending on criteria)
     const label = svg.append("g")
-    .style("font-family", "Lato")
-    .style("font-size", "1.5rem")
+    .style("font-family", "Syncopate")
+    .style("font-weight", "700")
+    .style("font-size", "1rem")
     .style("fill", "white")
     .style("text-transform", "uppercase")
     .attr("pointer-events", "all")
