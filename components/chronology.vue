@@ -165,7 +165,7 @@ export default {
 
     // g container for each bin
     let binContainer = svg.selectAll(".gBin")
-        .data(bins);
+        .data(bins)
 
     binContainer.exit().remove()
 
@@ -174,7 +174,7 @@ export default {
 
     let binContainerEnter = binContainer.enter()
         .append("g")
-        .attr("class", "gBin")
+        .attr("class", "gBin");
 
     // need to populate the bin containers with data the first time
     binContainerEnter.selectAll("rect")
@@ -186,6 +186,7 @@ export default {
                     discipline: p["Specific Discipline"],
                     link: p["Original Link(s)"],
                     color: "#6767ff",
+                    year: p["Outcome Year"],
                     story: p["Specific Outcome"]
                   }
           }))
@@ -199,6 +200,10 @@ export default {
           .attr("height", circleRadius)
           .attr("width", circleRadius *3)
           .style("fill", function(d){ return incidentColor(d.outcome); })
+          .style("stroke", function(d){ return d.year === 2018 ? "#ffffff" 
+                                                : d.year === 1991 ? "#ffffff"
+                                                : d.year === 1980 ? "#ffffff"
+                                                : "none"})
           .on("mouseover", tooltipOn)
           .on("mouseout", tooltipOff)
           .on("click", function(d){
@@ -248,5 +253,6 @@ export default {
 </script>
 
 <style>
+
 
 </style>

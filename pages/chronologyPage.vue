@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div chronologyPage :style= "{backgroundImage: 'url(' + images.lab + ')' }">
     <el-row>
       <el-col :span="24">
         <chronology :asmdData=loadedAsmdData :stepValue=stepValue :descriptions=descriptions />
@@ -27,7 +27,10 @@ export default {
       loadedAsmdData,
       stepValue: 0,
       stepLabels: descriptions.map(v => {return v.label}),
-      descriptions
+      descriptions,
+      images:{
+        lab: require("~/assets/lab.png")
+      }
     };
   },
   components: {
@@ -54,7 +57,9 @@ export default {
   font-size: 18px;
   max-width: 75%;
   margin: 5vh 5vh 5vh 5vh;
+  padding: 2vh 2vh 2vh 2vh;
   line-height: 1.5;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .chartTitle{
@@ -68,5 +73,10 @@ export default {
 
 .cases{
   margin: 5vh 5vh 5vh 5vh;
+  min-height: 400px;
+}
+
+#chronologyPage{
+  min-height: 100vh;
 }
 </style>
