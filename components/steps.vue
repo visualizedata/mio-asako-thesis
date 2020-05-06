@@ -56,6 +56,11 @@
 
 <style>
 
+.el-step{
+  font-family: 'Syncopate';
+  text-transform: 'uppercase';
+}
+
 .el-button-steps{
   display: block;
   margin-left: auto;

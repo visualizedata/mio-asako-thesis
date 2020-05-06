@@ -52,13 +52,18 @@ p{
   margin-bottom: 1.25em;
 }
 
-h1,
-h2,
-h3,
+
 h4,
 h5,
 h6 {
   font-family: 'Lato';
+}
+
+h1,
+h2,
+h3{
+  font-family: 'Syncopate';
+  text-transform: uppercase
 }
 
 h1 {
