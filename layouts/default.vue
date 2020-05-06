@@ -8,6 +8,11 @@
 <script>
 import navbar from '~/components/navbar'
 export default {
+  head:{
+    link: [
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap' }
+    ]
+  },
   components: {
     navbar
   }
@@ -16,7 +21,8 @@ export default {
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
 
 html {
   font-family: 'Lato', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -35,7 +41,7 @@ body{
   background-color: #333333;
   font-size: 1.7em;
   line-height: 1.6;
-  font-family: 'Lato';
+  font-family: 'Lato', sans-serif;
   letter-spacing: -0.025rem;
 }
 
