@@ -32,8 +32,8 @@ export default {
   data(){
     return{
       chartTitle: "CASE STUDIES OF MISCONDUCT CASES WITH OUTCOMES IN 2018",
-      height: 950, //why does window.innerHeight not work?
-      width: 950,
+      height: 900, //why does window.innerHeight not work?
+      width: 900,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
       //data: this.asmdData,
     }
@@ -136,7 +136,7 @@ export default {
               .duration(200)
               .style("opacity", 1)
         // write html
-        tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.name + "</span></b>" + "</br><span style = 'font-size: 18px; color: #ffffff;'>" 
+        tooltip.html("<b><span style = 'font-size: 24px; font-family: Syncopate; text-transform: uppercase; color: #6767ff;'>"+ d.name + "</span></b>" + "</br><span style = 'font-size: 18px; color: #ffffff;'>" 
         + d.description + "</span></br>")
 
         d3.selectAll("rect")
@@ -144,6 +144,9 @@ export default {
         
         d3.select(d3.event.currentTarget)
           .style("opacity", 1)
+        
+        d3.selectAll("text")
+          .style("opacity", 0.3)
       }
       
       // function to be called when hovering _off_ the circle
@@ -156,6 +159,9 @@ export default {
               .style("opacity", 0);
 
         d3.selectAll("rect")
+          .style("opacity", 1)
+        
+        d3.selectAll("text")
           .style("opacity", 1)
       };
 
@@ -206,17 +212,39 @@ export default {
               .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
               .attr("dy", "0.35em")
               .text(d => d.name)
+              .style("font-family", "Syncopate")
+              .style("text-transform", "uppercase")
+              .style("font-weight", "700")
               // move the text since we moved the box
               //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
               .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident)}, ${0})`)
 
       // append the x-axis
       svg.append("g")
-          .style("font", "12px helvetica")
+          .style("font", "14px helvetica")
           .attr("class", "axis axis--x")
           .attr("transform", "translate(0," + this.height + ")")
           .style("stroke", "white")
           .call(this.xAxis)
+          .call(g => g.append("text")
+            .attr("x", this.width- this.width*0.9)
+            .attr("y", -24)
+            .attr("fill", "#ffffff")
+            .attr("text-anchor", "start")
+            .text("← Time of first known incident (years from time of first complaint) "))
+          .call(g => g.append("text")
+            .attr("x", this.width- this.width*0.5)
+            .attr("y", 900)
+            .attr("fill", "#ffffff")
+            .attr("text-anchor", "end")
+            .text("Point Zero: time of first complaint"))
+          .call(g => g.append("text")
+            .attr("x", this.width - this.width*0.45)
+            .attr("y", -24)
+            .attr("fill", "#ffffff")
+            .attr("text-anchor", "start")
+            .text("Time of initial outcome (years from time of first complaint) →"))
+            
 
       // draw the first_complaint at midYear
       var bars = svg.selectAll(".bar")

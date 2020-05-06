@@ -69,7 +69,7 @@ export default {
 
 .tooltip{
   max-width: 600px;
-  line-height: 1.2;
+  line-height: 1.5;
   font-size: 16px;
   min-height: 50px;
 }

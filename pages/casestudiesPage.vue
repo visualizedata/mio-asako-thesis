@@ -50,7 +50,7 @@ export default {
 #caseStudiesSVG{
   display: block;
   margin: auto;
-  float: right;
+  float: center;
 } 
 
 </style>
