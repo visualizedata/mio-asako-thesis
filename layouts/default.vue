@@ -10,7 +10,9 @@ import navbar from '~/components/navbar'
 export default {
   head:{
     link: [
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Syncopate:400,700&display=swap' },
+
     ]
   },
   components: {
@@ -22,6 +24,7 @@ export default {
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Syncopate:400,700&display=swap');
 
 
 html {

@@ -69,11 +69,14 @@ export default {
 
 .tooltip{
   max-width: 800px;
+  line-height: 0.2;
+  font-size: 12px;
 }
 
 .cases{
   margin: 5vh 5vh 5vh 5vh;
   min-height: 400px;
+  line-height: 0.2;
 }
 
 #chronologyPage{

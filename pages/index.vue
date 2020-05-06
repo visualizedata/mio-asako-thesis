@@ -4,7 +4,7 @@
       <el-row class = "container">
         <el-col :span="24">
           <h1 class="title">
-          A Lesson in Perseverence: <br/> Women in STEM 
+          A Lesson in Perseverence: <br/> <b>Women in STEM </b>
           </h1>
           <h2 class="subtitle">
             Overcoming sexual misconduct, harassment, and discrimination in STEM Academia
@@ -135,17 +135,22 @@ export default {
 }
 
 .title {
-  font-family: 'Lato', 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+  font-family: 'Syncopate', 'Lato', 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-size: 5rem;
   color: #ffffff;
+  font-weight: 400;
+  text-transform: uppercase;
 }
 
 .subtitle {
   color: #ffffff;
   padding-bottom: 15px;
-  font-family: "Lato"
+  font-family: "Syncopate";
+  font-weight: 400;
+  font-size: 2rem;
+  text-transform: uppercase;
 }
 
 .header{
