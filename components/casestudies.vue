@@ -10,12 +10,12 @@
           <div class="description" ref="description"> {{ descriptions[stepValue].description }} </div>
         </el-row>
         <el-row>
-          <div class="outcomes" ref="caseStudyDetail"></div>
         </el-row>
       </el-col>
 
       <el-col :span= "16">
-        <svg ref="caseStudiesSVG"></svg>
+        <div class="outcomes" ref="caseStudyDetail"></div>
+        <svg id = "caseStudiesSVG" ref="caseStudiesSVG"></svg>
       </el-col>
 
     </el-row>
@@ -32,8 +32,8 @@ export default {
   data(){
     return{
       chartTitle: "CASE STUDIES OF MISCONDUCT CASES WITH OUTCOMES IN 2018",
-      height: 1000, //why does window.innerHeight not work?
-      width: 1000,
+      height: 950, //why does window.innerHeight not work?
+      width: 950,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
       //data: this.asmdData,
     }

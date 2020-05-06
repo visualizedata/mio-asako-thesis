@@ -17,10 +17,8 @@
       </el-col>
 
       <el-col :span= "16">
-        <svg ref="chronologySVG"></svg>
-         <el-row>
-          <div class="cases" ref="caseDetail"></div>
-        </el-row>
+        <div class="cases" ref="caseDetail"></div>
+        <svg id = "chronologySVG" ref="chronologySVG"></svg>
       </el-col>
 
     </el-row>
@@ -61,22 +59,25 @@ export default {
   },
   mixins: [utilsMixin],
   computed: {
-    myData: function(){
+    myData: function(){ 
       var validData = this.asmdData
-          .filter(this.isValid);
-      if(this.stepValue < 4){
-        return validData;
-      } else {
-        return validData.filter(this.isStem);
-      }
+          .filter(this.isValid)
+        
+      return validData;
+      // if(this.stepValue < 4){
+      //   return validData;
+      // } else {
+      //   return validData.filter(this.isStem);
+      // }
     },
     rHeight: function(){
       // FIXME: this should be dependent on window.height and maxCases etc.
-      if(this.stepValue < 5){
-        return 3.2
-      } else {
-        return 3.2
-      }
+      return 3.2
+      // if(this.stepValue < 5){
+      //   return 3.2
+      // } else {
+      //   return 7
+      // }
     },
     startYear: function(){
       return Math.min(...this.myData.map(function(a){
@@ -100,8 +101,8 @@ export default {
     },
     yScale: function(){
       return d3.scaleLinear()
-          .range([this.height, 0 + this.margin.top, + this.margin.bottom]) //playing with this to change height of y
-          .domain([0, this.maxCases]); // FIXME: it almost works when I multiply by (this.width/this.height)
+          .range([this.height, 0 + this.margin.top, + this.margin.bottom]) 
+          .domain([0, this.maxCases]); 
     },
     myBins: function(){
       var nBins = this.endYear - this.startYear;
@@ -155,7 +156,7 @@ export default {
           .duration(200)
           .style("opacity", .9);
         // write into tooltip with raw HTML
-        tooltip.html("<b><span style = 'font-size: 24px; color: #6767ff, text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" 
+        tooltip.html("<b><span style = 'font-size: 24px; font-family: Syncopate; text-transform: uppercase; color: #6767ff;'>"+ d.name + "</span></b>" + "</br>" 
         + "<b>Outcome:  </b>" + d.outcome + "</span></br>" + "<b>Institution:  </b>" + d.institution + "</br>" 
         +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>");
       };
@@ -184,6 +185,8 @@ export default {
           .append("g")
           .attr("class", "gBin");
 
+      let that = this;
+
       // need to populate the bin containers with data the first time
       binContainerEnter.selectAll("rect")
             .data(d => d.map((p, i) => {
@@ -196,9 +199,11 @@ export default {
                       color: "#6767ff",
                       year: p["Outcome Year"],
                       story: p["Specific Outcome"],
-                      rHeight: this.rHeight
+                      rHeight: this.rHeight,
+                      isStem: this.isStem(p)
                     }
-            }))
+            })
+            )
           .enter()
           .append("rect")
             .attr("class", "enter")
@@ -276,19 +281,14 @@ export default {
             .style("fill", function(d){ return d.year === 1991 ? "#ffffff" : "#6767ff"; });
         break;
         case 3:
-          //this.clearBarGraph()
-          this.clearBarGraph()
-          this.drawBarGraph()
           d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
             .style("fill", function(d){ return d.year === 2018 ? "#ffffff" : "#6767ff"; });
         break;
         default:
-          this.clearBarGraph()
-          this.drawBarGraph()
           d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
-            .style("fill", "#6767ff");
+            .style("fill", function(d){ return d.isStem ? "6767ff" : "#333333" });
         break;
        }
     }

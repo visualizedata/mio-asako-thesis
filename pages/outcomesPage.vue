@@ -68,6 +68,20 @@ export default {
   font-weight: bold;
 }
 
+.outcomes{
+  margin: 5vh 5vh 5vh 5vh;
+  /* min-height: 50px; */
+  line-height: 0.5;
+  background-color: rgba(0, 0, 0, 0);
+  max-width: 600px;
+  padding: 2vh 2vh 2vh 2vh;
+  position:absolute;
+  z-index: 1;
+}
 
+#outcomesSVG{
+  display: block;
+  float: center;
+}
 
 </style>

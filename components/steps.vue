@@ -2,9 +2,9 @@
     <div>
         <el-row>
             <el-col :span="24">
-                <el-steps :active="active" align-center>
+                <!-- <el-steps :active="active" align-center>
                     <el-step v-for="label in labels" :title="label" :key="label"></el-step>
-                </el-steps> 
+                </el-steps>  -->
             </el-col>
         </el-row>
         <el-row>
@@ -57,9 +57,9 @@
 <style>
 
 .el-step{
-  font-family: 'Syncopate';
-  text-transform: 'uppercase';
-}
+  font-family: 'Lato';
+  /* text-transform: 'uppercase'; */
+ }
 
 .el-button-steps{
   display: block;
@@ -67,18 +67,29 @@
   margin-right: auto;
   width: 40%;
   background-color: #333333;
+  margin-bottom: 2vh;
+}
+
+.el-step__title.is-wait {
+  color:#0000ff;
+}
+
+.el-step__head.is-wait{
+  color: #0000ff;
+  border-color: #0000ff;
+} 
+
+.el-step__title.is-process {
+  color:#00ff00;
+}
+
+.el-step__head.is-process{
+  color: #00ff00;
+  border-color: #00ff00;
 }
 
 .el-step__title.is-finish {
   color:#ff6767;
-}
-
-.el-step__title.is-process {
-  color:#ff6767;
-}
-
-.el-step__title.is-wait {
-  color:#626262;
 }
 
 .el-step__head.is-finish{
@@ -86,14 +97,21 @@
   border-color: #ff6767;
 }
 
-.el-step__head.is-process{
-  color: #ff6767;
-  border-color: #ff6767;
+.el-step.is-horizontal .el-step__line {
+    height: 0px;
+    top: 55%;
+    left: 0%;
+    right: 0%;
+    position: absolute;
+    background-color: gray
 }
 
-.el-step__head.is-wait{
-  color: #ff6767;
-  border-color: #ff6767;
+.el-step.is-center .el-step__line{}
+
+.el-step:last-of-type .el-step__line{}
+
+.el-step__line-inner{
+  background-color: #ffffff;
 }
 
 </style>
