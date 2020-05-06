@@ -61,7 +61,7 @@
   margin-left: auto;
   margin-right: auto;
   width: 40%;
-  fill: #ff6767;
+  background-color: #333333;
 }
 
 .el-step__title.is-finish {
