@@ -56,179 +56,212 @@ export default {
     }
   },
   mixins: [utilsMixin],
-  mounted() {
+  computed: {
+    myData: function(){
+      switch (this.stepValue) {
+        case 0:
+          return this.caseStudyData.sort((a,b) => { return a.first_incident 
+                                                         - b.first_incident
+                                                  }
+                                        );
+          break;
+        case 1:
+          return this.caseStudyData.sort((a,b) => { return a.first_incident 
+                                                         - b.first_incident 
+                                                  }
+                                        );
+          break;
+        default:
+          return this.caseStudyData.sort((a,b) => { return a.outcome 
+                                                         - b.outcome 
+                                                  }
+                                        ).reverse();
+          break;
+      }
+    },
+    xScale: function(){
+      // our time scale is centered around 1995, with 25 years left and right of it
+      return d3.scaleTime()
+               .rangeRound([0,this.width])
+               .domain([new Date(1970, 1, 1), new Date(2020, 1, 1)])
+    },
+    xAxis: function(){
+      // create a custom x-axis for our timescale
+      // it is 50 years wide, centered around the year 0
+      var x2 = d3.scaleLinear()
+                 .rangeRound([this.margin.left, this.width-this.margin.right])
+                 .domain([-25, 25])
 
-    console.log("caseStudy component mounted 😷");
-
-    console.log("caseStudyData:");
-    console.log(this.caseStudyData);
-
-    var width = window.innerWidth
-    var height = window.innerHeight
-
-    var parseDate = d3.timeParse("%Y");
-
-    const midYear = 1995;
-
-    // our time scale is centered around 1995, with 25 years left and right of it
-    var x = d3.scaleTime()
-              .rangeRound([0,this.width])
-              .domain([new Date(1970, 1, 1), new Date(2020, 1, 1)])
-
-    // create a custom x-axis for our timescale
-    // it is 50 years wide, centered around the year 0
-    var x2 = d3.scaleLinear()
-            .rangeRound([this.margin.left, this.width-this.margin.right])
-            .domain([-25, 25])
-
-    // one tick every 5 years
-    var xAxis = d3.axisTop(x2)
+      // one tick every 5 years
+      return d3.axisTop(x2)
                   .ticks(10)
-
-    // divide y-axis by number of cases
-    var y = d3.scaleBand()
-              .domain(d3.range(this.caseStudyData.length))
+    },
+    yScale: function(){
+      // divide y-axis by number of cases
+     return d3.scaleBand()
+              .domain(d3.range(this.myData.length))
               .rangeRound([this.margin.top, this.height-this.margin.bottom])
               .padding(0.1)
-
-    // we calculate a year in pixels on the x-axis to be able to translate
-    // back to year 0
-    const yearInPixels = x(parseDate(2001)) - x(parseDate(2000));
-
-    // function to be called when hovering over circle
-    var tooltipOn = function(d) {
-      // change the appearance of the circle ?
-      d3.select(this)
-        .attr("cursor", "pointer")
-      // transition tooltip
-      tooltip.transition()
-             .duration(200)
-             .style("opacity", 1)
-      // write html
-      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.name + "</span></b>" + "</br><span style = 'font-size: 18px; color: #ffffff;'>" 
-      + d.description + "</span></br>")
-
-      d3.selectAll("rect")
-        .style("opacity", 0.3)
-      
-      d3.select(d3.event.currentTarget)
-        .style("opacity", 1)
     }
     
-    // function to be called when hovering _off_ the circle
-    var tooltipOff = function(d) {
-      d3.select(this)
-        .attr("opacity", "1.0")
-      // transition tooltip
-      tooltip.transition()
-             .duration(500)
-             .style("opacity", 0);
+  },
+  methods: {
 
-      d3.selectAll("rect")
-        .style("opacity", 1)
-    };
+    clearBarChart(){
+      d3.select(this.$refs.caseStudiesSVG)
+        .selectAll("*")
+        .remove()
+    },
 
-    // draw on our SVG
-    var svg = d3.select(this.$refs.caseStudiesSVG)
-        .attr("width", this.width)
-        .attr("height", this.height)
-        .attr("viewBox", [0,0,this.width,this.height])
-    
-    // draw a rectangle for each case, then translate it to the mid-year
-    svg.append("g")
-        .selectAll("rect")
-        .data(this.caseStudyData)
-        .join("rect")
-            // .attr("fill", d => d.name == "Title IX investigation" ? "#ff6767"
-            //                           : "#6767ff")
-            .attr("fill", d => d.name == "Title IX investigation" ? "#333333"
-                              : d.outcome - d.first_incident <= 5 ? "#ff6767"
-                              : d.outcome - d.first_incident <= 10 ? "#dc678a"
-                              : d.outcome - d.first_incident <= 20 ? "#bb67ab"
-                              : d.outcome - d.first_incident <= 30 ? "#8e67d8"
-                              : "#6767ff"
-                              )
-            .attr("stroke", d => d.name == "Title IX investigation" ? "#ff6767"
-                                        : "none")
-            .attr("stroke-width", d => d.name == "Title IX investigation" ? "3px"
-                                        : "none")
-            .attr("x", d => x(parseDate(d.first_incident)))
-            .attr("y", (d,i) => y(i))
-            // width is number of years between outcome and first_incident (times yearInPixels)
-            .attr("width", d => yearInPixels * (d.outcome - d.first_incident))
-            .attr("height", y.bandwidth())
-            // translate the rectangle to that first_complaint is in the middle
-            .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
-            .on("mouseover", tooltipOn)
-            .on("mouseout", tooltipOff)
-    
-    // draw the name of the incident
-    svg.append("g")
-        .attr("fill", "white")
-        .attr("text-anchor", "end")
-        .attr("font-family", "Lato")
-        .attr("font-size", 18)
-        .selectAll("text")
-        .data(this.caseStudyData)
-        .join("text")
-            .attr("x", d => x(parseDate(d.first_incident)) - 4)
-            .attr("y", (d, i) => y(i) + y.bandwidth() / 2)
-            .attr("dy", "0.35em")
-            .text(d => d.name)
-            // move the text since we moved the box
-            //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
-            .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident)}, ${0})`)
+    drawBarChart(){
+      console.log("drawBarChart")
+      var width = window.innerWidth
+      var height = window.innerHeight
 
-    // append the x-axis
-    svg.append("g")
-        .style("font", "12px helvetica")
-        .attr("class", "axis axis--x")
-        .attr("transform", "translate(0," + this.height + ")")
-        .style("stroke", "white")
-        .call(xAxis)
+      var parseDate = d3.timeParse("%Y");
 
-    // draw the first_complaint at midYear
-    var bars = svg.selectAll(".bar")
-        .data(this.caseStudyData)
-        .enter()
-        .append("rect")
-            .attr("class", "bar")
-            .attr("x", d => x(parseDate(d.first_complaint)))
-            .attr("y", (d,i) => y(i))
-            .attr("width", 2)
-            .attr("height", y.bandwidth())
-            .attr("fill", "#ffffff")
-            .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
-    
-    var tooltip = d3.select(this.$refs.caseStudyDetail)
-                    .append()
-                    .attr("class", "tooltip")
+      const midYear = 1995;
+
+      // we calculate a year in pixels on the x-axis to be able to translate
+      // back to year 0
+      const yearInPixels = this.xScale(parseDate(2001)) - this.xScale(parseDate(2000));
+
+      // function to be called when hovering over circle
+      var tooltipOn = function(d) {
+        // change the appearance of the circle ?
+        d3.select(this)
+          .attr("cursor", "pointer")
+        // transition tooltip
+        tooltip.transition()
+              .duration(200)
+              .style("opacity", 1)
+        // write html
+        tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.name + "</span></b>" + "</br><span style = 'font-size: 18px; color: #ffffff;'>" 
+        + d.description + "</span></br>")
+
+        d3.selectAll("rect")
+          .style("opacity", 0.3)
+        
+        d3.select(d3.event.currentTarget)
+          .style("opacity", 1)
+      }
+      
+      // function to be called when hovering _off_ the circle
+      var tooltipOff = function(d) {
+        d3.select(this)
+          .attr("opacity", "1.0")
+        // transition tooltip
+        tooltip.transition()
+              .duration(500)
+              .style("opacity", 0);
+
+        d3.selectAll("rect")
+          .style("opacity", 1)
+      };
+
+      // draw on our SVG
+      var svg = d3.select(this.$refs.caseStudiesSVG)
+          .attr("width", this.width)
+          .attr("height", this.height)
+          .attr("viewBox", [0,0,this.width,this.height])
+      
+      // draw a rectangle for each case, then translate it to the mid-year
+      svg.append("g")
+          .selectAll("rect")
+          .data(this.myData)
+          .join("rect")
+              // .attr("fill", d => d.name == "Title IX investigation" ? "#ff6767"
+              //                           : "#6767ff")
+              .attr("fill", d => d.name == "Title IX investigation" ? "#333333"
+                                : d.outcome - d.first_incident <= 5 ? "#ff6767"
+                                : d.outcome - d.first_incident <= 10 ? "#dc678a"
+                                : d.outcome - d.first_incident <= 20 ? "#bb67ab"
+                                : d.outcome - d.first_incident <= 30 ? "#8e67d8"
+                                : "#6767ff"
+                                )
+              .attr("stroke", d => d.name == "Title IX investigation" ? "#ff6767"
+                                          : "none")
+              .attr("stroke-width", d => d.name == "Title IX investigation" ? "3px"
+                                          : "none")
+              .attr("x", d => this.xScale(parseDate(d.first_incident)))
+              .attr("y", (d,i) => this.yScale(i))
+              // width is number of years between outcome and first_incident (times yearInPixels)
+              .attr("width", d => yearInPixels * (d.outcome - d.first_incident))
+              .attr("height", this.yScale.bandwidth())
+              // translate the rectangle to that first_complaint is in the middle
+              .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+              .on("mouseover", tooltipOn)
+              .on("mouseout", tooltipOff)
+      
+      // draw the name of the incident
+      svg.append("g")
+          .attr("fill", "white")
+          .attr("text-anchor", "end")
+          .attr("font-family", "Lato")
+          .attr("font-size", 18)
+          .selectAll("text")
+          .data(this.myData)
+          .join("text")
+              .attr("x", d => this.xScale(parseDate(d.first_incident)) - 4)
+              .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
+              .attr("dy", "0.35em")
+              .text(d => d.name)
+              // move the text since we moved the box
+              //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+              .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident)}, ${0})`)
+
+      // append the x-axis
+      svg.append("g")
+          .style("font", "12px helvetica")
+          .attr("class", "axis axis--x")
+          .attr("transform", "translate(0," + this.height + ")")
+          .style("stroke", "white")
+          .call(this.xAxis)
+
+      // draw the first_complaint at midYear
+      var bars = svg.selectAll(".bar")
+          .data(this.myData)
+          .enter()
+          .append("rect")
+              .attr("class", "bar")
+              .attr("x", d => this.xScale(parseDate(d.first_complaint)))
+              .attr("y", (d,i) => this.yScale(i))
+              .attr("width", 2)
+              .attr("height", this.yScale.bandwidth())
+              .attr("fill", "#ffffff")
+              .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+      
+      var tooltip = d3.select(this.$refs.caseStudyDetail)
+                      .append()
+                      .attr("class", "tooltip")
+    }
+  },
+  mounted() {
+    console.log("caseStudy component mounted 😷");
+
+    this.drawBarChart();
 
 },
   watch: {
-  // this is our stepValue listener and we update the text with the proper
-  // value whenever it is being triggered
+    // this is our stepValue listener and we update the text with the proper
+    // value whenever it is being triggered
     stepValue: function(){
       switch (this.stepValue){
         case 0:
-          console.log("1")
-          d3.select(this.$refs.caseStudiesSVG)
-            .selectAll("rect")
-            .data(this.caseStudyData.sort(d => {return d.outcome - d.first_incident}))
+          this.clearBarChart();
+          this.drawBarChart();
         break;
 
         case 1:
-          console.log("2")
-          d3.select(this.$refs.caseStudiesSVG)
-            .selectAll("rect")
-            .data(this.caseStudyData.sort(d => {return d.first_complaint}))
+          this.clearBarChart();
+          this.drawBarChart();
         break;
 
         default:
+          this.clearBarChart();
+          this.drawBarChart();
         break;
-
       }
-
     }
   }
 };
