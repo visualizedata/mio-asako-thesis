@@ -64,7 +64,7 @@ export default {
     myData: function(){
       var validData = this.asmdData
           .filter(this.isValid);
-      if(this.stepValue < 2){
+      if(this.stepValue < 4){
         return validData;
       } else {
         return validData.filter(this.isStem);
@@ -72,7 +72,7 @@ export default {
     },
     rHeight: function(){
       // FIXME: this should be dependent on window.height and maxCases etc.
-      if(this.stepValue < 2){
+      if(this.stepValue < 5){
         return 3.2
       } else {
         return 3.2
@@ -100,7 +100,7 @@ export default {
     },
     yScale: function(){
       return d3.scaleLinear()
-          .range([this.height, 0 + this.margin.top, + this.margin.bottom])
+          .range([this.height, 0 + this.margin.top, + this.margin.bottom]) //playing with this to change height of y
           .domain([0, this.maxCases]); // FIXME: it almost works when I multiply by (this.width/this.height)
     },
     myBins: function(){
@@ -266,25 +266,26 @@ export default {
             .style("fill", "#6767ff");
         break;
         case 1:
-          this.clearBarGraph()
-          this.drawBarGraph()
             d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
             .style("fill", function(d){ return d.year === 1980 ? "#ffffff" : "#6767ff"; });
         break;
         case 2:
-          this.clearBarGraph()
-          this.drawBarGraph()
           d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
             .style("fill", function(d){ return d.year === 1991 ? "#ffffff" : "#6767ff"; });
         break;
         case 3:
+          //this.clearBarGraph()
+          this.clearBarGraph()
+          this.drawBarGraph()
           d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
             .style("fill", function(d){ return d.year === 2018 ? "#ffffff" : "#6767ff"; });
         break;
         default:
+          this.clearBarGraph()
+          this.drawBarGraph()
           d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
             .style("fill", "#6767ff");
