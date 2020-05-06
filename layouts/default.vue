@@ -35,7 +35,7 @@ body{
   background-color: #333333;
   font-size: 1.7em;
   line-height: 1.6;
-  font-family: "Lato";
+  font-family: 'Lato';
   letter-spacing: -0.025rem;
 }
 

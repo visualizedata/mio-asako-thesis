@@ -96,7 +96,7 @@ export default {
     xScale: function(){
       return d3.scaleTime()
           .rangeRound([0,this.width])
-          .domain([new Date(1980, 1, 1), new Date(this.endYear, 12, 31)]);
+          .domain([new Date(1979, 1, 1), new Date(this.endYear, 12, 31)]);
     },
     yScale: function(){
       return d3.scaleLinear()
