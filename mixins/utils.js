@@ -5,8 +5,10 @@ var utilsMixin = {
     methods: {
         isValid: function(s){
             return s['Outcome Year'] > 1900 
+                && s['Outcome Year'] < 2020 
                 && s['Discipline'].length > 0 
                 && s['Outcome'].length > 0;
+   
          },
 
         addOutcomeClassifier: function(s){

@@ -28,9 +28,6 @@
   </div>
 </template>
 
-<style>
-</style>
-
 <script>
 import * as d3 from "d3";
 
@@ -63,220 +60,229 @@ export default {
     }
   },
   mixins: [utilsMixin],
-  mounted() {
+  computed: {
+    myData: function(){
+      var validData = this.asmdData
+          .filter(this.isValid);
+      if(this.stepValue < 2){
+        return validData;
+      } else {
+        return validData.filter(this.isStem);
+      }
+    },
+    rHeight: function(){
+      // FIXME: this should be dependent on window.height and maxCases etc.
+      if(this.stepValue < 2){
+        return 2.75
+      } else {
+        return 7
+      }
+    },
+    startYear: function(){
+      return Math.min(...this.myData.map(function(a){
+        return a['Outcome Year'];
+      }))
+    },
+    endYear: function(){
+      return Math.max(...this.myData.map(function(a){
+        return a['Outcome Year'];
+      }))
+    },
+    maxCases: function(){
+      return  Math.max(...this.myBins.map(function(a){
+        return a.length;
+      }))
+    },
+    xScale: function(){
+      return d3.scaleTime()
+          .rangeRound([0,this.width])
+          .domain([new Date(this.startYear, 1, 1), new Date(this.endYear, 12, 31)]);
+    },
+    yScale: function(){
+      return d3.scaleLinear()
+          .range([this.height, 0])
+          .domain([0, this.maxCases]); // FIXME: it almost works when I multiply by (this.width/this.height)
+    },
+    myBins: function(){
+      var nBins = this.endYear - this.startYear;
 
-    console.log("chronology component mounted 😷");
+      // we need this to convert a date of the form 2000 to 2000-01-01:12:00:000
+      var parseDate = d3.timeParse("%Y");
 
-    // this exists, because it is defined as `required` in the props
-    const asmdData = this.asmdData;
+      var histogram = d3.histogram()
+        .domain(this.xScale.domain())
+        .thresholds(this.xScale.ticks(nBins))
+        .value(function(d) { return parseDate(d['Outcome Year'])});
 
-    // filter out asmdData that's a stem!
-    var myStems = this.asmdData
-      .filter(this.isValid)
-      .filter(this.isStem);
-
-    var incidentColor = function(e){
-      return e.toLowerCase().indexOf("resigned") === -1 ? "#6767ff" : "#6767ff";
+      return histogram(this.myData);
     }
-
-    // we need this to convert a date of the form 2000 to 2000-01-01:12:00:000
-    var parseDate = d3.timeParse("%Y");
-
-    var startYear = Math.min(...myStems.map(function(a){
-      return a['Outcome Year'];
-    }));
-    console.log("startYear: " + startYear);
-
-    var endYear = Math.max(...myStems.map(function(a){
-      return a['Outcome Year'];
-    }));
-    console.log("endYear: " + endYear);
-    var nBins = endYear - startYear;
-
-    var circleRadius = 7; // FIXME: why does this circleRadius fix the y-axis?
     
-    // Set the ranges of x and y
-    var x = d3.scaleTime()
-        .rangeRound([0,this.width])
-        .domain([new Date(1980, 1, 1), new Date(2019, 12, 31)])
+  },
+  methods:{
+    clearBarGraph(){
+      d3.select(this.$refs.chronologySVG)
+        .selectAll("g")
+        .remove()
+    },
+    drawBarGraph(){
+      console.log("drawBarGraph: " + this.myData.length);
+      console.log("maxCases: " + this.maxCases)
 
-    var histogram = d3.histogram()
-      .domain(x.domain())
-      .thresholds(x.ticks(nBins))
-      .value(function(d) { return parseDate(d['Outcome Year'])});
+      // Adds the svg canvas
+      var svg = d3.select(this.$refs.chronologySVG)
+          .attr("viewBox", [0, 0, this.width + this.margin.left + this.margin.right , this.height + this.margin.top + this.margin.bottom])
 
-    // Compute the histogram
-    var bins = histogram(myStems);
+      // add the tooltip area to the webpage
+      var tooltip = 
+          d3.select(this.$refs.caseDetail)
+            .append()
+            .attr("class", "tooltip")
+            .style("opacity", 0.2);
 
-    console.log("Number of calculated bins: " + bins.length);
+      var incidentColor = function(e){
+        return e.toLowerCase().indexOf("resigned") === -1 ? "#6767ff" : "#6767ff";
+      }
 
-    var maxCases = Math.max(...bins.map(function(a){
-      return a.length;
-    }));
+      var tooltipOn = function(d) {
+        // change opacity of bar in graph
+        d3.select(this)
+          .classed("selected", true)
+          .style("opacity", .5)
+          .style("cursor", "pointer")
+        // tell tooltip to transition and change opacity
+        tooltip.transition()
+          .duration(200)
+          .style("opacity", .9);
+        // write into tooltip with raw HTML
+        tooltip.html("<b><span style = 'font-size: 24px; color: #6767ff; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" 
+        + "<b>Outcome:  </b>" + d.outcome + "</span></br>" + "<b>Institution:  </b>" + d.institution + "</br>" 
+        +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>");
+      };
 
-    var tooltipOn = function(d) {
-      // change opacity of bar in graph
-      d3.select(this)
-        .classed("selected", true)
-        .style("opacity", .5)
-        .style("cursor", "pointer")
-      // tell tooltip to transition and change opacity
-      tooltip.transition()
-        .duration(200)
-        .style("opacity", .9);
-      // write into tooltip with raw HTML
-      tooltip.html("<b><span style = 'font-size: 24px; color: #6767ff; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" 
-      + "<b>Outcome:  </b>" + d.outcome + "</span></br>" + "<b>Institution:  </b>" + d.institution + "</br>" 
-      +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>");
-    };
+      var tooltipOff = function(d) {
+        // change opacity of bar in graph
+        d3.select(this)
+          .classed("selected", false)
+          .style("fill", function(d){ return d.color; })
+          .style("opacity", 1);
 
-    var tooltipOff = function(d) {
-      // change opacity of bar in graph
-      d3.select(this)
-        .classed("selected", false)
-        .style("fill", function(d){ return d.color; })
-        .style("opacity", 1);
+        // tell tooltip to transition and make invisible
+        tooltip.transition()
+            .duration(500)
+            .style("opacity", 0);
+      };
 
-      // tell tooltip to transition and make invisible
-      tooltip.transition()
-          .duration(500)
-          .style("opacity", 0);
-    };
+      // g container for each bin
+      let binContainer =  d3.select(this.$refs.chronologySVG)
+          .selectAll(".gBin")
+          .exit()
+          .remove()
+          .data(this.myBins);
 
-    var width = window.innerWidth; 
-    var height = window.innerHeight;
+      let binContainerEnter = binContainer.enter()
+          .append("g")
+          .attr("class", "gBin");
 
-    var y = d3.scaleLinear()
-        .range([this.height, 0])
-        .domain([0, maxCases]); // FIXME: it almost works when I multiply by (this.width/this.height)
+      // need to populate the bin containers with data the first time
+      binContainerEnter.selectAll("rect")
+            .data(d => d.map((p, i) => {
+              return {idx: i,
+                      name: p['Person'],
+                      outcome: p.Outcome,
+                      institution: p["Institution"],
+                      discipline: p["Specific Discipline"],
+                      link: p["Original Link(s)"],
+                      color: "#6767ff",
+                      year: p["Outcome Year"],
+                      story: p["Specific Outcome"],
+                      rHeight: this.rHeight
+                    }
+            }))
+          .enter()
+          .append("rect")
+            .attr("class", "enter")
+            .attr("x", 0) // g element already at correct x pos
+            .attr("y", function(d) {
+                  return - 2*d.rHeight * ( d.idx + 0.5 );
+                })
+            .attr("height", this.rHeight)
+            .attr("width", 21) // used to be 3*rHeight
+            .style("fill", function(d){ return incidentColor(d.outcome); })
+            .on("mouseover", tooltipOn)
+            .on("mouseout", tooltipOff)
+            .on("click", function(d){
+               window.open(d.link)
+              })
 
-    // Adds the svg canvas
-    var svg = d3.select(this.$refs.chronologySVG)
-        .attr("viewBox", [0, 0, 1500 + this.margin.left + this.margin.right , 800 + this.margin.top + this.margin.bottom])
+        binContainerEnter.merge(binContainer)
+            .attr("transform", d => `translate(${this.xScale(d.x0)}, ${this.height})`);
+        
+        // add x axis
+        svg.append("g")
+          .style("font", "16px helvetica")
+          .attr("class", "axis axis--x")
+          .attr("transform", "translate(0," + this.height + ")")
+          .style("stroke", "white")
+          .call(d3.axisBottom(this.xScale))
+        
+        // x axis title
+        svg.append("text")
+          .attr("text-anchor", "end")
+          .attr("x", this.width - this.margin.right - this.margin.left)
+          .attr("y", this.height + this.margin.top + this.margin.bottom)
+          .text("year")
+          .style("fill", "white")
+          .style("font", "20px helvetica");
 
-    console.log("window width: " + window.innerWidth);
-
-    // add the tooltip area to the webpage
-    var tooltip = 
-        d3.select(this.$refs.caseDetail)
-          .append()
-          .attr("class", "tooltip")
-          .style("opacity", 0.2)
-
-    // g container for each bin
-    let binContainer = svg.selectAll(".gBin")
-        .data(bins)
-
-    binContainer.exit().remove()
-
-    console.log("$refs: " + JSON.stringify(this.$refs))
-    console.log("this.caseDetailInstitution: " + this.caseDetailInstitution)
-
-    let binContainerEnter = binContainer.enter()
-        .append("g")
-        .attr("class", "gBin");
-
-    // need to populate the bin containers with data the first time
-    binContainerEnter.selectAll("rect")
-          .data(d => d.map((p, i) => {
-            return {idx: i,
-                    name: p['Person'],
-                    outcome: p.Outcome,
-                    institution: p["Institution"],
-                    discipline: p["Specific Discipline"],
-                    link: p["Original Link(s)"],
-                    color: "#6767ff",
-                    year: p["Outcome Year"],
-                    story: p["Specific Outcome"]
-                  }
-          }))
-        .enter()
-        .append("rect")
-          .attr("class", "enter")
-          .attr("x", 0) // g element already at correct x pos
-          .attr("y", function(d) {
-                return - 2*circleRadius * ( d.idx + 0.5 );
-               })
-          .attr("height", circleRadius)
-          .attr("width", circleRadius *3)
-          .style("fill", function(d){ return incidentColor(d.outcome); })
-          .on("mouseover", tooltipOn)
-          .on("mouseout", tooltipOff)
-          .on("click", function(d){
-             window.open(d.link)
-             })
-
-      binContainerEnter.merge(binContainer)
-          .attr("transform", d => `translate(${x(d.x0)}, ${this.height})`);
-      
-      // add x axis
-      svg.append("g")
-        .style("font", "16px helvetica")
-        .attr("class", "axis axis--x")
-        .attr("transform", "translate(0," + this.height + ")")
-        .style("stroke", "white")
-        .call(d3.axisBottom(x))
-      
-      
-      //x axis title
-      svg.append("text")
-        .attr("text-anchor", "end")
-        .attr("x", this.width - this.margin.right - this.margin.left)
-        .attr("y", this.height + this.margin.top + this.margin.bottom)
-        .text("year")
-        .style("fill", "white")
-        .style("font", "20px helvetica");
-
-
-      // add y axis
-      svg.append("g")
-        .style("font", "16px helvetica")
-        .attr("class", "axis axis--y")
-        .style("stroke", "white")
-        .call(d3.axisRight(y));
-      
-      svg.append("text")
-        .attr("text-anchor", "end")
-        .attr("transform", "rotate(-90)")
-        .attr("y", -this.margin.left+20)
-        .attr("x", -this.margin.top)
-        .text("Number of individual cases")
-
+        // add y axis
+        svg.append("g")
+          .style("font", "16px helvetica")
+          .attr("class", "axis axis--y")
+          .style("stroke", "white")
+          .call(d3.axisRight(this.yScale));
+        
+        svg.append("text")
+          .attr("text-anchor", "end")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -this.margin.left+20)
+          .attr("x", -this.margin.top)
+          .text("Number of individual cases")
+    }
+  },
+  mounted() {
+    console.log("chronology component mounted 😷");
+    this.drawBarGraph();
   },
   watch: {
     // this is our stepValue listener and we update the text with the proper
     // value whenever it is being triggered
     stepValue: function(){
-      console.log("hey i'm square and i'm watching stepValue");
        switch (this.stepValue){
         case 0:
-          console.log("i'm at one")
           d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
             .style("fill", "#6767ff");
         break;
         case 1:
-          console.log("i'm at two")
+          this.clearBarGraph()
+          this.drawBarGraph()
             d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
             .style("fill", function(d){ return d.year === 1980 ? "#ff6767" : "#6767ff"; });
-
         break;
         case 2:
-          console.log("i'm at threee")
+          this.clearBarGraph()
+          this.drawBarGraph()
           d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
             .style("fill", function(d){ return d.year === 1991 ? "#ff6767" : "#6767ff"; });
-
         break;
         case 3:
-          console.log("i'm at 4")
           d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
             .style("fill", function(d){ return d.year === 2018 ? "#ff6767" : "#6767ff"; });
         break;
         default:
-          console.log("five")
           d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
             .style("fill", "#6767ff");
@@ -286,8 +292,3 @@ export default {
   }
 };
 </script>
-
-<style>
-
-
-</style>

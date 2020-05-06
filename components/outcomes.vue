@@ -1,5 +1,4 @@
 <template>
-
   <div id="container">
 
     <!-- our title -->
@@ -25,9 +24,6 @@
 
   </div>
 </template>
-
-<style>
-</style>
 
 <script>
 import * as d3 from "d3";
@@ -98,7 +94,6 @@ export default {
     },
   },
   mounted() {
-
     console.log("cluster mounted 😷");
 
     // create the color schemes
@@ -213,12 +208,11 @@ export default {
         .text(d => d.data.key)
         .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
 
-},
+  },
   watch: {
     // this is our stepValue listener and we update the text with the proper
     // value whenever it is being triggered
     stepValue: function(){
-      console.log("hey i'm square and i'm watching stepValue: " + this.stepValue)
       var colorScale = d3.scaleOrdinal()
                         .domain(function(d){ return d.Discipline })
                         .range(["#f90da0", "#25b8ea", "#e9c338", "#40e18c", "#bb4ca2", "#489260", "#f24219", "#b3dfc1", 
@@ -228,7 +222,6 @@ export default {
                         .range(d3.schemeSet3);
       switch (this.stepValue){
         case 0:
-          console.log("i'm at uno")
           d3.select(this.$refs.outcomesSVG)
                .selectAll("circle")
                .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
@@ -251,7 +244,6 @@ export default {
               .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
           break;
         case 1:
-          console.log("i'm at dos")
           d3.select(this.$refs.outcomesSVG)
             .selectAll("circle")
             .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
@@ -275,7 +267,6 @@ export default {
 
           break;
         case 2:
-          console.log("tres")
           d3.select(this.$refs.outcomesSVG)
               .selectAll("circle")
               .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
@@ -306,7 +297,6 @@ export default {
                   .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
           break;
         case 3:
-          console.log("quatro")
           d3.select(this.$refs.outcomesSVG)
                .selectAll("circle")
                .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
@@ -336,7 +326,6 @@ export default {
               .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`)
           break;
         default:
-          console.log("mas numeros")
           d3.select(this.$refs.outcomesSVG)
                .selectAll("circle")
                .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
@@ -363,6 +352,3 @@ export default {
   }
 };
 </script>
-<style scoped>
-
-</style>

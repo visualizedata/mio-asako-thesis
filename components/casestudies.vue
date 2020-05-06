@@ -1,12 +1,7 @@
 <template>
-
   <div id="container">
 
-    <!-- our title -->
- 
-
     <el-row>
-
       <el-col :span= "8">
         <el-row>
           <div class = "chartTitle">
@@ -27,9 +22,6 @@
 
   </div>
 </template>
-
-<style>
-</style>
 
 <script>
 import * as d3 from "d3";

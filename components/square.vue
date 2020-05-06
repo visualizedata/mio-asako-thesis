@@ -1,5 +1,4 @@
 <template>
-
   <div id="container">
     <!-- our title -->
     <h2> {{ chartTitle }} stepsValue is {{ stepValue }}</h2>
@@ -9,11 +8,7 @@
       </el-col>
     </el-row>
   </div>
-
 </template>
-
-<style>
-</style>
 
 <script>
 import * as d3 from "d3";
@@ -88,7 +83,6 @@ export default {
     // this is our stepValue listener and we update the text with the proper
     // value whenever it is being triggered
     stepValue: function(){
-      console.log("hey i'm square and i'm watching stepValue");
       var svg = d3.select(this.$refs.squareSVG)
                   .select('text')
                   .text("slider in step: " + this.stepValue)
