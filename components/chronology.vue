@@ -155,7 +155,7 @@ export default {
           .duration(200)
           .style("opacity", .9);
         // write into tooltip with raw HTML
-        tooltip.html("<b><span style = 'font-size: 24px; color: #6767ff; text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" 
+        tooltip.html("<b><span style = 'font-size: 24px; color: #6767ff, text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" 
         + "<b>Outcome:  </b>" + d.outcome + "</span></br>" + "<b>Institution:  </b>" + d.institution + "</br>" 
         +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>");
       };
