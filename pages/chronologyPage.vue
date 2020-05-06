@@ -1,5 +1,5 @@
 <template>
-  <div chronologyPage :style= "{backgroundImage: 'url(' + images.lab + ')' }">
+  <div id =chronologyPage :style= "{backgroundImage: 'url(' + images.lab + ')' }">
     <el-row>
       <el-col :span="24">
         <chronology :asmdData=loadedAsmdData :stepValue=stepValue :descriptions=descriptions />
@@ -68,18 +68,30 @@ export default {
   }
 
 .tooltip{
-  max-width: 800px;
-  line-height: 0.2;
-  font-size: 12px;
+  max-width: 600px;
+  line-height: 1.2;
+  font-size: 16px;
 }
 
 .cases{
   margin: 5vh 5vh 5vh 5vh;
-  min-height: 400px;
-  line-height: 0.2;
+  min-height: 50px;
+  line-height: 0.5;
+  background-color: rgba(0, 0, 0, 0.5);
+  max-width: 600px;
+  padding: 2vh 2vh 2vh 2vh;
+  position:absolute;
+  z-index: 1;
 }
 
 #chronologyPage{
   min-height: 100vh;
 }
+
+#chronologySVG{
+  position:absolute;
+  z-index: 0;
+}
+
+
 </style>

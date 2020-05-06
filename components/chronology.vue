@@ -17,10 +17,8 @@
       </el-col>
 
       <el-col :span= "16">
-        <svg ref="chronologySVG"></svg>
-         <el-row>
-          <div class="cases" ref="caseDetail"></div>
-        </el-row>
+        <div class="cases" ref="caseDetail"></div>
+        <svg id = "chronologySVG" ref="chronologySVG"></svg>
       </el-col>
 
     </el-row>
@@ -155,7 +153,7 @@ export default {
           .duration(200)
           .style("opacity", .9);
         // write into tooltip with raw HTML
-        tooltip.html("<b><span style = 'font-size: 24px; color: #6767ff, text-transform: uppercase;'>"+ d.name + "</span></b>" + "</br>" 
+        tooltip.html("<b><span style = 'font-size: 24px; font-family: Syncopate; text-transform: uppercase; color: #6767ff;'>"+ d.name + "</span></b>" + "</br>" 
         + "<b>Outcome:  </b>" + d.outcome + "</span></br>" + "<b>Institution:  </b>" + d.institution + "</br>" 
         +  "<b>Discipline:  </b>" + d.discipline + "</br>" + "<b>Story: </b>" + d.story + "</b>");
       };
