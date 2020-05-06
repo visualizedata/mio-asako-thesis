@@ -147,8 +147,19 @@ export default {
         .selectAll("rect")
         .data(this.caseStudyData)
         .join("rect")
-            .attr("fill", d => d.name == "Title IX investigation" ? "#ff6767"
-                                      : "#6767ff")
+            // .attr("fill", d => d.name == "Title IX investigation" ? "#ff6767"
+            //                           : "#6767ff")
+            .attr("fill", d => d.name == "Title IX investigation" ? "#333333"
+                              : d.outcome - d.first_incident <= 5 ? "#ff6767"
+                              : d.outcome - d.first_incident <= 10 ? "#dc678a"
+                              : d.outcome - d.first_incident <= 20 ? "#bb67ab"
+                              : d.outcome - d.first_incident <= 30 ? "#8e67d8"
+                              : "#6767ff"
+                              )
+            .attr("stroke", d => d.name == "Title IX investigation" ? "#ff6767"
+                                        : "none")
+            .attr("stroke-width", d => d.name == "Title IX investigation" ? "3px"
+                                        : "none")
             .attr("x", d => x(parseDate(d.first_incident)))
             .attr("y", (d,i) => y(i))
             // width is number of years between outcome and first_incident (times yearInPixels)
@@ -164,7 +175,7 @@ export default {
         .attr("fill", "white")
         .attr("text-anchor", "end")
         .attr("font-family", "Lato")
-        .attr("font-size", 12)
+        .attr("font-size", 18)
         .selectAll("text")
         .data(this.caseStudyData)
         .join("text")

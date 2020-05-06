@@ -26,7 +26,7 @@ In 2017, actress Alyssa Milano used the hashtag #MeToo, originally coined by civ
 
 STEP 3
 
-Out of all cases, 332 of them originate from STEM fields. This is around a third of total cases. Following overall trends, reports of sexual misconduct cases have skyrocketed since 2017, when the #MeToo movement made waves throughout all of society. Many prominent scientists were exposed between 2017 and 2019 in highly publicized investigative news reports that reached beyond the niche 
+Out of all cases, 332 of them originate from STEM fields. This is around a third of total cases. Following overall trends, reports of sexual misconduct cases have skyrocketed since 2017, when the #MeToo movement made waves throughout all of society. Many prominent scientists were exposed between 2017 and 2019 in highly publicized investigative news reports that reached beyond the immediate scientific community.
 
 OUTCOME TEXTS
 

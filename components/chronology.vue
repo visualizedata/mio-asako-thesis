@@ -284,11 +284,6 @@ export default {
        }
     }
   }
-
-  // .style("stroke", function(d){ return d.year === 2018 ? "#ffffff" 
-  //                                               : d.year === 1991 ? "#ffffff"
-  //                                               : d.year === 1980 ? "#ffffff"
-  //                                               : "none"})
 };
 </script>
 
