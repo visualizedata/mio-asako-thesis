@@ -65,13 +65,13 @@ export default {
 .chartTitle{
   max-width: 75%;
   margin: 5vh 5vh 5vh 5vh;
-  }
+}
 
 .tooltip{
   max-width: 600px;
   line-height: 1.2;
   font-size: 16px;
-  /* min-height: 50px; */
+  min-height: 50px;
 }
 
 .cases{

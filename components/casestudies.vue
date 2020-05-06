@@ -10,11 +10,11 @@
           <div class="description" ref="description"> {{ descriptions[stepValue].description }} </div>
         </el-row>
         <el-row>
-          <div class="outcomes" ref="caseStudyDetail"></div>
         </el-row>
       </el-col>
 
       <el-col :span= "16">
+        <div class="outcomes" ref="caseStudyDetail"></div>
         <svg id = "caseStudiesSVG" ref="caseStudiesSVG"></svg>
       </el-col>
 
@@ -105,7 +105,7 @@ export default {
              .duration(200)
              .style("opacity", 1)
       // write html
-      tooltip.html("<b><span style = 'font-size: 36px; color: #6767ff;'>"+ d.name + "</span></b>" + "</br><span style = 'font-size: 18px; color: #ffffff;'>" 
+      tooltip.html("<b><span style = 'font-size: 24px; font-family: Syncopate; text-transform: uppercase; color: #6767ff;'>"+ d.name + "</span></b>" + "</br><span style = 'font-size: 18px; color: #ffffff;'>" 
       + d.description + "</span></br>")
 
       d3.selectAll("rect")
