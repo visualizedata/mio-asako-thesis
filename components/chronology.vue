@@ -37,7 +37,7 @@ export default {
   data(){
     return{
       chartTitle: "ACADEMIC SEXUAL MISCONDUCT CASES",
-      height: 800,
+      height: 900,
       width: 1500,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
     }
@@ -64,7 +64,7 @@ export default {
     myData: function(){
       var validData = this.asmdData
           .filter(this.isValid);
-      if(this.stepValue < 2){
+      if(this.stepValue < 4){
         return validData;
       } else {
         return validData.filter(this.isStem);
@@ -72,10 +72,10 @@ export default {
     },
     rHeight: function(){
       // FIXME: this should be dependent on window.height and maxCases etc.
-      if(this.stepValue < 2){
-        return 2.75
+      if(this.stepValue < 5){
+        return 3.2
       } else {
-        return 7
+        return 3.2
       }
     },
     startYear: function(){
@@ -96,11 +96,11 @@ export default {
     xScale: function(){
       return d3.scaleTime()
           .rangeRound([0,this.width])
-          .domain([new Date(this.startYear, 1, 1), new Date(this.endYear, 12, 31)]);
+          .domain([new Date(1979, 1, 1), new Date(this.endYear, 12, 31)]);
     },
     yScale: function(){
       return d3.scaleLinear()
-          .range([this.height, 0])
+          .range([this.height, 0 + this.margin.top, + this.margin.bottom]) //playing with this to change height of y
           .domain([0, this.maxCases]); // FIXME: it almost works when I multiply by (this.width/this.height)
     },
     myBins: function(){
@@ -148,6 +148,7 @@ export default {
         d3.select(this)
           .classed("selected", true)
           .style("opacity", .5)
+          .style("fill", "#ffffff")
           .style("cursor", "pointer")
         // tell tooltip to transition and change opacity
         tooltip.transition()
@@ -239,7 +240,8 @@ export default {
           .style("font", "16px helvetica")
           .attr("class", "axis axis--y")
           .style("stroke", "white")
-          .call(d3.axisRight(this.yScale));
+          .call(d3.axisRight(this.yScale))
+          .select(".domain").remove();
         
         svg.append("text")
           .attr("text-anchor", "end")
@@ -264,25 +266,26 @@ export default {
             .style("fill", "#6767ff");
         break;
         case 1:
-          this.clearBarGraph()
-          this.drawBarGraph()
             d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
-            .style("fill", function(d){ return d.year === 1980 ? "#ff6767" : "#6767ff"; });
+            .style("fill", function(d){ return d.year === 1980 ? "#ffffff" : "#6767ff"; });
         break;
         case 2:
+          d3.select(this.$refs.chronologySVG)
+            .selectAll("rect")
+            .style("fill", function(d){ return d.year === 1991 ? "#ffffff" : "#6767ff"; });
+        break;
+        case 3:
+          //this.clearBarGraph()
           this.clearBarGraph()
           this.drawBarGraph()
           d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
-            .style("fill", function(d){ return d.year === 1991 ? "#ff6767" : "#6767ff"; });
-        break;
-        case 3:
-          d3.select(this.$refs.chronologySVG)
-            .selectAll("rect")
-            .style("fill", function(d){ return d.year === 2018 ? "#ff6767" : "#6767ff"; });
+            .style("fill", function(d){ return d.year === 2018 ? "#ffffff" : "#6767ff"; });
         break;
         default:
+          this.clearBarGraph()
+          this.drawBarGraph()
           d3.select(this.$refs.chronologySVG)
             .selectAll("rect")
             .style("fill", "#6767ff");
