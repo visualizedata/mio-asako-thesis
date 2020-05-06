@@ -200,10 +200,6 @@ export default {
           .attr("height", circleRadius)
           .attr("width", circleRadius *3)
           .style("fill", function(d){ return incidentColor(d.outcome); })
-          .style("stroke", function(d){ return d.year === 2018 ? "#ffffff" 
-                                                : d.year === 1991 ? "#ffffff"
-                                                : d.year === 1980 ? "#ffffff"
-                                                : "none"})
           .on("mouseover", tooltipOn)
           .on("mouseout", tooltipOff)
           .on("click", function(d){
@@ -219,7 +215,18 @@ export default {
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + this.height + ")")
         .style("stroke", "white")
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x))
+      
+      
+      //x axis title
+      svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("x", this.width - this.margin.right - this.margin.left)
+        .attr("y", this.height + this.margin.top + this.margin.bottom)
+        .text("year")
+        .style("fill", "white")
+        .style("font", "20px helvetica");
+
 
       // add y axis
       svg.append("g")
@@ -227,6 +234,13 @@ export default {
         .attr("class", "axis axis--y")
         .style("stroke", "white")
         .call(d3.axisRight(y));
+      
+      svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -this.margin.left+20)
+        .attr("x", -this.margin.top)
+        .text("Number of individual cases")
 
   },
   watch: {
@@ -237,18 +251,44 @@ export default {
        switch (this.stepValue){
         case 0:
           console.log("i'm at one")
+          d3.select(this.$refs.chronologySVG)
+            .selectAll("rect")
+            .style("fill", "#6767ff");
         break;
         case 1:
           console.log("i'm at two")
+            d3.select(this.$refs.chronologySVG)
+            .selectAll("rect")
+            .style("fill", function(d){ return d.year === 1980 ? "#ff6767" : "#6767ff"; });
+
         break;
         case 2:
           console.log("i'm at threee")
+          d3.select(this.$refs.chronologySVG)
+            .selectAll("rect")
+            .style("fill", function(d){ return d.year === 1991 ? "#ff6767" : "#6767ff"; });
+
+        break;
+        case 3:
+          console.log("i'm at 4")
+          d3.select(this.$refs.chronologySVG)
+            .selectAll("rect")
+            .style("fill", function(d){ return d.year === 2018 ? "#ff6767" : "#6767ff"; });
         break;
         default:
+          console.log("five")
+          d3.select(this.$refs.chronologySVG)
+            .selectAll("rect")
+            .style("fill", "#6767ff");
         break;
        }
     }
   }
+
+  // .style("stroke", function(d){ return d.year === 2018 ? "#ffffff" 
+  //                                               : d.year === 1991 ? "#ffffff"
+  //                                               : d.year === 1980 ? "#ffffff"
+  //                                               : "none"})
 };
 </script>
 
