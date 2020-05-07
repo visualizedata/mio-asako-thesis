@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <el-row class = "container">
+      <el-row class = "container" :style= "{backgroundImage: 'url(' + images.cover + ')' }">
         <el-col :span="24">
           <h1 class="title">
           A Lesson in Perseverence: <br/> <b>Women in STEM </b>
@@ -114,7 +114,8 @@ export default {
         consent: require("~/assets/consent_v4_background.png"),
         assault: require("~/assets/assault_v4_background.png"),
         tarana: require("~/assets/tarana_march.png"),
-        lab: require("~/assets/lab.png")
+        lab: require("~/assets/lab.png"),
+        cover: require("~/assets/cover.png")
       }
     }
   }
@@ -130,16 +131,18 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: rgb(179,179,255);
-  background: linear-gradient(90deg, rgba(179,179,255,1) 0%, rgba(255,179,179,1) 100%);
-}
+  background: #333333;
+  max-width: 100%;
+  /* background: rgb(179,179,255);
+  background: linear-gradient(90deg, rgba(179,179,255,1) 0%, rgba(255,179,179,1) 100%);*/
+} 
 
 .title {
   font-family: 'Syncopate', 'Lato', 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-size: 5rem;
-  color: #ffffff;
+  color: #ff6767;
   font-weight: 400;
   text-transform: uppercase;
 }
@@ -147,7 +150,7 @@ export default {
 .subtitle {
   color: #ffffff;
   padding-bottom: 15px;
-  font-family: "Syncopate";
+  font-family: "Lato";
   font-weight: 400;
   font-size: 2rem;
   text-transform: uppercase;
@@ -177,6 +180,10 @@ export default {
   position:absolute;
   bottom: 5vh;
   left: 50%
+}
+
+#cover{
+  min-height: 100vh;
 }
 
 #intro{
