@@ -33,7 +33,7 @@ import utilsMixin from '~/mixins/utils.js'
 export default {
   data(){
     return{
-      chartTitle: "PATTERNS OF MISCONDUCT CASE OUTCOMES",
+      chartTitle: "BREAKING DOWN THE OUTCOMES OF MISCONDUCT CASES IN STEM",
       height: 950, //why does window.innerHeight not work?
       width: 950,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },

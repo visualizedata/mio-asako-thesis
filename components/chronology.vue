@@ -34,7 +34,7 @@ import utilsMixin from '~/mixins/utils.js'
 export default {
   data(){
     return{
-      chartTitle: "ACADEMIC SEXUAL MISCONDUCT CASES",
+      chartTitle: "FOLLOWING THE TRAIL OF SEXUAL MISCONDUCT CASES IN ACADEMIA",
       height: 900,
       width: 1500,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },

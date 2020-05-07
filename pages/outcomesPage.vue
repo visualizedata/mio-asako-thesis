@@ -81,7 +81,8 @@ export default {
 
 #outcomesSVG{
   display: block;
-  float: center;
+  margin: auto;
+  float: right;
 }
 
 </style>

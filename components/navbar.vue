@@ -1,12 +1,11 @@
 <template>
     <div>
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color = "#333333" text-color = "#fff" active-text-color = "#ff6767">
-            <el-menu-item index="1"><NuxtLink to="/">HOME</NuxtLink></el-menu-item>
-            <el-menu-item index="2"><NuxtLink to="chronologyPage">CHRONOLOGY</NuxtLink></el-menu-item>
-            <el-menu-item index="3"><NuxtLink to="outcomesPage">OUTCOMES</NuxtLink></el-menu-item>
-            <el-menu-item index="4"><NuxtLink to="casestudiesPage">CASE STUDIES</NuxtLink></el-menu-item>
-            <el-menu-item index="5"><NuxtLink to="squarePage">SQUARE</NuxtLink></el-menu-item>
-            <el-menu-item index="6"><NuxtLink to="namesPage">NAMES</NuxtLink></el-menu-item>
+            <el-menu-item index="1"><NuxtLink to="/" style= "font-family: Lato; text-decoration: none;">HOME</NuxtLink></el-menu-item>
+            <el-menu-item index="2"><NuxtLink to="chronologyPage" style= "font-family: Lato; text-decoration: none;">CHRONOLOGY</NuxtLink></el-menu-item>
+            <el-menu-item index="3"><NuxtLink to="outcomesPage" style= "font-family: Lato; text-decoration: none;">OUTCOMES</NuxtLink></el-menu-item>
+            <el-menu-item index="4"><NuxtLink to="casestudiesPage" style= "font-family: Lato; text-decoration: none;">CASE STUDIES</NuxtLink></el-menu-item>
+            <el-menu-item index="6"><NuxtLink to="namesPage" style= "font-family: Lato; text-decoration: none;">NAMES</NuxtLink></el-menu-item>
         </el-menu>
         <div class="line"></div>
     </div>
@@ -27,3 +26,21 @@
     }
   }
 </script>
+
+<style>
+ .nuxt-link-active{
+   text-decoration: none;
+   font-family: 'Syncopate's;
+ }
+ .a{
+   text-decoration: none;
+   font-family: 'Syncopate';
+ }
+
+ li.el-menu-item{
+   text-decoration: none;
+   font-family: 'Syncopate's;
+ }
+
+
+</style>
