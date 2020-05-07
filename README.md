@@ -1,7 +1,7 @@
 ## Working Title
 Women in STEM: A Lesson in Perseverence
 
-![viz prototype]('~preview.png')
+![viz prototype]('https://github.com/miopio/thesis-play/blob/master/preview.png')
 
 ## Abstract
 
