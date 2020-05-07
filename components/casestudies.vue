@@ -31,7 +31,7 @@ import utilsMixin from '~/mixins/utils.js'
 export default {
   data(){
     return{
-      chartTitle: "CASE STUDIES OF MISCONDUCT CASES WITH OUTCOMES IN 2018",
+      chartTitle: "A CLOSER LOOK AT STEM MISCONDUCT CASES OF 2018",
       height: 900, //why does window.innerHeight not work?
       width: 900,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
@@ -147,6 +147,9 @@ export default {
         
         d3.selectAll("text")
           .style("opacity", 0.3)
+        
+        // d3.select(".date_first_incident")
+        //   .style("opacity", 1)
       }
       
       // function to be called when hovering _off_ the circle
@@ -199,12 +202,54 @@ export default {
               .on("mouseover", tooltipOn)
               .on("mouseout", tooltipOff)
       
+      svg.append("g")
+        .attr("fill", "white")
+        .attr("text-anchor", "end")
+        .attr("font-family", "Lato")
+        .attr("font-size", 18)
+        .selectAll("text")
+        .data(this.myData)
+        .join("text")
+            .attr("x", d => this.xScale(parseDate(d.first_incident)) - 390)
+            .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
+            .attr("dy", "0.35em")
+            .text(d => d.first_incident)
+            .style("font-family", "Syncopate")
+            .style("text-transform", "uppercase")
+            .style("font-weight", "700")
+            .style("opacity", "0")
+            // move the text since we moved the box
+            //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+            .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident)}, ${0})`)
+      
+      svg.append("g")
+        .attr("fill", "white")
+        .attr("text-anchor", "end")
+        .attr("font-family", "Lato")
+        .attr("font-size", 18)
+        .attr("class", "date_first_incident")
+        .selectAll("text")
+        .data(this.myData)
+        .join("text")
+            .attr("x", d => this.xScale(parseDate(d.first_incident)) +445)
+            .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
+            .attr("dy", "0.35em")
+            .text(d => d.outcome)
+            .style("font-family", "Syncopate")
+            .style("text-transform", "uppercase")
+            .style("font-weight", "700")
+            .style("opacity", "0")
+            // move the text since we moved the box
+            //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+            .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident)}, ${0})`)
+      
       // draw the name of the incident
       svg.append("g")
           .attr("fill", "white")
           .attr("text-anchor", "end")
           .attr("font-family", "Lato")
           .attr("font-size", 18)
+          .attr("class", "date_outcome")
           .selectAll("text")
           .data(this.myData)
           .join("text")
@@ -245,8 +290,8 @@ export default {
             .attr("text-anchor", "start")
             .text("Time of initial outcome →"))
           .call(g => g.append("text")
-            .attr("x", this.width - this.width*0.6)
-            .attr("y", 0)
+            .attr("x", this.width - this.width*0.2)
+            .attr("y", -25)
             .attr("fill", "#ffffff")
             .attr("text-anchor", "start")
             .text("Years +/- from first complaint"))
