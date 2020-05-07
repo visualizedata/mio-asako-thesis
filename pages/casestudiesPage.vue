@@ -1,5 +1,5 @@
 <template>
-  <div>
+   <div id =caseStudiesPage :style= "{backgroundImage: 'url(' + images.perpetrators + ')' }">
     <el-row>
       <el-col :span= "24">
         <casestudies :caseStudyData=loadedCaseStudies :stepValue=stepValue :descriptions=descriptions />
@@ -26,7 +26,10 @@ export default {
       loadedCaseStudies: loadedCaseStudies,
       stepValue: 0,
       stepLabels: descriptions.map(v => {return v.label}),
-      descriptions
+      descriptions,
+      images:{
+        perpetrators: require("~/assets/casestudies.png")
+      }
     };
   },
   components: {
@@ -52,5 +55,10 @@ export default {
   margin: auto;
   float: center;
 } 
+
+#caseStudiesPage{
+  min-height: 100vh;
+}
+
 
 </style>

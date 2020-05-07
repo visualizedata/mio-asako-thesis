@@ -97,7 +97,7 @@
             academia as a career. Here you can explore the breakdown of sexual misconduct cases on a macro and micro scale, 
             and also celebrate the women who have persevered through this to establish their careers.</p>
           </div>
-          <el-button class="el-button-home"><NuxtLink to="misconduct">Take a look<i class="el-icon-arrow-right el-icon-right"></i></NuxtLink></el-button>
+          <el-button class="el-button-home"><NuxtLink to="chronologyPage">Take a look<i class="el-icon-arrow-right el-icon-right"></i></NuxtLink></el-button>
       </el-col>
       <el-col :span="8">
       </el-col>

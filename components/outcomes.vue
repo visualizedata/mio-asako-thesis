@@ -33,7 +33,7 @@ import utilsMixin from '~/mixins/utils.js'
 export default {
   data(){
     return{
-      chartTitle: "BREAKING DOWN THE OUTCOMES OF MISCONDUCT CASES IN STEM",
+      chartTitle: "OUTCOMES OF MISCONDUCT CASES IN STEM ACADEMIA",
       height: 950, //why does window.innerHeight not work?
       width: 950,
       margin: {top: 25, left: 25, bottom: 25, right: 25 },
@@ -103,9 +103,10 @@ export default {
     
     var colorScale = d3.scaleOrdinal()
                .domain(function(d){ return d.Discipline })
-               .range(["#f90da0", "#25b8ea", "#e9c338", "#40e18c", "#bb4ca2", "#489260", "#f24219", "#b3dfc1", 
-                       "#746cc4", "#a7e831", "#8b56f0", "#b8b2f0", "#a9681c", "#4cf32c", "#bc1cfa", "#f09bf1"]);
-
+              //  .range(["#f90da0", "#25b8ea", "#e9c338", "#40e18c", "#bb4ca2", "#489260", "#f24219", "#b3dfc1", 
+              //          "#746cc4", "#a7e831", "#8b56f0", "#b8b2f0", "#a9681c", "#4cf32c", "#bc1cfa", "#f09bf1"]);
+               .range(["#ff69b4", "#EB6468", "#bb67ab", "#D9678D", "#0000b3", "#8080ff", "#ff8080",
+                      "#e60000", "#7b376e", "#ff0090", "#c884bb", "#6767ff", "#e797af", "#0000ff", "#49248e", "#663399"])
     // function to be called when hovering over circle
     var tooltipOn = function(d) {
       // change the appearance of the circle ?
@@ -216,8 +217,8 @@ export default {
     stepValue: function(){
       var colorScale = d3.scaleOrdinal()
                         .domain(function(d){ return d.Discipline })
-                        .range(["#f90da0", "#25b8ea", "#e9c338", "#40e18c", "#bb4ca2", "#489260", "#f24219", "#b3dfc1", 
-                       "#746cc4", "#a7e831", "#8b56f0", "#b8b2f0", "#a9681c", "#4cf32c", "#bc1cfa", "#f09bf1"]);
+                        .range(["#ff69b4", "#EB6468", "#bb67ab", "#D9678D", "#0000b3", "#8080ff", "#ff8080",
+                      "#e60000", "#7b376e", "#ff0090", "#c884bb", "#6767ff", "#e797af", "#0000ff", "#49248e", "#663399"])
           var colorO = d3.scaleOrdinal()
                         .domain(function(d){return d.Institution})
                         .range(d3.schemeSet3);
@@ -301,9 +302,9 @@ export default {
           d3.select(this.$refs.outcomesSVG)
                .selectAll("circle")
                .attr("fill", function(d){ return d.depth == 3 ? "#ffffff" 
-                                    : d.data.key === "Psychology" ? "#00ffff"
-                                    : d.data.key === "Bioscience" ? "#ff00ff"
-                                    : d.data.key === "Mathematics" ? "#ffff00"
+                                    : d.data.key === "Psychology" ? "#d7678a"
+                                    : d.data.key === "Bioscience" ? "#9667d0"
+                                    : d.data.key === "Mathematics" ? "#bb67ab"
                                     // : d.data.key === "Medicine" ? "#0000ff"
                                     // : d.data.key === "Sociology" ? "#ff6767"
                                     : "#000000";

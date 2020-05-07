@@ -60,22 +60,19 @@ export default {
     myData: function(){
       switch (this.stepValue) {
         case 0:
-          return this.caseStudyData.sort((a,b) => { return a.first_incident 
-                                                         - b.first_incident
-                                                  }
-                                        );
+          return this.caseStudyData
           break;
         case 1:
           return this.caseStudyData.sort((a,b) => { return a.first_incident 
                                                          - b.first_incident 
                                                   }
-                                        );
+                                        ).reverse();;
           break;
         default:
           return this.caseStudyData.sort((a,b) => { return a.outcome 
                                                          - b.outcome 
                                                   }
-                                        ).reverse();
+                                        );
           break;
       }
     },
@@ -202,46 +199,46 @@ export default {
               .on("mouseover", tooltipOn)
               .on("mouseout", tooltipOff)
       
-      svg.append("g")
-        .attr("fill", "white")
-        .attr("text-anchor", "end")
-        .attr("font-family", "Lato")
-        .attr("font-size", 18)
-        .selectAll("text")
-        .data(this.myData)
-        .join("text")
-            .attr("x", d => this.xScale(parseDate(d.first_incident)) - 390)
-            .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
-            .attr("dy", "0.35em")
-            .text(d => d.first_incident)
-            .style("font-family", "Syncopate")
-            .style("text-transform", "uppercase")
-            .style("font-weight", "700")
-            .style("opacity", "0")
-            // move the text since we moved the box
-            //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
-            .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident)}, ${0})`)
+      // svg.append("g")
+      //   .attr("fill", "white")
+      //   .attr("text-anchor", "end")
+      //   .attr("font-family", "Lato")
+      //   .attr("font-size", 18)
+      //   .selectAll("text")
+      //   .data(this.myData)
+      //   .join("text")
+      //       .attr("x", d => this.xScale(parseDate(d.first_incident)) - 390)
+      //       .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
+      //       .attr("dy", "0.35em")
+      //       .text(d => d.first_incident)
+      //       .style("font-family", "Syncopate")
+      //       .style("text-transform", "uppercase")
+      //       .style("font-weight", "700")
+      //       .style("opacity", "0")
+      //       // move the text since we moved the box
+      //       //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+      //       .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident)}, ${0})`)
       
-      svg.append("g")
-        .attr("fill", "white")
-        .attr("text-anchor", "end")
-        .attr("font-family", "Lato")
-        .attr("font-size", 18)
-        .attr("class", "date_first_incident")
-        .selectAll("text")
-        .data(this.myData)
-        .join("text")
-            .attr("x", d => this.xScale(parseDate(d.first_incident)) +445)
-            .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
-            .attr("dy", "0.35em")
-            .text(d => d.outcome)
-            .style("font-family", "Syncopate")
-            .style("text-transform", "uppercase")
-            .style("font-weight", "700")
-            .style("opacity", "0")
-            // move the text since we moved the box
-            //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
-            .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident)}, ${0})`)
+      // svg.append("g")
+      //   .attr("fill", "white")
+      //   .attr("text-anchor", "end")
+      //   .attr("font-family", "Lato")
+      //   .attr("font-size", 18)
+      //   .attr("class", "date_first_incident")
+      //   .selectAll("text")
+      //   .data(this.myData)
+      //   .join("text")
+      //       .attr("x", d => this.xScale(parseDate(d.first_incident)) +445)
+      //       .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
+      //       .attr("dy", "0.35em")
+      //       .text(d => d.outcome)
+      //       .style("font-family", "Syncopate")
+      //       .style("text-transform", "uppercase")
+      //       .style("font-weight", "700")
+      //       .style("opacity", "0")
+      //       // move the text since we moved the box
+      //       //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+      //       .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident)}, ${0})`)
       
       // draw the name of the incident
       svg.append("g")

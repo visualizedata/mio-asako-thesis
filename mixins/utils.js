@@ -8,7 +8,6 @@ var utilsMixin = {
                 && s['Outcome Year'] < 2020 
                 && s['Discipline'].length > 0 
                 && s['Outcome'].length > 0;
-   
          },
 
         addOutcomeClassifier: function(s){
