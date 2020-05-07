@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class = "outcomesPage" :style= "{backgroundImage: 'url(' + images.salk + ')' }">
     <el-row>
       <el-col :span="24">
         <outcomes :asmdData=loadedAsmdData :stepValue=stepValue :descriptions=descriptions />
@@ -27,7 +27,10 @@ export default {
       //start value for stepper
       stepValue: 0,
       stepLabels: descriptions.map(v => {return v.label}),
-      descriptions
+      descriptions,
+      images:{
+        salk: require("~/assets/salk.png")
+      }
     };
   },
   components: {
