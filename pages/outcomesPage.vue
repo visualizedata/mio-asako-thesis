@@ -88,4 +88,8 @@ export default {
   float: right;
 }
 
+#outcomesPage{
+  min-height: 100vh;
+}
+
 </style>

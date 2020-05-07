@@ -275,6 +275,7 @@ export default {
                                     : d.data.key === "No longer employed" ? "#000000"
                                     : d.data.key === "Criminal plea" ? "#000000"
                                     : d.data.key === "Barred" ? "#000000"
+                                    : d.data.key === "Committed suicide" ? "#000000"
                                     : d.depth === 2? "#000000"
                                     : "#6767ff";
           })
@@ -283,6 +284,7 @@ export default {
                                     : d.data.key === "No longer employed" ? 0.2
                                     : d.data.key === "Criminal plea" ? 0.2
                                     : d.data.key === "Barred" ? 0.2
+                                    : d.data.key === "Committed suicide" ? "#000000"
                                     : 1;
         })
           d3.select(this.$refs.outcomesSVG)
@@ -292,6 +294,7 @@ export default {
                   .style("display", function(d){return d.data.key === "No longer employed" ? "none"
                                     : d.data.key === "Criminal plea" ? "none"
                                     : d.data.key === "Barred" ? "none"
+                                    : d.data.key === "Committed suicide" ? "none"
                                     : d.depth === 1 ? "inline" 
                                     : "none";
                   })
