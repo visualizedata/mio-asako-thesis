@@ -66,13 +66,13 @@ export default {
           return this.caseStudyData.sort((a,b) => { return a.first_incident 
                                                          - b.first_incident 
                                                   }
-                                        ).reverse();;
+                                        ).reverse();
           break;
         default:
-          return this.caseStudyData.sort((a,b) => { return a.outcome 
-                                                         - b.outcome 
+          return this.caseStudyData.sort((a,b) => { return a.first_incident 
+                                                         - b.first_incident 
                                                   }
-                                        );
+                                        ).reverse();
           break;
       }
     },
