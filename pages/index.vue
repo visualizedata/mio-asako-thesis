@@ -4,7 +4,7 @@
       <el-row class = "container" :style= "{backgroundImage: 'url(' + images.cover + ')' }">
         <el-col :span="24">
           <h1 class="title">
-          A Lesson in Perseverence: <br/> <b>Women in STEM </b>
+          <b>Women in STEM: </b><br/>A Lesson in Perseverence 
           </h1>
           <h2 class="subtitle">
             Overcoming sexual misconduct, harassment, and discrimination in STEM Academia
@@ -61,7 +61,7 @@
         </div>
       </el-col>
       <el-col :span="12">
-        <img :src = "images.assault" style = "max-width: 100%;">
+        <img :src = "images.assault" style = "max-width: 100%;git">
       </el-col>
     </el-row>
     <el-row id = "stem_intro" :style= "{backgroundImage: 'url(' + images.lab + ')' }">
