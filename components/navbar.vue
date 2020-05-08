@@ -30,16 +30,16 @@
 <style>
  .nuxt-link-active{
    text-decoration: none;
-   font-family: 'Syncopate's;
+   font-family: 'Lato';
  }
  .a{
    text-decoration: none;
-   font-family: 'Syncopate';
+   font-family: 'Lato';
  }
 
  li.el-menu-item{
    text-decoration: none;
-   font-family: 'Syncopate's;
+   font-family: 'Lato';
  }
 
 

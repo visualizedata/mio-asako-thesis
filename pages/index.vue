@@ -37,7 +37,6 @@
     <div id = "consent" >
       <el-row>
         <el-col :span="12">
-          <h6 class = "ppsurvey_question">"Do you agree that..."</h6>
           <img :src = "images.consent" style = "max-width: 100%">
         </el-col>
         <el-col :span="12" class = "consent_text">
@@ -62,7 +61,7 @@
         </div>
       </el-col>
       <el-col :span="12">
-        <img :src = "images.assault" style = "max-width: 100%">
+        <img :src = "images.assault" style = "max-width: 100%;">
       </el-col>
     </el-row>
     <el-row id = "stem_intro" :style= "{backgroundImage: 'url(' + images.lab + ')' }">
@@ -89,8 +88,9 @@
             institutional and national level. It has and still causes extensive damage to women who choose to pursue STEM 
             academia as a career. Here you can explore the breakdown of sexual misconduct cases on a macro and micro scale, 
             and also celebrate the women who have persevered through this to establish their careers.</p>
+          <el-button type = "info" class="el-button-home"><NuxtLink to="chronologyPage" style = "text-decoration: none; color: #ffffff">Take a look<i class="el-icon-arrow-right el-icon-right"></i></NuxtLink></el-button>
+
           </div>
-          <el-button type = "info" class="el-button-home"><NuxtLink to="chronologyPage">Take a look<i class="el-icon-arrow-right el-icon-right"></i></NuxtLink></el-button>
       </el-col>
       <el-col :span="8">
       </el-col>
@@ -171,9 +171,8 @@ export default {
 
 .el-button-home{
   position:absolute;
-  left: 45%;
-  margin-bottom: 40vh;
-  background-color: #333333;
+  left: 40%;
+  margin-bottom: 5vh;
   color: #ffffff;
   text-decoration: none;
   font-family: "Lato";
@@ -237,5 +236,20 @@ export default {
   text-align: center;
   margin-top: 5vh;
 }
+
+ .nuxt-link-active{
+   text-decoration: none;
+   font-family: 'Lato';
+ }
+ .a{
+   text-decoration: none;
+   font-family: 'Lato';
+ }
+
+ li.el-menu-item{
+   text-decoration: none;
+   font-family: 'Lato';
+ }
+
 
 </style>
