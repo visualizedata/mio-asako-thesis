@@ -49,34 +49,34 @@ You can find a prototype for my platform [here](https://www.figma.com/proto/CFIK
 
 Wireframes and inspiration for graphs can be found [here](https://www.figma.com/file/CFIKolSatBhxh55bWlHawg/MS2-Thesis-Wireframes?node-id=4000%3A0)
 
-![consent survey questions](https://github.com/miopio/thesis-play/blob/master/wireframes/consent.png)
-![assault survey questions](https://github.com/miopio/thesis-play/blob/master/wireframes/assault.png)
-![chronology of academic sexual misconduct cases](https://github.com/miopio/thesis-play/blob/master/wireframes/chronologyStem.png)
-![clusters of outcomes of STEM misconduct cases](https://github.com/miopio/thesis-play/blob/master/wireframes/outcomes.png)
-![case studies of perpetrators whose outcomes resulted in 2018](https://github.com/miopio/thesis-play/blob/master/wireframes/caseStudies.png)
+![consent survey questions](wireframes/consent.png)
+![assault survey questions](wireframes/assault.png)
+![chronology of academic sexual misconduct cases](wireframes/chronologyStem.png)
+![clusters of outcomes of STEM misconduct cases](wireframes/outcomes.png)
+![case studies of perpetrators whose outcomes resulted in 2018](wireframes/caseStudies.png)
 
 ### Working version
 
 INTRO - Introduction to societal events that recently shifted the conversation surrounding sexual harassment and equality for women, like the #MeToo movement. Point out the fact that sex and consent education is severely lacking in the US, evidenced by the variance in answers regarding situations surrounding sexual consent and sexual assault from the Planned Parenthood Survey. Point out that stats are bad especially in STEM. 
 
-![consent survey questions](https://github.com/miopio/thesis-play/blob/master/screenshots/consent.png)
-![assault survey questions](https://github.com/miopio/thesis-play/blob/master/screenshots/assault.png)
+![consent survey questions](screenshots/consent.png)
+![assault survey questions](screenshots/assault.png)
 
 CHRONOLOGY - Timeline visualization of academic sexual misconduct cases, first all cases, then STEM. Go through significant events that propogated more public reporting of cases, including the first case where Title IX was used as grounds to classify sexual harassment as sex discirmination and thus illegal in educational institutions receiving federal funding. Anita Hill's testimony against Clarence Thomas during his Supreme Court nomination, as well as the advent of the MeToo movement are also highlighted.
 
-![chronology](https://github.com/miopio/thesis-play/blob/master/screenshots/chronology.png)
+![chronology](screenshots/chronology.png)
 
 OUTCOMES - Shift the focus to the outcomes of STEM misconduct cases: these are clustered first by outcomes, then discipline, then institution. Though 20% of cases result in perpetrators getting fired, many cases result only in casual consequences for the perpetrators.
 
-![outcomes](https://github.com/miopio/thesis-play/blob/master/screenshots/outcomes.png)
+![outcomes](screenshots/outcomes.png)
 
 CASE STUDIES - Case studies of fifteen perpetrators whose cases resulted in outcomes in 2018. The years between first known incident, first complaint, and initial outcome are compared. Though the Office of Civil Rights previously advised that a typical Title IX investigation should only take 60-90 days, it is evident that many take decades before an outcome is achived. Many institutions do not act on first complaint, especially if perpetrators are prominent scientists that have done significant research, or bring in large amounts of funding to the institution.
 
-![case studies](https://github.com/miopio/thesis-play/blob/master/screenshots/caseStudies.png)
+![case studies](screenshots/caseStudies.png)
 
 NAMES - the title image is tiled with names of women in STEM who have published in scientific journals. I wanted to highlight the women who have successfully pursued careers in STEM academia, despite the setbacks that are set forth in this research. We must continue to work to fix these deep systemic flaws in our academic institutions and society, and continue to empower and mentor women in their careers, both in STEM and beyond.
 
-![names](https://github.com/miopio/thesis-play/blob/master/screenshots/cover.png)
+![names](screenshots/cover.png)
 
 ## Build Setup
 
