@@ -18,6 +18,8 @@ export default {
 
      var theWords = Object.values(this.womenInSTEM); // .slice(0,600);
 
+     theWords = theWords.map(function(d){ return d.toUpperCase() });
+
      const script = function (p5) {    
       var x = 20;
       var y = 50;
