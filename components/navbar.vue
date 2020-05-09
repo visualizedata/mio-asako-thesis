@@ -5,7 +5,7 @@
             <el-menu-item index="2"><NuxtLink to="chronologyPage" style= "font-family: Lato; text-decoration: none;">CHRONOLOGY</NuxtLink></el-menu-item>
             <el-menu-item index="3"><NuxtLink to="outcomesPage" style= "font-family: Lato; text-decoration: none;">OUTCOMES</NuxtLink></el-menu-item>
             <el-menu-item index="4"><NuxtLink to="casestudiesPage" style= "font-family: Lato; text-decoration: none;">CASE STUDIES</NuxtLink></el-menu-item>
-            <el-menu-item index="6"><NuxtLink to="na" style= "font-family: Lato; text-decoration: none;">NAMES</NuxtLink></el-menu-item>
+            <el-menu-item index="6"><NuxtLink to="namesPage" style= "font-family: Lato; text-decoration: none;">NAMES</NuxtLink></el-menu-item>
         </el-menu>
         <div class="line"></div>
     </div>
