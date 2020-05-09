@@ -36,7 +36,8 @@ export default {
   components: {
     chronology,
     steps
-  },methods: {
+  },
+  methods: {
     // this propagates the value and also changes the color
     propagateStepChange: function(value){
       console.log("propagateStepChange: " + value)
