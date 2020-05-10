@@ -1,6 +1,11 @@
 <template>
   <div id = "conclusion">
-    Test test meowmeow meow meow
+    <h3>THE FUTURE HOLDS</h3>
+    <p>Women have experienced and still continue to experience the setbacks of a field still ingrained in socially backwards treatment of women. 
+      There are deep systemic flaws that cannot be addressed overnight. On this page are names of female scientists pulled from the MEDLINE journal database, who have 
+      successfully pursued careers in STEM despite these setbacks.</p>
+    <p>Though institutions and scientific organizations have taken steps to address 
+      these issues, we must continue to hold them accountable. And let us also continue to empower, mentor, and celebrate women both in STEM and beyond.</p>
   </div>
 </template>
 
@@ -79,7 +84,11 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     max-width: 50vh;
-
+    background-color: (255,255,255,0.7);
+    border: 1px solid white;
+    margin: 5vh 5vh 5vh 5vh;
   }
+
+  
 
 </style>

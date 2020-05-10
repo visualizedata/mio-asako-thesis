@@ -33,8 +33,9 @@ export default {
     return{
       chartTitle: "A CLOSER LOOK AT STEM MISCONDUCT CASES OF 2018",
       height: 900, //why does window.innerHeight not work?
-      width: 900,
-      margin: {top: 25, left: 25, bottom: 25, right: 25 },
+      width: 1200,
+      barMargin: 300,
+      margin: {top: 25, left: 25, bottom: 75, right: 25 },
       //data: this.asmdData,
     }
   },
@@ -79,19 +80,19 @@ export default {
     xScale: function(){
       // our time scale is centered around 1995, with 25 years left and right of it
       return d3.scaleTime()
-               .rangeRound([0,this.width])
+               .rangeRound([0, this.width-this.barMargin])
                .domain([new Date(1970, 1, 1), new Date(2020, 1, 1)])
     },
     xAxis: function(){
       // create a custom x-axis for our timescale
       // it is 50 years wide, centered around the year 0
       var x2 = d3.scaleLinear()
-                 .rangeRound([this.margin.left, this.width-this.margin.right])
+                 .rangeRound([this.margin.left, this.width-this.margin.right-this.barMargin])
                  .domain([-25, 25])
 
       // one tick every 5 years
-      return d3.axisTop(x2)
-                  .ticks(10)
+      return d3.axisBottom(x2)
+               .ticks(10)
     },
     yScale: function(){
       // divide y-axis by number of cases
@@ -103,7 +104,6 @@ export default {
     
   },
   methods: {
-
     clearBarChart(){
       d3.select(this.$refs.caseStudiesSVG)
         .selectAll("*")
@@ -118,6 +118,9 @@ export default {
       var parseDate = d3.timeParse("%Y");
 
       const midYear = 1995;
+
+      const barOffset = (this.barMargin + (this.width - this.barMargin)/2) - this.margin.right;
+      console.log("barOffset: " + barOffset)
 
       // we calculate a year in pixels on the x-axis to be able to translate
       // back to year 0
@@ -259,36 +262,36 @@ export default {
               .style("font-weight", "700")
               // move the text since we moved the box
               //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
-              .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident)}, ${0})`)
+              .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident) + barOffset}, ${0})`)
 
       // append the x-axis
       svg.append("g")
           .style("font", "14px helvetica")
           .attr("class", "axis axis--x")
-          .attr("transform", "translate(0," + this.height + ")")
+          .attr("transform", `translate(${0}, ${this.height - this.margin.bottom})`)
           .style("stroke", "white")
           .call(this.xAxis)
           .call(g => g.append("text")
             .attr("x", this.width- this.width*0.99)
-            .attr("y", -875)
+            .attr("y", -800)
             .attr("fill", "#ffffff")
             .attr("text-anchor", "start")
             .text("← Time of first known incident"))
           .call(g => g.append("text")
-            .attr("x", this.width- this.width*0.6)
-            .attr("y", -875)
+            .attr("x", this.width- this.width*0.7)
+            .attr("y", -800)
             .attr("fill", "#ffffff")
             .attr("text-anchor", "start")
             .text("Point Zero: time of first complaint"))
           .call(g => g.append("text")
-            .attr("x", this.width - this.width*0.2)
-            .attr("y", -875)
+            .attr("x", this.width - this.width*0.4)
+            .attr("y", -800)
             .attr("fill", "#ffffff")
             .attr("text-anchor", "start")
             .text("Time of initial outcome →"))
           .call(g => g.append("text")
-            .attr("x", this.width - this.width*0.2)
-            .attr("y", -25)
+            .attr("x", (this.width - this.barMargin)/2 - 75)
+            .attr("y", 40)
             .attr("fill", "#ffffff")
             .attr("text-anchor", "start")
             .text("Years +/- from first complaint"))
