@@ -58,21 +58,23 @@ export default {
   },
   mixins: [utilsMixin],
   computed: {
+    total_length: function(d){return d.outcome - d.first_incident},
     myData: function(){
       switch (this.stepValue) {
         case 0:
-          return this.caseStudyData
+          return this.caseStudyData.sort((a,b) => { return ((a.outcome-a.first_incident)-(b.outcome-b.first_incident))
+                                                  }
+                                        );
           break;
         case 1:
-          return this.caseStudyData.sort((a,b) => { return (a.outcome - b.first_complaint)
+          return this.caseStudyData.sort((a,b) => { return ((a.outcome-a.first_incident)-(b.outcome-b.first_incident))
                                                   }
-                                        ).reverse();
+                                        );
           break;
         default:
-          return this.caseStudyData.sort((a,b) => { return a.first_incident 
-                                                         - b.first_incident 
+          return this.caseStudyData.sort((a,b) => { return ((a.outcome-a.first_incident)-(b.outcome-b.first_incident))
                                                   }
-                                        ).reverse();
+                                        );
           break;
       }
     },
@@ -124,6 +126,7 @@ export default {
       // we calculate a year in pixels on the x-axis to be able to translate
       // back to year 0
       const yearInPixels = this.xScale(parseDate(2001)) - this.xScale(parseDate(2000));
+      console.log("year in pixels:" + yearInPixels);
 
       // function to be called when hovering over circle
       var tooltipOn = function(d) {
@@ -175,9 +178,10 @@ export default {
       
       // draw a rectangle for each case, then translate it to the mid-year
       svg.append("g")
-          .selectAll("rect")
+          .selectAll(".yearRect")
           .data(this.myData)
           .join("rect")
+              .attr("class", "yearRect")
               // .attr("fill", d => d.name == "Title IX investigation" ? "#ff6767"
               //                           : "#6767ff")
               .attr("fill", d => d.name == "Title IX investigation" ? "#333333"
@@ -194,8 +198,37 @@ export default {
               .attr("x", d => this.xScale(parseDate(d.first_incident)))
               .attr("y", (d,i) => this.yScale(i))
               // width is number of years between outcome and first_incident (times yearInPixels)
-              .attr("width", d => yearInPixels * (d.outcome - d.first_incident))
+              .attr("width", d => yearInPixels * (d.outcome - d.first_incident)) // change this to change bars
               .attr("height", this.yScale.bandwidth())
+              // translate the rectangle to that first_complaint is in the middle
+              .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+              .on("mouseover", tooltipOn)
+              .on("mouseout", tooltipOff)
+      
+          svg.append("g")
+          .selectAll(".yearRect2")
+          .data(this.myData)
+          .join("rect")
+              .attr("class", "yearRect2")
+              // .attr("fill", d => d.name == "Title IX investigation" ? "#ff6767"
+              //                           : "#6767ff")
+              .attr("fill", d => d.name == "Title IX investigation" ? "#333333"
+                                : d.outcome - d.first_incident <= 5 ? "#ff6767"
+                                : d.outcome - d.first_incident <= 10 ? "#dc678a"
+                                : d.outcome - d.first_incident <= 20 ? "#bb67ab"
+                                : d.outcome - d.first_incident <= 30 ? "#8e67d8"
+                                : "#6767ff"
+                                )
+              .attr("stroke", d => d.name == "Title IX investigation" ? "#ff6767"
+                                          : "none")
+              .attr("stroke-width", d => d.name == "Title IX investigation" ? "3px"
+                                          : "none")
+              .attr("x", d => this.xScale(parseDate(d.first_complaint)))
+              .attr("y", (d,i) => this.yScale(i))
+              // width is number of years between outcome and first_incident (times yearInPixels)
+              .attr("width", d => yearInPixels * (d.outcome - d.first_complaint)) // change this to change bars
+              .attr("height", this.yScale.bandwidth())
+              .style("opacity", "1")
               // translate the rectangle to that first_complaint is in the middle
               .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
               .on("mouseover", tooltipOn)
@@ -257,7 +290,7 @@ export default {
               .style("font-family", "Syncopate")
               .style("text-transform", "uppercase")
               .style("font-weight", "400")
-              .style("opacity", "0")
+              .style("opacity", "1")
               // move the text since we moved the box
               //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
               .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident) + barOffset}, ${0})`)
@@ -341,11 +374,23 @@ export default {
         case 1:
           this.clearBarChart();
           this.drawBarChart();
+          d3.select(this.$refs.caseStudiesSVG)
+            .selectAll(".yearRect")
+            //.attr("x", d => this.xScale((d.first_incident)))
+            .attr("width", d => 18 * (d.first_complaint - d.first_incident))  //hardcoding YearInPixels 051120
+          d3.select(this.$refs.caseStudiesSVG)
+            .selectAll(".yearRect2")
+            .style("opacity", "0")
         break;
-
         default:
           this.clearBarChart();
           this.drawBarChart();
+          d3.select(this.$refs.caseStudiesSVG)
+            .selectAll(".yearRect")
+              .attr("opacity", "0")
+          d3.select(this.$refs.caseStudiesSVG)
+            .selectAll(".yearRect2")
+              .attr("opacity", "1")
         break;
       }
     }
