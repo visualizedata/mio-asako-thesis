@@ -235,43 +235,62 @@ export default {
               .on("mouseout", tooltipOff)
       
 
-      //draw year incident
-      svg.append("g")
-        .attr("fill", "white")
-        .attr("text-anchor", "end")
-        .attr("font-family", "Lato")
-        .attr("font-size", 18)
-        .selectAll("text")
-        .data(this.myData)
-        .join("text")
-            .attr("x", d => this.xScale(parseDate(d.first_incident)))
-            .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
-            .attr("dy", "0.35em")
-            .text(d => d.first_incident)
-            .style("font-family", "Lato")
-            .style("opacity", "0")
-            // move the text since we moved the box
-            //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
-            .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint) - 10}, ${0})`)
+      // //draw year incident
+      // svg.append("g")
+      //   .attr("fill", "white")
+      //   .attr("text-anchor", "end")
+      //   .attr("font-family", "Lato")
+      //   .attr("font-size", 18)
+      //   .selectAll("text")
+      //   .data(this.myData)
+      //   .join("text")
+      //       .attr("x", d => this.xScale(parseDate(d.first_incident)))
+      //       .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
+      //       .attr("dy", "0.35em")
+      //       .text(d => d.first_incident)
+      //       .style("font-family", "Lato")
+      //       .style("opacity", "0")
+      //       // move the text since we moved the box
+      //       //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+      //       .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint) - 10}, ${0})`)
       
-      //draw year complaint
-      svg.append("g")
-        .attr("fill", "white")
-        .attr("text-anchor", "end")
-        .attr("font-family", "Lato")
-        .attr("font-size", 18)
-        .attr("class", "date_first_incident")
-        .selectAll("text")
-        .data(this.myData)
-        .join("text")
-            .attr("x", d => this.xScale(parseDate(d.first_incident)))
-            .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
-            .attr("dy", "0.35em")
-            .text(d => d.first_complaint)
-            .style("opacity", "0")
-            // move the text since we moved the box
-            //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
-            .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident) + 50}, ${0})`)
+      // //draw year complaint
+      // svg.append("g")
+      //   .attr("fill", "white")
+      //   .attr("text-anchor", "end")
+      //   .attr("font-family", "Lato")
+      //   .attr("font-size", 18)
+      //   .attr("class", "date_first_incident")
+      //   .selectAll("text")
+      //   .data(this.myData)
+      //   .join("text")
+      //       .attr("x", d => this.xScale(parseDate(d.first_incident)))
+      //       .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
+      //       .attr("dy", "0.35em")
+      //       .text(d => d.first_complaint)
+      //       .style("opacity", "0")
+      //       // move the text since we moved the box
+      //       //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+      //       .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_incident) + 50}, ${0})`)
+      
+      // //draw year outcome
+      // svg.append("g")
+      //   .attr("fill", "white")
+      //   .attr("text-anchor", "end")
+      //   .attr("font-family", "Lato")
+      //   .attr("font-size", 18)
+      //   .attr("class", "date_first_incident")
+      //   .selectAll("text")
+      //   .data(this.myData)
+      //   .join("text")
+      //       .attr("x", d => this.xScale(parseDate(d.first_incident)))
+      //       .attr("y", (d, i) => this.yScale(i) + this.yScale.bandwidth() / 2)
+      //       .attr("dy", "0.35em")
+      //       .text(d => d.first_outcome)
+      //       .style("opacity", "0")
+      //       // move the text since we moved the box
+      //       //.attr("transform", d => `translate(${yearInPixels * (midYear - d.first_complaint)}, ${0})`)
+      //       .attr("transform", d => `translate(${yearInPixels * (midYear - d.first_outcome) + 50}, ${0})`)
       
       // draw the name of the incident
       svg.append("g")
@@ -382,16 +401,36 @@ export default {
             .selectAll(".yearRect2")
             .style("opacity", "0")
         break;
-        default:
+        case 2:
           this.clearBarChart();
           this.drawBarChart();
           d3.select(this.$refs.caseStudiesSVG)
             .selectAll(".yearRect")
-              .attr("opacity", "0")
+              .style("opacity", "0")
           d3.select(this.$refs.caseStudiesSVG)
             .selectAll(".yearRect2")
-              .attr("opacity", "1")
+              .style("opacity", "1")
         break;
+        case 3:
+          this.clearBarChart();
+          this.drawBarChart();
+          d3.select(this.$refs.caseStudiesSVG)
+            .selectAll(".yearRect")
+              .style("opacity", d => d.name == "Title IX investigation" ? "1"
+                                            : "0.5")
+          d3.select(this.$refs.caseStudiesSVG)
+            .selectAll(".yearRect2")
+              .style("opacity", "0")
+        break;
+        default:
+                    this.clearBarChart();
+          this.drawBarChart();
+          d3.select(this.$refs.caseStudiesSVG)
+            .selectAll(".yearRect")
+              .attr("opacity", "1")
+          d3.select(this.$refs.caseStudiesSVG)
+            .selectAll(".yearRect2")
+              .attr("opacity", "0")
       }
     }
   }
