@@ -423,14 +423,14 @@ export default {
               .style("opacity", "0")
         break;
         default:
-                    this.clearBarChart();
+          this.clearBarChart();
           this.drawBarChart();
-          d3.select(this.$refs.caseStudiesSVG)
-            .selectAll(".yearRect")
-              .attr("opacity", "1")
-          d3.select(this.$refs.caseStudiesSVG)
-            .selectAll(".yearRect2")
-              .attr("opacity", "0")
+          // d3.select(this.$refs.caseStudiesSVG)
+          //   .selectAll(".yearRect")
+          //     .attr("opacity", "1")
+          // d3.select(this.$refs.caseStudiesSVG)
+          //   .selectAll(".yearRect2")
+          //     .attr("opacity", "0")
       }
     }
   }
