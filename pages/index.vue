@@ -4,7 +4,7 @@
       <el-row class = "container" :style= "{backgroundImage: 'url(' + images.cover + ')' }">
         <el-col :span="24">
           <h1 class="title">
-          <b>Women in STEM: </b><br/>A Lesson in Perseverence 
+          <b>Women in STEM: </b><br/>A Lesson in Perseverance 
           </h1>
           <h2 class="subtitle">
             Overcoming sexual misconduct, harassment, and discrimination in STEM Academia
